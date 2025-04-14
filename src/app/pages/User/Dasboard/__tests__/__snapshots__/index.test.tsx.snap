@@ -1,0 +1,920 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Dasboard  /> should match snapshot 1`] = `
+<div
+  class=""
+>
+  <div
+    class=""
+  >
+    <div
+      class="container"
+    >
+      <div
+        class="grid sm:grid-cols-12 gap-0"
+      >
+        <div
+          class="mx-auto mt-[6.6rem] col-span-4"
+        >
+          <div
+            class="relative "
+          >
+            <div
+              class="absolute  text-[#101828] text-xl font-normal font-poppins  top-[10rem] -left-[4rem]"
+            >
+              Welcome, Blake!
+               
+              <span
+                class="block text-base max-w-[23rem] text-[#667085] pt-2 leading-8"
+              >
+                You’ve closed $--,---,--- of your $--,---,--- Goal.
+              </span>
+              <div
+                class="flex justify-center relative left-[4rem] cursor-pointer"
+              >
+                <img
+                  src="/images/arrow-1.svg"
+                />
+              </div>
+            </div>
+            <div>
+              <img
+                src="/images/chart1.svg"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class=" col-span-5 mt-[4rem]"
+        >
+          <div
+            class="bg-[url('../public/images/bg.svg')] w-full h-[37.2rem] "
+          >
+            <div
+              class="flex items-center justify-between max-w-[48rem]"
+            >
+              <div
+                class="pt-10 pl-12"
+              >
+                <h1
+                  class="text-black text-md font-poppins font-midium"
+                >
+                  10 Bond shares
+                </h1>
+                <p
+                  class="text-[#00000080] mt-2 text-14"
+                >
+                  March 4, 2024
+                </p>
+              </div>
+              <div
+                class="flex justify-end"
+              >
+                <div
+                  class=" border rounded-80 py-3 px-6 text-xs font-semibold"
+                >
+                  4.73%
+                </div>
+                <div
+                  class=" cursor-pointer ml-4"
+                >
+                  <img
+                    src="/images/arrow-1.svg"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              class="mt-14 ml-10"
+            >
+               
+              <img
+                src="/images/chart-2.svg"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="col-span-3 mt-[4rem]"
+        >
+          <div
+            class="flex items-center justify-between"
+          >
+            <div
+              class="text-black text-[2.5rem] font-poppins font-medium"
+            >
+              15th
+            </div>
+            <p
+              class="text-[#00000080] text=[1.3rem] "
+            >
+              March, 2024
+            </p>
+            <div
+              class=" border rounded-80 py-3 px-3 font-semibold"
+            >
+              10 Appointments
+            </div>
+            <div
+              class=" cursor-pointer"
+            >
+              <img
+                src="/images/arrow-1.svg"
+              />
+            </div>
+          </div>
+          <div
+            class=" mt-5 bg-[#FFF6F6] rounded-10 py-4 px-10"
+          >
+            <figcaption
+              class="flex items-center space-x-4"
+            >
+              <div
+                class="mr-6"
+              >
+                <div
+                  class="text-base text-slate-900 font-semibold dark:text-slate-300"
+                >
+                  <p
+                    class="text-black text-xs font-poppins font-normal"
+                  >
+                    <span
+                      class="absolute "
+                    />
+                    Live product demo
+                  </p>
+                </div>
+                <div
+                  class="mt-2 text-[#979BA4] text-[1.3rem]"
+                >
+                  09:00 AM - 10:00 AM
+                </div>
+              </div>
+              <div
+                class="flex justify-end sm:justify-start lg:justify-end xl:justify-start -space-x-5"
+              >
+                <img
+                  alt=""
+                  class="flex-none w-14 h-14 rounded-full object-cover border bg-white z-20"
+                  decoding="async"
+                  loading="lazy"
+                  src="/images/avtar.svg"
+                />
+                <img
+                  alt=""
+                  class="flex-none w-14 h-14 rounded-full object-cover border"
+                  decoding="async"
+                  loading="lazy"
+                  src="/images/avtar.svg"
+                />
+              </div>
+            </figcaption>
+          </div>
+          <div
+            class=" mt-5 bg-[#EDF8EA] rounded-10 py-4 px-10"
+          >
+            <figcaption
+              class="flex items-center space-x-4"
+            >
+              <div
+                class="mr-6"
+              >
+                <div
+                  class="text-base text-slate-900 font-semibold dark:text-slate-300"
+                >
+                  <p
+                    class="text-black text-xs font-poppins font-normal"
+                  >
+                    <span
+                      class="absolute "
+                    />
+                    Call meeting at Office
+                  </p>
+                </div>
+                <div
+                  class="mt-2 text-[#979BA4] text-[1.3rem]"
+                >
+                  01:00 PM - 02:00 PM
+                </div>
+              </div>
+            </figcaption>
+          </div>
+          <div
+            class=" mt-5 bg-[#ffffff] rounded-10 py-4 px-10"
+          >
+            <figcaption
+              class="flex items-center space-x-4"
+            >
+              <div
+                class="mr-6"
+              >
+                <div
+                  class="text-base text-slate-900 font-semibold dark:text-slate-300"
+                >
+                  <p
+                    class="text-black text-xs font-poppins font-normal"
+                  >
+                    <span
+                      class="absolute "
+                    />
+                    Re Branding Meet Product
+                  </p>
+                </div>
+                <div
+                  class="mt-2 text-[#979BA4] text-[1.3rem]"
+                >
+                  07:00 PM - 07:30 PM
+                </div>
+              </div>
+            </figcaption>
+          </div>
+          <div
+            class=" mt-5 bg-[#ffffff] rounded-10 py-4 px-10"
+          >
+            <figcaption
+              class="flex items-center space-x-4"
+            >
+              <div
+                class="mr-6"
+              >
+                <div
+                  class="text-base text-slate-900 font-semibold dark:text-slate-300"
+                >
+                  <p
+                    class="text-black text-xs font-poppins font-normal"
+                  >
+                    <span
+                      class="absolute "
+                    />
+                    Re Branding Meet Product
+                  </p>
+                </div>
+                <div
+                  class="mt-2 text-[#979BA4] text-[1.3rem]"
+                >
+                  07:00 PM - 07:30 PM
+                </div>
+              </div>
+            </figcaption>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="mt-12"
+  >
+    <div
+      class="container"
+    >
+      <div
+        class="grid sm:grid-cols-12 gap-8"
+      >
+        <div
+          class="col-span-4"
+        >
+          <div
+            class="bg-white rounded-20 py-4 px-12"
+          >
+            <div>
+              <div
+                class="flex items-center justify-between"
+              >
+                <div
+                  class=""
+                >
+                  <h1
+                    class="text-black text-md font-poppins font-normal leading-none"
+                  >
+                    Recent Conversations
+                  </h1>
+                </div>
+                <div
+                  class=" cursor-pointer"
+                >
+                  <img
+                    src="/images/arrow-1.svg"
+                  />
+                </div>
+              </div>
+              <div
+                class="flex w-full justify-between mt-8"
+              >
+                <div>
+                  <input
+                    class="flex border-input px-5 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:ring-ring focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 rounded-full border-0 bg-[#f5f5f575] w-full min-w-[32.4rem] h-[5.3rem]"
+                    placeholder="Search or new chat"
+                  />
+                </div>
+                <div
+                  class="ml-3 cursor-pointer"
+                >
+                  <img
+                    class="h-[5.4rem] w-[5.4rem]"
+                    src="/images/search-f.svg"
+                  />
+                </div>
+              </div>
+              <div
+                class="pt-0 grid gap-6 mt-10"
+              >
+                <div
+                  class="flex items-center gap-4"
+                >
+                  <span
+                    class="relative shrink-0 overflow-hidden rounded-full hidden  sm:flex"
+                  >
+                    <img
+                      alt="Avatar"
+                      class="aspect-square  w-[5.4rem] h-[5.4rem]"
+                      src="/images/rc.svg"
+                    />
+                  </span>
+                  <div
+                    class="grid gap-1"
+                  >
+                    <p
+                      class="text-xs text-black font-poppins font-medium"
+                    >
+                      Abigail Varina
+                    </p>
+                    <p
+                      class="text-[1.3rem] text-[#3A3B41] font-poppins font-normal line-clamp-1"
+                    >
+                      For now I want to pay my house in installments at a cost of $50 per month
+                    </p>
+                  </div>
+                  <div
+                    class="ml-auto text-base font-normal bg-[#D8F1E7] w-[4.4rem] h-[2.6rem] text-center leading-[2.6rem] rounded-full"
+                  >
+                    1
+                  </div>
+                </div>
+                <div
+                  aria-orientation="horizontal"
+                  class="-mx-1 my-1 h-px bg-muted"
+                  role="separator"
+                />
+                <div
+                  class="flex items-center gap-4"
+                >
+                  <span
+                    class="relative shrink-0 overflow-hidden rounded-full hidden  sm:flex"
+                  >
+                    <img
+                      alt="Avatar"
+                      class="aspect-square  w-[5.4rem] h-[5.4rem]"
+                      src="/images/rc2.svg"
+                    />
+                  </span>
+                  <div
+                    class="grid gap-1"
+                  >
+                    <p
+                      class="text-xs text-black font-poppins font-medium"
+                    >
+                      Zahid Maufin Chen
+                    </p>
+                    <p
+                      class="text-[1.3rem] text-[#3A3B41] font-poppins font-normal line-clamp-1"
+                    >
+                      For now I want to pay my house in installments at a cost of $50 per month
+                    </p>
+                  </div>
+                  <div
+                    class="ml-auto text-base font-normal bg-[#D8F1E7] w-[4.4rem] h-[2.6rem] text-center leading-[2.6rem] rounded-full"
+                  >
+                    1
+                  </div>
+                </div>
+                <div
+                  aria-orientation="horizontal"
+                  class="-mx-1 my-1 h-px bg-muted"
+                  role="separator"
+                />
+                <div
+                  class="flex items-center gap-4"
+                >
+                  <span
+                    class="relative shrink-0 overflow-hidden rounded-full hidden  sm:flex"
+                  >
+                    <img
+                      alt="Avatar"
+                      class="aspect-square  w-[5.4rem] h-[5.4rem]"
+                      src="/images/rc.svg"
+                    />
+                  </span>
+                  <div
+                    class="grid gap-1"
+                  >
+                    <p
+                      class="text-xs text-black font-poppins font-medium"
+                    >
+                      Marina Kraskova
+                    </p>
+                    <p
+                      class="text-[1.3rem] text-[#3A3B41] font-poppins font-normal line-clamp-1"
+                    >
+                      For now I want to pay my house in installments at a cost of $50 per month
+                    </p>
+                  </div>
+                  <div
+                    class="ml-auto text-base font-normal bg-[#D8F1E7] w-[4.4rem] h-[2.6rem] text-center leading-[2.6rem] rounded-full"
+                  >
+                    1
+                  </div>
+                </div>
+                <div
+                  aria-orientation="horizontal"
+                  class="-mx-1 my-1 h-px bg-muted"
+                  role="separator"
+                />
+                <div
+                  class="flex items-center gap-4"
+                >
+                  <span
+                    class="relative shrink-0 overflow-hidden rounded-full hidden  sm:flex"
+                  >
+                    <img
+                      alt="Avatar"
+                      class="aspect-square  w-[5.4rem] h-[5.4rem]"
+                      src="/images/rc2.svg"
+                    />
+                  </span>
+                  <div
+                    class="grid gap-1"
+                  >
+                    <p
+                      class="text-xs text-black font-poppins font-medium"
+                    >
+                      Peth Van Debosch
+                    </p>
+                    <p
+                      class="text-[1.3rem] text-[#3A3B41] font-poppins font-normal line-clamp-1"
+                    >
+                      For now I want to pay my house in installments at a cost of $50 per month
+                    </p>
+                  </div>
+                  <div
+                    class="ml-auto text-base font-normal bg-[#D8F1E7] w-[4.4rem] h-[2.6rem] text-center leading-[2.6rem] rounded-full"
+                  >
+                    1
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="col-span-8"
+        >
+          <div
+            class="bg-white rounded-20  p-12"
+          >
+            <div
+              class="grid sm:grid-cols-12 gap-8"
+            >
+              <div
+                class="col-span-7"
+              >
+                <div
+                  class="flex"
+                >
+                  <input
+                    class="flex border-input bg-background px-5 py-2 ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:ring-ring focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 w-full min-w-[32.4rem] h-[4.3rem] border-0 text-[1.7rem] text-[#979BA4] font-normal font-poppins"
+                    placeholder="Write a new thread post"
+                  />
+                  <button
+                    class="inline-flex items-center justify-center whitespace-nowrap rounded-full ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-base rounded-40 bg-blue font-normal; hover:text-#0606a6 border hover:border-[#0606a6] hover:bg-[#0606a6] py-2 px-16 ml-4 font-normal text-white"
+                    type="button"
+                  >
+                    Post
+                  </button>
+                </div>
+                <div
+                  class="mt-8"
+                >
+                   
+                  <div
+                    aria-orientation="horizontal"
+                    class="-mx-1 my-1 h-px bg-muted"
+                    role="separator"
+                  />
+                </div>
+                <div
+                  class="flex gap-4 mt-8"
+                >
+                  <span
+                    class="relative shrink-0 overflow-hidden rounded-full hidden  sm:flex"
+                  >
+                    <img
+                      alt="Avatar"
+                      class="aspect-square  w-[5.4rem] h-[5.4rem]"
+                      src="/images/rc2.svg"
+                    />
+                  </span>
+                  <div
+                    class="grid gap-1"
+                  >
+                    <p
+                      class="text-xs text-black font-poppins font-medium"
+                    >
+                      Zahid Maufin
+                       
+                      <span
+                        class="text-[#8598FF] text-[1.3rem] font-poppins font-normal"
+                      >
+                        Loan Officer
+                      </span>
+                    </p>
+                    <p
+                      class="text-[1.3rem] text-[#3A3B41] font-poppins font-normal "
+                    >
+                      Looking for an assistant.
+                    </p>
+                  </div>
+                  <div
+                    class="ml-auto text-[#979BA4] text-[1.3rem]"
+                  >
+                    1 hours ago
+                  </div>
+                </div>
+                <div
+                  class="ml-[6.4rem] space-y-6 mt-6"
+                >
+                  <p
+                    class="text-14 text-[#3A3B41] font-poppins font-normal "
+                  >
+                    Can be part-time, fully remote (anywhere), can be junior, hourly-billed.
+                  </p>
+                  <p
+                    class="text-14 text-[#3A3B41] font-poppins font-normal "
+                  >
+                    Work starts as small (work/private) admin, but ideally levels up to projects & research work for the fund.
+                  </p>
+                  <p
+                    class="text-14 text-[#3A3B41] font-poppins font-normal "
+                  >
+                    Not looking for agencies as in-between.
+                  </p>
+                  <div>
+                    <textarea
+                      class="flex min-h-[80px] w-full border border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 rounded-[2rem] resize-none py-6 px-4 text-base h-[12rem] focus-visible:ring-0"
+                    />
+                  </div>
+                  <div
+                    class="flex"
+                  >
+                    <button
+                      class="inline-flex items-center justify-center whitespace-nowrap rounded-full ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 rounded-40 bg-white hover:text-blue border hover:border-blue hover:bg-white py-2 px-6 font-normal font-poppins text-[1.4rem]"
+                      type="button"
+                    >
+                      Add Response
+                    </button>
+                    <p
+                      class="ml-6 flex items-center text-[1.4rem] text-[#00000080] font-poppins font-normal line-clamp-1"
+                    >
+                      <span
+                        class="mr-2"
+                      >
+                         
+                        <svg
+                          fill="none"
+                          height="21"
+                          viewBox="0 0 20 21"
+                          width="20"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M9.99982 2.375C8.59706 2.37469 7.21811 2.73757 5.9972 3.4283C4.77629 4.11904 3.75501 5.1141 3.03277 6.31664C2.31052 7.51918 1.91192 8.88822 1.87575 10.2905C1.83958 11.6928 2.16709 13.0806 2.82638 14.3188L1.93966 16.9789C1.86621 17.1992 1.85556 17.4355 1.90888 17.6615C1.96221 17.8874 2.07741 18.0941 2.24158 18.2582C2.40575 18.4224 2.61239 18.5376 2.83836 18.5909C3.06432 18.6443 3.30067 18.6336 3.52091 18.5602L6.18107 17.6734C7.27073 18.253 8.47811 18.5767 9.71156 18.62C10.945 18.6633 12.1721 18.425 13.2997 17.9232C14.4273 17.4215 15.4258 16.6694 16.2194 15.7241C17.0129 14.7789 17.5807 13.6652 17.8796 12.4678C18.1785 11.2703 18.2007 10.0205 17.9445 8.81315C17.6882 7.60584 17.1603 6.47276 16.4008 5.49993C15.6413 4.52711 14.6701 3.74009 13.561 3.19864C12.4519 2.65718 11.234 2.37551 9.99982 2.375ZM9.99982 17.375C8.79121 17.3758 7.6038 17.0575 6.55763 16.4523C6.48104 16.4079 6.39587 16.3803 6.30779 16.3713C6.2197 16.3622 6.13071 16.372 6.0467 16.4L3.12482 17.375L4.09904 14.4531C4.12712 14.3692 4.13705 14.2802 4.12816 14.1921C4.11927 14.104 4.09177 14.0188 4.04748 13.9422C3.28964 12.632 2.98537 11.1083 3.18187 9.60747C3.37837 8.10667 4.06466 6.71267 5.13426 5.64171C6.20387 4.57076 7.597 3.88271 9.09755 3.68431C10.5981 3.48592 12.1222 3.78826 13.4334 4.54444C14.7445 5.30062 15.7695 6.46837 16.3493 7.86652C16.9291 9.26468 17.0313 10.8151 16.64 12.2773C16.2487 13.7394 15.3858 15.0316 14.1852 15.9533C12.9846 16.875 11.5134 17.3748 9.99982 17.375Z"
+                            fill="#979BA4"
+                          />
+                        </svg>
+                      </span>
+                       
+                      13 Comments
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="mt-8"
+                >
+                   
+                  <div
+                    aria-orientation="horizontal"
+                    class="-mx-1 my-1 h-px bg-muted"
+                    role="separator"
+                  />
+                </div>
+                <div
+                  class="flex gap-4 mt-8"
+                >
+                  <span
+                    class="relative shrink-0 overflow-hidden rounded-full hidden  sm:flex"
+                  >
+                    <img
+                      alt="Avatar"
+                      class="aspect-square  w-[5.4rem] h-[5.4rem]"
+                      src="/images/rc.svg"
+                    />
+                  </span>
+                  <div
+                    class="grid gap-1"
+                  >
+                    <p
+                      class="text-xs text-black font-poppins font-medium"
+                    >
+                      Abigail Varina
+                       
+                      <span
+                        class="text-[#8598FF] text-[1.3rem] font-poppins font-normal"
+                      >
+                        Loan Officer
+                      </span>
+                    </p>
+                    <p
+                      class="text-[1.3rem] text-[#3A3B41] font-poppins font-normal "
+                    >
+                      Work starts as small (work/private) admin
+                    </p>
+                  </div>
+                  <div
+                    class="ml-auto text-[#979BA4] text-[1.3rem]"
+                  >
+                    1 hours ago
+                  </div>
+                </div>
+              </div>
+              <div
+                class="col-span-5"
+              >
+                <div
+                  class="relative"
+                >
+                  <input
+                    class="flex border-input px-5 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:ring-ring focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 rounded-full border-0 bg-[#f5f5f575] w-full min-w-[32.4rem] h-[5.3rem] pl-20"
+                    placeholder="Search or new chat"
+                  />
+                  <div
+                    class="absolute top-7 left-6"
+                  >
+                    <svg
+                      fill="none"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      width="20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M17.9419 17.0579L14.0302 13.1469C15.1639 11.7858 15.7293 10.0399 15.6086 8.27251C15.488 6.50512 14.6906 4.85229 13.3823 3.65785C12.074 2.46341 10.3557 1.81932 8.58462 1.85957C6.81357 1.89982 5.12622 2.62131 3.87358 3.87395C2.62094 5.12659 1.89945 6.81394 1.8592 8.58498C1.81895 10.356 2.46304 12.0744 3.65748 13.3827C4.85192 14.6909 6.50475 15.4883 8.27214 15.609C10.0395 15.7297 11.7854 15.1643 13.1466 14.0305L17.0575 17.9422C17.1156 18.0003 17.1845 18.0464 17.2604 18.0778C17.3363 18.1092 17.4176 18.1254 17.4997 18.1254C17.5818 18.1254 17.6631 18.1092 17.739 18.0778C17.8149 18.0464 17.8838 18.0003 17.9419 17.9422C17.9999 17.8842 18.046 17.8152 18.0774 17.7394C18.1089 17.6635 18.125 17.5822 18.125 17.5001C18.125 17.4179 18.1089 17.3366 18.0774 17.2607C18.046 17.1849 17.9999 17.1159 17.9419 17.0579ZM3.12469 8.75006C3.12469 7.63754 3.45459 6.55 4.07267 5.62497C4.69076 4.69995 5.56926 3.97898 6.5971 3.55323C7.62493 3.12749 8.75593 3.0161 9.84707 3.23314C10.9382 3.45018 11.9405 3.98591 12.7272 4.77258C13.5138 5.55925 14.0496 6.56153 14.2666 7.65267C14.4837 8.74382 14.3723 9.87482 13.9465 10.9027C13.5208 11.9305 12.7998 12.809 11.8748 13.4271C10.9497 14.0452 9.86221 14.3751 8.74969 14.3751C7.25836 14.3734 5.82858 13.7802 4.77404 12.7257C3.71951 11.6712 3.12634 10.2414 3.12469 8.75006Z"
+                        fill="#92949F"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div
+                  class="p-12 bg-[#e5ebef2e] rounded-32 mt-6"
+                >
+                  <h1
+                    class="text-black text-xs font-poppins font-normal leading-none"
+                  >
+                    Trending
+                  </h1>
+                  <div>
+                    <div
+                      class="text-black text-14 font-poppins font-normal leading-none mt-12"
+                    >
+                      Company Officer Party!
+                    </div>
+                    <div
+                      class="flex mt-4 gap-4"
+                    >
+                      <span
+                        class="relative shrink-0 overflow-hidden rounded-full hidden  sm:flex"
+                      >
+                        <img
+                          alt="Avatar"
+                          class="aspect-square  w-[2.8rem] h-[2.8rem]"
+                          src="/images/comment.svg"
+                        />
+                      </span>
+                      <div
+                        class="grid gap-1"
+                      >
+                        <p
+                          class="text-[1.2rem] text-[#00000080] font-poppins font-normal "
+                        >
+                          Zahid Moufin
+                        </p>
+                        <p
+                          class=" flex items-center text-[1rem] text-[#00000080] font-poppins font-normal line-clamp-1"
+                        >
+                          <span
+                            class="mr-2"
+                          >
+                             
+                            <svg
+                              fill="none"
+                              height="15"
+                              viewBox="0 0 15 15"
+                              width="15"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M7.50035 1.40625C6.44828 1.40602 5.41407 1.67818 4.49839 2.19623C3.58271 2.71428 2.81675 3.46058 2.27506 4.36248C1.73338 5.26438 1.43442 6.29117 1.4073 7.34289C1.38017 8.39461 1.6258 9.43544 2.12028 10.3641L1.45524 12.3592C1.40015 12.5244 1.39215 12.7016 1.43215 12.8711C1.47214 13.0406 1.55855 13.1956 1.68167 13.3187C1.8048 13.4418 1.95978 13.5282 2.12926 13.5682C2.29873 13.6082 2.47599 13.6002 2.64117 13.5451L4.63629 12.8801C5.45354 13.3148 6.35907 13.5575 7.28416 13.59C8.20924 13.6225 9.12957 13.4437 9.97528 13.0674C10.821 12.6911 11.5698 12.127 12.165 11.4181C12.7602 10.7091 13.186 9.87392 13.4102 8.97582C13.6344 8.07772 13.651 7.14035 13.4588 6.23487C13.2667 5.32938 12.8707 4.47957 12.3011 3.74995C11.7314 3.02033 11.0031 2.43007 10.1712 2.02398C9.33941 1.61788 8.42601 1.40663 7.50035 1.40625ZM7.50035 12.6562C6.59389 12.6569 5.70334 12.4182 4.91871 11.9643C4.86126 11.9309 4.79739 11.9102 4.73133 11.9034C4.66527 11.8967 4.59852 11.904 4.53551 11.925L2.3441 12.6562L3.07477 10.4648C3.09583 10.4019 3.10327 10.3351 3.09661 10.2691C3.08994 10.203 3.06931 10.1391 3.0361 10.0816C2.46772 9.09897 2.23952 7.9562 2.38689 6.8306C2.53427 5.705 3.04898 4.6595 3.85119 3.85628C4.65339 3.05307 5.69824 2.53703 6.82365 2.38824C7.94906 2.23944 9.09212 2.4662 10.0755 3.03333C11.0589 3.60047 11.8276 4.47627 12.2625 5.52489C12.6973 6.57351 12.774 7.73633 12.4805 8.83294C12.187 9.92956 11.5399 10.8987 10.6394 11.59C9.73897 12.2813 8.63556 12.6561 7.50035 12.6562Z"
+                                fill="#979BA4"
+                              />
+                            </svg>
+                          </span>
+                           
+                          13 Comments
+                        </p>
+                      </div>
+                      <div
+                        class="ml-auto text-blue font-poppins font-medium cursor-pointer hover:text-[#8598ff]"
+                      >
+                        View
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div
+                      class="text-black text-14 font-poppins font-normal leading-none mt-12"
+                    >
+                      Company Officer Party!
+                    </div>
+                    <div
+                      class="flex mt-4 gap-4"
+                    >
+                      <span
+                        class="relative shrink-0 overflow-hidden rounded-full hidden  sm:flex"
+                      >
+                        <img
+                          alt="Avatar"
+                          class="aspect-square  w-[2.8rem] h-[2.8rem]"
+                          src="/images/comment.svg"
+                        />
+                      </span>
+                      <div
+                        class="grid gap-1"
+                      >
+                        <p
+                          class="text-[1.2rem] text-[#00000080] font-poppins font-normal "
+                        >
+                          Zahid Moufin
+                        </p>
+                        <p
+                          class=" flex items-center text-[1rem] text-[#00000080] font-poppins font-normal line-clamp-1"
+                        >
+                          <span
+                            class="mr-2"
+                          >
+                             
+                            <svg
+                              fill="none"
+                              height="15"
+                              viewBox="0 0 15 15"
+                              width="15"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M7.50035 1.40625C6.44828 1.40602 5.41407 1.67818 4.49839 2.19623C3.58271 2.71428 2.81675 3.46058 2.27506 4.36248C1.73338 5.26438 1.43442 6.29117 1.4073 7.34289C1.38017 8.39461 1.6258 9.43544 2.12028 10.3641L1.45524 12.3592C1.40015 12.5244 1.39215 12.7016 1.43215 12.8711C1.47214 13.0406 1.55855 13.1956 1.68167 13.3187C1.8048 13.4418 1.95978 13.5282 2.12926 13.5682C2.29873 13.6082 2.47599 13.6002 2.64117 13.5451L4.63629 12.8801C5.45354 13.3148 6.35907 13.5575 7.28416 13.59C8.20924 13.6225 9.12957 13.4437 9.97528 13.0674C10.821 12.6911 11.5698 12.127 12.165 11.4181C12.7602 10.7091 13.186 9.87392 13.4102 8.97582C13.6344 8.07772 13.651 7.14035 13.4588 6.23487C13.2667 5.32938 12.8707 4.47957 12.3011 3.74995C11.7314 3.02033 11.0031 2.43007 10.1712 2.02398C9.33941 1.61788 8.42601 1.40663 7.50035 1.40625ZM7.50035 12.6562C6.59389 12.6569 5.70334 12.4182 4.91871 11.9643C4.86126 11.9309 4.79739 11.9102 4.73133 11.9034C4.66527 11.8967 4.59852 11.904 4.53551 11.925L2.3441 12.6562L3.07477 10.4648C3.09583 10.4019 3.10327 10.3351 3.09661 10.2691C3.08994 10.203 3.06931 10.1391 3.0361 10.0816C2.46772 9.09897 2.23952 7.9562 2.38689 6.8306C2.53427 5.705 3.04898 4.6595 3.85119 3.85628C4.65339 3.05307 5.69824 2.53703 6.82365 2.38824C7.94906 2.23944 9.09212 2.4662 10.0755 3.03333C11.0589 3.60047 11.8276 4.47627 12.2625 5.52489C12.6973 6.57351 12.774 7.73633 12.4805 8.83294C12.187 9.92956 11.5399 10.8987 10.6394 11.59C9.73897 12.2813 8.63556 12.6561 7.50035 12.6562Z"
+                                fill="#979BA4"
+                              />
+                            </svg>
+                          </span>
+                           
+                          13 Comments
+                        </p>
+                      </div>
+                      <div
+                        class="ml-auto text-blue font-poppins font-medium cursor-pointer hover:text-[#8598ff]"
+                      >
+                        View
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div
+                      class="text-black text-14 font-poppins font-normal leading-none mt-12"
+                    >
+                      Company Officer Party!
+                    </div>
+                    <div
+                      class="flex mt-4 gap-4"
+                    >
+                      <span
+                        class="relative shrink-0 overflow-hidden rounded-full hidden  sm:flex"
+                      >
+                        <img
+                          alt="Avatar"
+                          class="aspect-square  w-[2.8rem] h-[2.8rem]"
+                          src="/images/comment.svg"
+                        />
+                      </span>
+                      <div
+                        class="grid gap-1"
+                      >
+                        <p
+                          class="text-[1.2rem] text-[#00000080] font-poppins font-normal "
+                        >
+                          Zahid Moufin
+                        </p>
+                        <p
+                          class=" flex items-center text-[1rem] text-[#00000080] font-poppins font-normal line-clamp-1"
+                        >
+                          <span
+                            class="mr-2"
+                          >
+                             
+                            <svg
+                              fill="none"
+                              height="15"
+                              viewBox="0 0 15 15"
+                              width="15"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M7.50035 1.40625C6.44828 1.40602 5.41407 1.67818 4.49839 2.19623C3.58271 2.71428 2.81675 3.46058 2.27506 4.36248C1.73338 5.26438 1.43442 6.29117 1.4073 7.34289C1.38017 8.39461 1.6258 9.43544 2.12028 10.3641L1.45524 12.3592C1.40015 12.5244 1.39215 12.7016 1.43215 12.8711C1.47214 13.0406 1.55855 13.1956 1.68167 13.3187C1.8048 13.4418 1.95978 13.5282 2.12926 13.5682C2.29873 13.6082 2.47599 13.6002 2.64117 13.5451L4.63629 12.8801C5.45354 13.3148 6.35907 13.5575 7.28416 13.59C8.20924 13.6225 9.12957 13.4437 9.97528 13.0674C10.821 12.6911 11.5698 12.127 12.165 11.4181C12.7602 10.7091 13.186 9.87392 13.4102 8.97582C13.6344 8.07772 13.651 7.14035 13.4588 6.23487C13.2667 5.32938 12.8707 4.47957 12.3011 3.74995C11.7314 3.02033 11.0031 2.43007 10.1712 2.02398C9.33941 1.61788 8.42601 1.40663 7.50035 1.40625ZM7.50035 12.6562C6.59389 12.6569 5.70334 12.4182 4.91871 11.9643C4.86126 11.9309 4.79739 11.9102 4.73133 11.9034C4.66527 11.8967 4.59852 11.904 4.53551 11.925L2.3441 12.6562L3.07477 10.4648C3.09583 10.4019 3.10327 10.3351 3.09661 10.2691C3.08994 10.203 3.06931 10.1391 3.0361 10.0816C2.46772 9.09897 2.23952 7.9562 2.38689 6.8306C2.53427 5.705 3.04898 4.6595 3.85119 3.85628C4.65339 3.05307 5.69824 2.53703 6.82365 2.38824C7.94906 2.23944 9.09212 2.4662 10.0755 3.03333C11.0589 3.60047 11.8276 4.47627 12.2625 5.52489C12.6973 6.57351 12.774 7.73633 12.4805 8.83294C12.187 9.92956 11.5399 10.8987 10.6394 11.59C9.73897 12.2813 8.63556 12.6561 7.50035 12.6562Z"
+                                fill="#979BA4"
+                              />
+                            </svg>
+                          </span>
+                           
+                          13 Comments
+                        </p>
+                      </div>
+                      <div
+                        class="ml-auto text-blue font-poppins font-medium cursor-pointer hover:text-[#8598ff]"
+                      >
+                        View
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div
+                      class="text-black text-14 font-poppins font-normal leading-none mt-12"
+                    >
+                      Company Officer Party!
+                    </div>
+                    <div
+                      class="flex mt-4 gap-4"
+                    >
+                      <span
+                        class="relative shrink-0 overflow-hidden rounded-full hidden  sm:flex"
+                      >
+                        <img
+                          alt="Avatar"
+                          class="aspect-square  w-[2.8rem] h-[2.8rem]"
+                          src="/images/comment.svg"
+                        />
+                      </span>
+                      <div
+                        class="grid gap-1"
+                      >
+                        <p
+                          class="text-[1.2rem] text-[#00000080] font-poppins font-normal "
+                        >
+                          Zahid Moufin
+                        </p>
+                        <p
+                          class=" flex items-center text-[1rem] text-[#00000080] font-poppins font-normal line-clamp-1"
+                        >
+                          <span
+                            class="mr-2"
+                          >
+                             
+                            <svg
+                              fill="none"
+                              height="15"
+                              viewBox="0 0 15 15"
+                              width="15"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M7.50035 1.40625C6.44828 1.40602 5.41407 1.67818 4.49839 2.19623C3.58271 2.71428 2.81675 3.46058 2.27506 4.36248C1.73338 5.26438 1.43442 6.29117 1.4073 7.34289C1.38017 8.39461 1.6258 9.43544 2.12028 10.3641L1.45524 12.3592C1.40015 12.5244 1.39215 12.7016 1.43215 12.8711C1.47214 13.0406 1.55855 13.1956 1.68167 13.3187C1.8048 13.4418 1.95978 13.5282 2.12926 13.5682C2.29873 13.6082 2.47599 13.6002 2.64117 13.5451L4.63629 12.8801C5.45354 13.3148 6.35907 13.5575 7.28416 13.59C8.20924 13.6225 9.12957 13.4437 9.97528 13.0674C10.821 12.6911 11.5698 12.127 12.165 11.4181C12.7602 10.7091 13.186 9.87392 13.4102 8.97582C13.6344 8.07772 13.651 7.14035 13.4588 6.23487C13.2667 5.32938 12.8707 4.47957 12.3011 3.74995C11.7314 3.02033 11.0031 2.43007 10.1712 2.02398C9.33941 1.61788 8.42601 1.40663 7.50035 1.40625ZM7.50035 12.6562C6.59389 12.6569 5.70334 12.4182 4.91871 11.9643C4.86126 11.9309 4.79739 11.9102 4.73133 11.9034C4.66527 11.8967 4.59852 11.904 4.53551 11.925L2.3441 12.6562L3.07477 10.4648C3.09583 10.4019 3.10327 10.3351 3.09661 10.2691C3.08994 10.203 3.06931 10.1391 3.0361 10.0816C2.46772 9.09897 2.23952 7.9562 2.38689 6.8306C2.53427 5.705 3.04898 4.6595 3.85119 3.85628C4.65339 3.05307 5.69824 2.53703 6.82365 2.38824C7.94906 2.23944 9.09212 2.4662 10.0755 3.03333C11.0589 3.60047 11.8276 4.47627 12.2625 5.52489C12.6973 6.57351 12.774 7.73633 12.4805 8.83294C12.187 9.92956 11.5399 10.8987 10.6394 11.59C9.73897 12.2813 8.63556 12.6561 7.50035 12.6562Z"
+                                fill="#979BA4"
+                              />
+                            </svg>
+                          </span>
+                           
+                          13 Comments
+                        </p>
+                      </div>
+                      <div
+                        class="ml-auto text-blue font-poppins font-medium cursor-pointer hover:text-[#8598ff]"
+                      >
+                        View
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

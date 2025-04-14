@@ -1,0 +1,36 @@
+@font-face {
+    font-family: 'Juana';
+    src: url('Juana-Medium.woff2') format('woff2'),
+        url('Juana-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Juana Medium It';
+    src: url('Juana-MediumIt.woff2') format('woff2'),
+        url('Juana-MediumIt.woff') format('woff');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Juana';
+    src: url('Juana-Light.woff2') format('woff2'),
+        url('Juana-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Juana Light It';
+    src: url('Juana-LightIt.woff2') format('woff2'),
+        url('Juana-LightIt.woff') format('woff');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
