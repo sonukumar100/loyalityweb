@@ -253,6 +253,7 @@ export const Header = memo((props: Props) => {
               { label: 'Dashboard', path: '/user/dasboard' },
               { label: 'Contacts', path: '#' },
               { label: 'offer', path: '/offer' },
+              { label: 'Coupon', path: '/coupon' },
               { label: 'Loan Center', path: '#' },
               { label: 'Payroll', path: '#' },
               { label: 'Master', path: '/admin/settings/digital-catalog' },

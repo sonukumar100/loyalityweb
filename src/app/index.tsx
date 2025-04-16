@@ -40,6 +40,7 @@ import ProductPoints from './pages/Admin/Settings/components/brand-points';
 import DigitalCatalog from './pages/Admin/Settings/components/digitalCatalog/catalog';
 import { OfferList } from './pages/Offer';
 import { GiftIndex } from './pages/Admin/Settings/components/gift/gift-index';
+import { CouponList } from './pages/Coupon';
 // import { useGlobalSlice } from 'app/slice';
 
 export function App() {
@@ -75,6 +76,7 @@ export function App() {
             <Route path="gifts" element={<GiftIndex />} />
           </Route>
           <Route path="offer" element={<OfferList />} />
+          <Route path="coupon" element={<CouponList />} />
           {/* <Route path="/admin/settings" element={<Settings />} /> */}
           <Route path="/user/dasboard" element={<Dasboard />} />
           <Route path="/admin/contacts/leads" element={<ContactList />} />

@@ -14,6 +14,7 @@ export interface RootState {
   globalApi?: any;
   loginApi?: any;
   offerApi?: any;
+  CouponApi?: any;
   signInApi?: any;
   addTeamMemberApi?: any;
   addTeamMember?: AddTeamMemberState;
