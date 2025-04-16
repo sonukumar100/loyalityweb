@@ -17,6 +17,7 @@ import { toast } from 'app/components/ui/use-toast';
 import { Input } from 'app/components/ui/input';
 import { Button } from 'app/components/ui/button';
 import { Label } from 'app/components/ui/label';
+import { settingConfig } from 'utils/settingConfig';
 
 export default function GiftForm() {
   const [imagePreview, setImagePreview] = useState(null);
@@ -73,14 +74,9 @@ export default function GiftForm() {
   return (
     <Sheet aria-describedby={false} open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <Button
-          variant="blueBtn"
-          className="font-poppins font-base font-normal rounded-full text-base py-5 px-8  hover:to-blue-700 absolute -bottom-[0px] right-[30px]"
-        >
-          Add{' '}
-          <span className="ml-2">
-            {' '}
-            <Plus className="w-7" />
+        <Button className="font-poppins font-base font-normal rounded-full text-base absolute -bottom-0 right-[30px] flex items-center gap-2 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 text-white">
+          <span className="rounded-full  text-white bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 transition-all duration-300 p-[15px_15px]">
+            <Plus />
           </span>
         </Button>
       </SheetTrigger>
@@ -133,9 +129,8 @@ export default function GiftForm() {
                   <Input
                     {...field}
                     type="text"
-                    className={`mt-1 block w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${
-                      errors.giftTitle ? 'border-red-500' : 'border-gray-300'
-                    }`}
+                    className={`mt-1 block w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${errors.giftTitle ? 'border-red-500' : 'border-gray-300'
+                      }`}
                     placeholder="Enter gift title"
                   />
                 )}
@@ -165,9 +160,8 @@ export default function GiftForm() {
                     {...field}
                     type="number"
                     onChange={e => field.onChange(parseInt(e.target.value))}
-                    className={`mt-1 block w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${
-                      errors.points ? 'border-red-500' : 'border-gray-300'
-                    }`}
+                    className={`mt-1 block w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${errors.points ? 'border-red-500' : 'border-gray-300'
+                      }`}
                     placeholder="Enter points"
                   />
                 )}
@@ -191,15 +185,17 @@ export default function GiftForm() {
                 render={({ field }) => (
                   <select
                     {...field}
-                    className={`mt-1 block w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${
-                      errors.giftType ? 'border-red-500' : 'border-gray-300'
-                    }`}
+                    className={`mt-1 block w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${errors.giftType ? 'border-red-500' : 'border-gray-300'
+                      }`}
                   >
                     <option value="">Select gift type</option>
-                    <option value="physical">Physical</option>
-                    <option value="digital">Digital</option>
-                    <option value="voucher">Voucher</option>
+                    {settingConfig.giftType.map((type) => (
+                      <option key={type.value} value={type.value}>
+                        {type.key}
+                      </option>
+                    ))}
                   </select>
+
                 )}
               />
               {errors.giftType && (

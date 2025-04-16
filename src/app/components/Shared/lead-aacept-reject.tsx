@@ -82,11 +82,11 @@ export function LeadAcceptReject() {
   }, [isAcceptLeadSuccess]);
 
   React.useEffect(() => {
-    if (isPollingData?.data?.isNewLead) {
-      setOpen(true);
-    } else {
-      setOpen(false);
-    }
+    // if (isPollingData?.data?.isNewLead) {
+    //   setOpen(true);
+    // } else {
+    //   setOpen(false);
+    // }
   }, [isPollingData]);
   React.useEffect(() => {
     if (isAcceptLeadError) {
@@ -100,13 +100,12 @@ export function LeadAcceptReject() {
 
   const isNewNotifications = useSelector(selectNewNotifications)
   React.useEffect(() => {
-    dispatch(
-      globalActions.setNewNotifications({
-        isNewLead: true,
-      }),
-    );
+    // dispatch(
+    //   globalActions.setNewNotifications({
+    //     isNewLead: true,
+    //   }),
+    // );
   }, [isNewNotifications?.isNewLead]);
-  console.log('call lead inner', isNewNotifications);
   return (
     <>
       {/* <Calls

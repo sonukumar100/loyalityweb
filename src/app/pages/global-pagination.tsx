@@ -7,23 +7,26 @@ import {
 } from 'lucide-react';
 import { Button } from 'app/components/ui/button';
 import { Table } from '@tanstack/react-table';
-import { useOfferSlice } from './slice';
+import { useOfferSlice } from './Offer/slice';
 import { useState } from 'react';
 
-type OfferPaginationProps = {
+type GlobalPaginationProps = {
   table: Table<any>;
   pagination: {
     pageIndex: number;
     pageSize: number;
   };
   setPagination: (pagination: { pageIndex: number; pageSize: number }) => void;
+  onRefresh?: () => void; // Optional callback for parent refresh
+
 };
 
-export const OfferPagination = ({
+export const GlobalPagination = ({
   table,
   pagination,
   setPagination,
-}: OfferPaginationProps) => {
+  onRefresh,
+}: GlobalPaginationProps) => {
   const { useLazyGetOfferQuery } = useOfferSlice();
   const [getOffer] = useLazyGetOfferQuery();
   const [loading, setLoading] = useState(false); // Add loading state
@@ -42,20 +45,11 @@ export const OfferPagination = ({
 
   // Refresh button click handler
   const handleRefresh = () => {
-    setLoading(true); // Set loading to true immediately
-    getOffer({ page: pagination.pageIndex + 1, limit: pagination.pageSize })
-      .then(() => {
-        // Simulate a delay before resetting the loading state
-        setTimeout(() => {
-          setLoading(false); // Reset loading state after a delay
-        }, 1000); // 1-second delay, adjust as needed
-      })
-      .catch(() => {
-        // Reset loading state in case of an error
-        setTimeout(() => {
-          setLoading(false); // Reset loading state after a delay
-        }, 1000); // 1-second delay
-      });
+    setLoading(true);
+    if (onRefresh) {
+      onRefresh();
+    }
+    setTimeout(() => setLoading(false), 1000);
   };
 
   return (
@@ -65,7 +59,7 @@ export const OfferPagination = ({
         variant="outline"
         size="icon"
         className="h-16 w-16 rounded-[4px]"
-        onClick={handleRefresh}
+        onClick={() => handleRefresh()}
         disabled={loading} // Disable the button while loading
       >
         <RefreshCw

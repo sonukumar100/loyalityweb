@@ -413,6 +413,68 @@ export const settingConfig = {
       value: 'Adverse',
     },
   ],
+  units: [
+    {
+      key: 1,
+      value: 'Application Intaket',
+    },
+    {
+      key: 2,
+      value: 'Pre-Qualification',
+    },
+    {
+      key: 3,
+      value: 'Pre-Approved',
+    },
+    {
+      key: 4,
+      value: 'Loan Setup',
+    },
+    {
+      key: 5,
+      value: 'Disclosures Sent',
+    },
+    {
+      key: 6,
+      value: 'In Underwriting',
+    },
+    {
+      key: 7,
+      value: 'Conditionally Approved',
+    },
+    {
+      key: 8,
+      value: 'Re-submitted',
+    },
+    {
+      key: 9,
+      value: 'Clear to Close',
+    },
+    {
+      key: 10,
+      value: 'Docs out',
+    },
+    {
+      key: 11,
+      value: 'Docs Signed',
+    },
+    {
+      key: 12,
+      value: 'Loan Funded',
+    },
+    {
+      key: 13,
+      value: 'Broker Check Recieved',
+    },
+    {
+      key: 14,
+      value: 'Commission Paid',
+    },
+    {
+      key: 15,
+      value: 'Adverse',
+    },
+  ],
 
   stateList: [
     {
@@ -1244,69 +1306,12 @@ export const settingConfig = {
       ],
     },
   ],
-
-  units: [
-    {
-      key: 1,
-      value: 'Application Intaket',
-    },
-    {
-      key: 2,
-      value: 'Pre-Qualification',
-    },
-    {
-      key: 3,
-      value: 'Pre-Approved',
-    },
-    {
-      key: 4,
-      value: 'Loan Setup',
-    },
-    {
-      key: 5,
-      value: 'Disclosures Sent',
-    },
-    {
-      key: 6,
-      value: 'In Underwriting',
-    },
-    {
-      key: 7,
-      value: 'Conditionally Approved',
-    },
-    {
-      key: 8,
-      value: 'Re-submitted',
-    },
-    {
-      key: 9,
-      value: 'Clear to Close',
-    },
-    {
-      key: 10,
-      value: 'Docs out',
-    },
-    {
-      key: 11,
-      value: 'Docs Signed',
-    },
-    {
-      key: 12,
-      value: 'Loan Funded',
-    },
-    {
-      key: 13,
-      value: 'Broker Check Recieved',
-    },
-    {
-      key: 14,
-      value: 'Commission Paid',
-    },
-    {
-      key: 15,
-      value: 'Adverse',
-    },
+  giftType: [
+    { key: 1, value: 'Cash' },
+    { key: 2, value: 'Gift' },
   ],
+
+
 
   getSetting(prop, condition) {
     const object = _.find(this[prop], {

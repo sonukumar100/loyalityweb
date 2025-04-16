@@ -57,7 +57,7 @@ import OfferForm from './offer-form';
 import { useOfferSlice } from './slice';
 import { OfferTable } from './offer-table';
 import { OfferTabs } from './offer-tabs';
-import { OfferPagination } from './offer-pagination';
+import { GlobalPagination } from '../global-pagination';
 import { Switch } from 'app/components/ui/switch';
 import { Label } from '@radix-ui/react-label';
 import clsx from 'clsx';
@@ -268,10 +268,13 @@ export const OfferList = () => {
           inactiveCount={inactiveCount}
         />{' '}
         {/* <OfferFilters /> */}
-        <OfferPagination
+        <GlobalPagination
           table={table}
           pagination={pagination}
           setPagination={setPagination}
+          onRefresh={() => {
+            getOffer({ page: pagination.pageIndex + 1, limit: pagination.pageSize });
+          }}
         />
       </div>
       <OfferTable

@@ -160,7 +160,7 @@ export const endpoints = {
     method: HTTP_METHODS.DELETE,
   },
   getGiftGallery: {
-    url: `/admins/get-gift-gallery`,
+    url: `/admins/gift-gallery-list`,
     method: HTTP_METHODS.GET,
   },
 
