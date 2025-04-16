@@ -70,7 +70,6 @@ export const HTTP_METHODS = {
 export const endpoints = {
   baseUrl,
 
-
   sendOtp: {
     url: `/auth/login/send-otp`,
     method: HTTP_METHODS.POST,
@@ -98,7 +97,7 @@ export const endpoints = {
   },
   dailyAccessLimit: {
     url: '',
-    method: HTTP_METHODS.POST
+    method: HTTP_METHODS.POST,
   },
   deleteBrand: {
     url: `/admins/deleteMasterProduct`,
@@ -132,25 +131,38 @@ export const endpoints = {
     url: `/admins/add-offer`,
     method: HTTP_METHODS.POST,
   },
+  getOffer: {
+    url: `/admins/get-offers`,
+    method: HTTP_METHODS.GET,
+  },
+  updateOffer: {
+    url: `/admins/update-offer`,
+    method: HTTP_METHODS.PUT,
+  },
+  updateOfferStatus: {
+    url: `/admins/update-offer-status`,
+    method: HTTP_METHODS.PUT,
+  },
+  getOfferById: {
+    url: `/admins/get-offer-by-id`,
+    method: HTTP_METHODS.GET,
+  },
   deleteOffer: {
     url: `/admins/delete-offer`,
     method: HTTP_METHODS.DELETE,
   },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  addGiftGallery: {
+    url: `/admins/add-gift-gallery`,
+    method: HTTP_METHODS.POST,
+  },
+  deleteGiftGallery: {
+    url: `/admins/delete-gift-gallery`,
+    method: HTTP_METHODS.DELETE,
+  },
+  getGiftGallery: {
+    url: `/admins/get-gift-gallery`,
+    method: HTTP_METHODS.GET,
+  },
 
   addTeamMember: {
     url: `/api/admin/team-member/add`,

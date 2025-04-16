@@ -13,6 +13,7 @@ import { LeadEdit } from 'app/pages/User/AddContacts/slice/types';
 export interface RootState {
   globalApi?: any;
   loginApi?: any;
+  offerApi?: any;
   signInApi?: any;
   addTeamMemberApi?: any;
   addTeamMember?: AddTeamMemberState;

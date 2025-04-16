@@ -3,7 +3,6 @@ import { createSlice } from 'utils/@reduxjs/toolkit';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { Saga } from './saga';
 import { AddTeamMemberState } from './types';
-
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { endpoints, formatErrors, baseQuery } from 'utils/api/endpoints';
 import { use } from 'i18next';
@@ -39,7 +38,15 @@ const slice = createSlice({
 export const api = createApi({
   reducerPath: 'addTeamMemberApi',
   baseQuery,
-  tagTypes: ['Admin', 'Role', 'Location', 'Status', 'AddPoints', 'AddCatalog'],
+  tagTypes: [
+    'Admin',
+    'Role',
+    'Location',
+    'Status',
+    'AddPoints',
+    'AddCatalog',
+    'AddGiftGallery',
+  ],
   endpoints: build => ({
     addBrandPoints: build.mutation<any, any>({
       query: body => {
@@ -127,8 +134,7 @@ export const api = createApi({
           ...endpoints.getDigitalCatalog,
           params,
         };
-      }
-      ,
+      },
       transformErrorResponse(baseQueryReturnValue, meta, arg) {
         return formatErrors(baseQueryReturnValue?.data);
       },
@@ -140,14 +146,43 @@ export const api = createApi({
           ...endpoints.offerList,
           params,
         };
-      }
-      ,
+      },
       transformErrorResponse(baseQueryReturnValue, meta, arg) {
         return formatErrors(baseQueryReturnValue?.data);
       },
     }),
-
-
+    addGiftGallery: build.mutation<any, any>({
+      query: body => {
+        return {
+          ...endpoints.addGiftGallery,
+          body,
+        };
+      },
+      transformErrorResponse(baseQueryReturnValue, meta, arg) {
+        return formatErrors(baseQueryReturnValue?.data);
+      },
+      invalidatesTags: ['AddGiftGallery'],
+    }),
+    getGiftGallery: build.query<any, any>({
+      query: params => {
+        return {
+          ...endpoints.getGiftGallery,
+          params,
+        };
+      },
+      transformErrorResponse(baseQueryReturnValue, meta, arg) {
+        return formatErrors(baseQueryReturnValue?.data);
+      },
+    }),
+    deleteGiftGallery: build.mutation<any, any>({
+      query: id => ({
+        url: `${endpoints.deleteGiftGallery.url}/${id}`,
+        method: endpoints.deleteGiftGallery.method,
+      }),
+      transformErrorResponse(baseQueryReturnValue, meta, arg) {
+        return formatErrors(baseQueryReturnValue.data);
+      },
+    }),
 
     uploadFile: build.mutation<any, any>({
       query: (body: FormData) => ({
@@ -223,7 +258,6 @@ export const api = createApi({
       invalidatesTags: ['Admin'],
     }),
     role: build.query<any, any>({
-
       query: params => {
         return {
           ...endpoints.role,
@@ -268,8 +302,9 @@ export const useAdminSlice = () => {
     useGetCatalogLazyQuery: api.useLazyGetCatalogQuery,
     useAddCatalogMutation: api.useAddCataLogMutation,
     useOfferListLazyQuery: api.useLazyOfferListQuery,
-
-
+    useAddGiftGalleryMutation: api.useAddGiftGalleryMutation,
+    useGetGiftGalleryLazyQuery: api.useLazyGetGiftGalleryQuery,
+    useDeleteGiftGalleryMutation: api.useDeleteGiftGalleryMutation,
   };
   // useInjectSaga({ key: slice.reducerPath, saga: loginSaga });
   // return { actions: slice.actions };

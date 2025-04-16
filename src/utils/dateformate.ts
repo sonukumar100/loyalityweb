@@ -1,6 +1,5 @@
-
 // Utility function to format date using Moment.js
-export const dateFormate = (date) => {
+export const dateFormate = date => {
   const d = new Date(date);
   let month = '' + (d.getMonth() + 1);
   let day = '' + d.getDate();
@@ -13,10 +12,9 @@ export const dateFormate = (date) => {
     day = '0' + day;
   }
 
-  return [month, day, year].join('/');
-
+  return [day, month, year].join('/');
 };
-export const dateForMateWithTime = (dateString) => {
+export const dateForMateWithTime = dateString => {
   const date = new Date(dateString);
   const year = date.getFullYear(); // Full year
   const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Add leading zero if needed
@@ -28,4 +26,4 @@ export const dateForMateWithTime = (dateString) => {
   const minutes = date.getMinutes().toString().padStart(2, '0'); // Add leading zero if needed
 
   return `${month}/${day}/${year} ${hours}:${minutes} ${ampm}`;
-}
+};

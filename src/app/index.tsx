@@ -39,6 +39,7 @@ import { BrandPoints } from './pages/Admin/Settings/components/product-point';
 import ProductPoints from './pages/Admin/Settings/components/brand-points';
 import DigitalCatalog from './pages/Admin/Settings/components/digitalCatalog/catalog';
 import { OfferList } from './pages/Offer';
+import { GiftIndex } from './pages/Admin/Settings/components/gift/gift-index';
 // import { useGlobalSlice } from 'app/slice';
 
 export function App() {
@@ -71,7 +72,7 @@ export function App() {
 
             <Route path="videos" element={<Video />} />
             <Route path="digital-catalog" element={<DigitalCatalog />} />
-
+            <Route path="gifts" element={<GiftIndex />} />
           </Route>
           <Route path="offer" element={<OfferList />} />
           {/* <Route path="/admin/settings" element={<Settings />} /> */}

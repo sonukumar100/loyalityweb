@@ -1,4 +1,5 @@
 import { api as LoginApi } from 'app/pages/Login/slice';
+import { api as OfferApi } from 'app/pages/Offer/slice';
 import { api as addTeamMemberApi } from 'app/pages/Admin/slice';
 import { api as addLeads } from 'app/pages/User/AddContacts/slice';
 import { api as globalApi } from 'app/slice/index';
@@ -8,6 +9,7 @@ import { api as addRecruits } from 'app/pages/Admin/RecruitsContact/recruitsSlic
 
 export const rtkQueryMiddleware = [
   LoginApi.middleware,
+  OfferApi.middleware,
   addTeamMemberApi.middleware,
   addLeads.middleware,
   globalApi.middleware,

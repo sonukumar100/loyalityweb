@@ -143,7 +143,7 @@ html {
     @apply text-foreground;
     font-family: 'Inter', sans-serif;
     font-size: 1.4rem;
-    background: linear-gradient(117deg, #eff7ff -0.59%, #cedcec 100%);
+    /* background: linear-gradient(117deg, #eff7ff -0.59%, #cedcec 100%); */
   }
 }
 
@@ -152,7 +152,7 @@ html {
 } */
 
 .bg-admin {
-  background: linear-gradient(117deg, #eff7ff -0.59%, #cedcec 100%);
+  /* background: linear-gradient(117deg, #eff7ff -0.59%, #cedcec 100%); */
 }
 
 .audioBox audio {
@@ -408,5 +408,57 @@ input.react-time-picker__inputGroup__input {
 
   border-radius: 6rem;
 
+}
+
+.offer-pagination {
+  background-color: #fff;
+  border-top: 1px solid #e5e7eb;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.05);
+  padding: 8px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.offer-pagination button {
+  border-color: #d1d5db;
+  transition: background-color 0.2s;
+}
+
+.offer-pagination button:hover {
+  background-color: #f9fafb;
+}
+
+.offer-pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.offer-pagination .text-muted-foreground {
+  color: #6b7280;
+}
+.pagination-btn button {
+  border-radius: 4px;
+  padding: 0.5rem; /* smaller padding to not squish icons */
+  color: black;
+  background: white;
+  opacity: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.pagination-btn svg {
+  width: 3rem;
+  height: 2rem;
+  stroke: black;
+}
+.filter-all-tab{
+  outline: none;
+    background: #8080801f;
+    padding: 4px 8px;
+    border-radius: 4px;
+    gap: 28px;
 }
 

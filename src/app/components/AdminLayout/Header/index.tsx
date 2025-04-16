@@ -47,8 +47,8 @@ export const Header = memo((props: Props) => {
     setOpen(true);
   };
   const user = useSelector(selectUser);
-  const isNewNotifications = useSelector(selectNewNotifications)
-  console.log("selectNewNotifications", isNewNotifications)
+  const isNewNotifications = useSelector(selectNewNotifications);
+  console.log('selectNewNotifications', isNewNotifications);
   const userId = user?._id;
   const [open, setOpen] = React.useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
@@ -203,7 +203,6 @@ export const Header = memo((props: Props) => {
   }, [notificationsData]);
   NotificationsSocket(userId);
   return (
-
     <header className="container animate-fade-in-down">
       <Toaster />
       <nav className="mt-10">
@@ -216,13 +215,25 @@ export const Header = memo((props: Props) => {
         >
           {/* Logo + Search */}
           <div className="flex items-center space-x-6">
-            <a href="#">
-              <img
+            <a
+              href="#"
+              style={{
+                textDecoration: 'none',
+                color: 'black',
+                fontWeight: 'bold',
+                fontSize: '1.5rem',
+                width: '100px',
+                borderRadius: '10px',
+                background: 'transparent',
+              }}
+            >
+              Loyalty
+              {/* <img
                 src="/images/new-logo.svg"
                 alt="Logo"
                 width={50}
                 className="hover:scale-105 transition-transform duration-300"
-              />
+              /> */}
             </a>
 
             {/* Search */}
@@ -251,17 +262,17 @@ export const Header = memo((props: Props) => {
                 <li key={label}>
                   <Link
                     to={path}
-                    className={`px-5 py-2 text-sm font-semibold border rounded-full transition duration-300 ${isActive
-                      ? 'bg-blue-500 text-white border-blue-500 shadow-md'
-                      : 'text-gray-700 border-[#B7C1CF] bg-white/30 backdrop-blur-sm hover:bg-white hover:text-blue-600 hover:shadow'
-                      }`}
+                    className={`px-5 py-2 text-sm font-semibold border rounded-full transition duration-300 ${
+                      isActive
+                        ? 'bg-blue-500 text-white border-blue-500 shadow-md'
+                        : 'text-gray-700 border-[#B7C1CF] bg-white/30 backdrop-blur-sm hover:bg-white hover:text-blue-600 hover:shadow'
+                    }`}
                   >
                     {label}
                   </Link>
                 </li>
               );
             })}
-
           </ul>
 
           {/* Right section: Placeholder for profile, notifications */}
@@ -271,8 +282,5 @@ export const Header = memo((props: Props) => {
         </div>
       </nav>
     </header>
-
-
-
   );
 });
