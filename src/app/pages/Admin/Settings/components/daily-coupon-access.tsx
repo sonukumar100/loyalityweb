@@ -1,4 +1,5 @@
 import { Button } from "app/components/ui/button";
+import { Icons } from "app/components/ui/icons";
 import { Input } from "app/components/ui/input";
 import { useForm, Controller } from "react-hook-form";
 
@@ -44,12 +45,17 @@ export default function AccessLimitForm() {
                 )}
             />
 
-            <Button
+            {/* <Button
+                variant="destructive"
                 type="submit"
-                className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
+                disabled={isLoading}
+                className="w-full text-white py-3 text-lg rounded-xl   text-white bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 transition-all duration-300"
             >
-                Submit
-            </Button>
+                {isLoading && (
+                    <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
+                )}
+                Save
+            </Button> */}
         </form>
     );
 }

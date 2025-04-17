@@ -7,9 +7,11 @@ import {
   ChevronsLeftIcon,
   ChevronsRightIcon,
   Download,
+  PencilIcon,
   Plus,
   RefreshCw,
   Search,
+  Trash2Icon,
 } from 'lucide-react';
 import { format } from 'date-fns';
 
@@ -62,6 +64,10 @@ import { Switch } from 'app/components/ui/switch';
 import { Label } from '@radix-ui/react-label';
 import clsx from 'clsx';
 import { dateFormate } from 'utils/dateformate';
+import { useDispatch } from 'react-redux';
+import { selectCouponEdit as couponEdit } from './slice/selectors';
+import { useAgentSlice } from '../Admin/AgentsContact/agentSlice';
+
 
 // Define the data type for our Coupons
 type Coupon = {
@@ -71,10 +77,14 @@ type Coupon = {
   type: string;
   title: string;
   CouponCode: string;
-  startDate: Date;
-  endDate: Date;
-  gift: number;
-  status: 'active' | 'inactive';
+  created_at: Date;
+  updatedAt: Date;
+  productName: string;
+  remark: string;
+  user: {
+    email: string;
+  }
+
 };
 
 // Sample data
@@ -82,13 +92,64 @@ type Coupon = {
 export const CouponList = () => {
   const [dateFilter, setDateFilter] = useState<Date | undefined>(undefined);
 
-  const { useLazyGetCouponQuery, useUpdateCouponStatus } = useCouponSlice();
-  const [getCoupon, { data, isError, isSuccess }] = useLazyGetCouponQuery();
-  const [updateCouponStatus] = useUpdateCouponStatus();
+  const { useLazyGetCouponListQuery, useDeleteCouponById } = useCouponSlice();
+  const [getCouponList, { data: couponList, isError, isSuccess }] = useLazyGetCouponListQuery();
+  const { actions: couponEdit } = useCouponSlice();
+
+  const dispatch = useDispatch();
+  const [deleteCouponById] = useDeleteCouponById();
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
   });
+  const [activeTab, setActiveTab] = useState('all');
+  const allCount = couponList?.pagination?.total;
+  const totalScanned = couponList?.pagination?.totalScanned;
+  const totalAvailable = couponList?.pagination?.totalAvailable;
+  const [lastFetched, setLastFetched] = useState({
+    pageIndex: -1,
+    pageSize: -1,
+  });
+
+  useEffect(() => {
+    if (
+      pagination.pageIndex === lastFetched.pageIndex &&
+      pagination.pageSize === lastFetched.pageSize &&
+      lastFetched.pageIndex !== -1
+    ) {
+      return;
+    }
+
+    const params: any = {
+      page: pagination.pageIndex + 1,
+      limit: pagination.pageSize,
+    };
+    console.log('activeTab', activeTab);
+    if (activeTab !== 'all') {
+      params.filter = activeTab == 'active' ? 'scanned' : activeTab == 'group' ? 'group' : 'available';
+    }
+
+    getCouponList(params);
+    setLastFetched({
+      pageIndex: pagination.pageIndex,
+      pageSize: pagination.pageSize,
+    });
+  }, [pagination.pageIndex, pagination.pageSize, activeTab]);
+  useEffect(() => {
+    let payload: any = {
+      page: 1,
+      limit: 10,
+    };
+    if (activeTab !== 'all') {
+      payload.filter = activeTab == 'active' ? 'scanned' : activeTab == 'group' ? 'group' : 'available';
+    }
+    getCouponList(payload);
+  }, [activeTab]);
+
+  console.log('data=========>', activeTab);
+
+
+
 
   const columns: ColumnDef<Coupon>[] = [
     {
@@ -118,89 +179,176 @@ export const CouponList = () => {
         </div>
       ),
       cell: ({ row }) => {
-        const createdBy = row.original.created_at;
+        const created_at = row.original.created_at;
         return (
           <div>
             <div className="text-xs text-muted-foreground">
-              {dateFormate(createdBy)}
+              {dateFormate(created_at)}
             </div>
           </div>
         );
       },
     },
+    ...(true
+      ? [{
+        accessorKey: 'couponCode',
+        header: 'Coupon Code',
+        cell: ({ getValue }) => {
+          const couponCode = getValue() as string;
+          return <span>{couponCode}</span>;
+        },
+      }]
+      : []),
 
     {
-      accessorKey: 'Coupon_code',
-      header: 'Coupon Code',
+      accessorKey: 'productName',
+      header: 'Product Name',
       cell: ({ getValue }) => {
-        const Coupon_code = getValue() as string;
-        return <span>{Coupon_code}</span>;
+        const productName = getValue() as string;
+        return <span>{productName}</span>;
       },
     },
+    ...(true
+      ?
+      [
+        {
+          accessorKey: 'couponCode',
+          header: 'Coupon Code',
+          cell: ({ getValue }) => {
+            const couponCode = getValue() as string;
+            return <span>{couponCode}</span>;
+          }
+        },
+
+      ] : []),
+    ...(
+      activeTab === 'active'
+        ? [{
+          accessorKey: 'useDate',
+          header: 'Use Date/Used By',
+          cell: ({ row }) => (
+            <div>
+              {row.original?.updatedAt ? dateFormate(row.original.updatedAt) : 'Not Used'}
+              {row.original?.user?.email ? ` / ${row.original.user.email}` : ''}
+            </div>
+          ),
+        }]
+        : []
+    ),
+    ...(
+      activeTab === 'active'
+        ? [{
+          accessorKey: 'email',
+          header: 'Email',
+          cell: ({ row }) => (
+            <div>
+              {row.original?.user?.email}
+            </div>
+          ),
+        }]
+        : []
+    ),
+    ...(
+      activeTab === 'active'
+        ? [{
+          accessorKey: 'points',
+          header: 'Points',
+          cell: ({ row }) => (
+            <div>
+              {row.original?.karigerPoints}
+            </div>
+          ),
+        }]
+        : []
+    ),
+    ...(
+      activeTab === 'active'
+        ? [{
+          accessorKey: 'state',
+          header: 'state',
+          cell: ({ row }) => (
+            <div>
+              {row.original?.user?.state}
+            </div>
+          ),
+        }]
+        : []
+    ),
+    ...(
+      activeTab === 'active'
+        ? [{
+          accessorKey: 'district',
+          header: 'District',
+          cell: ({ row }) => (
+            <div>
+              {row.original?.user?.city}
+            </div>
+          ),
+        }]
+        : []
+    ),
     {
-      accessorKey: 'user_type',
-      header: 'Type',
+      accessorKey: 'remark',
+      header: 'Remark',
       cell: ({ getValue }) => {
-        const user_type = getValue() as string;
-        return <span>{user_type}</span>;
+        const remark = getValue() as string;
+        return <span>{remark}</span>;
       },
     },
-    {
-      accessorKey: 'start_date',
-      header: 'Start Date',
-      cell: ({ getValue }) => {
-        const start_date = getValue() as string;
-        return <span>{dateFormate(start_date)}</span>;
-      },
-    },
-    {
-      accessorKey: 'end_date',
-      header: 'End Date',
-      cell: ({ getValue }) => {
-        const end_date = getValue() as string;
-        return <span>{dateFormate(end_date)}</span>;
-      },
-    },
+    ...(
+      activeTab === 'active'
+        ? [{
+          accessorKey: 'viewLocation',
+          header: 'View Location Map',
+          cell: ({ row }) => (
+            <div>
+              {row.original?.state}
+            </div>
+          ),
+        }]
+        : []
+    ),
+
+
+
 
     {
-      accessorKey: 'gifts',
-      header: 'Gift',
-      cell: ({ getValue }) => {
-        const gifts = getValue() as Array<string>;
-        return <span>{gifts?.length}</span>;
-      },
-    },
-    {
-      accessorKey: 'status',
-      header: 'Status',
+      accessorKey: 'actions',
+      header: 'Actions',
       cell: ({ row }) => {
-        const CouponStatus = row.original.CouponStatus; // boolean value
+        const id = row.original.id;
+
         return (
-          <div className="flex items-center space-x-2">
-            <Switch
-              id="status"
-              onCheckedChange={checked => {
-                updateCouponStatus({
-                  Coupon_id: row.original.id,
-                  CouponStatus: checked ? 1 : 0,
-                });
+          <div className="flex items-center space-x-3">
+            {/* Edit button */}
+            <button
+              onClick={() => { dispatch(couponEdit.setEdit({ data: row?.original })) }}
+              className="text-blue-600 hover:text-blue-800 transition-colors"
+            >
+              <PencilIcon className="w-5 h-5" />
+            </button>
+
+            {/* Delete button */}
+            <button
+              onClick={() => {
+                // handle delete logic here
+                deleteCouponById(id);
+                console.log('Delete gift', id);
               }}
-              checked={CouponStatus}
-              className={clsx(
-                'transition-colors',
-                CouponStatus ? 'bg-green-500' : 'bg-gray-300',
-              )}
-            />
-          </div>
+              className="text-red-600 hover:text-red-800 transition-colors"
+            >
+              <Trash2Icon className="w-5 h-5" />
+            </button>
+          </div >
         );
       },
-    },
+    }
   ];
 
   const table = useReactTable({
-    data: data?.data ?? [],
+    data: couponList?.data ?? [],
     columns,
-    pageCount: Math.ceil((data?.pagination?.total ?? 0) / pagination.pageSize),
+    pageCount: Math.ceil((couponList?.pagination?.total ?? 0) / pagination.pageSize),
     manualPagination: true, // <-- important
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
@@ -211,51 +359,7 @@ export const CouponList = () => {
     onPaginationChange: setPagination,
   });
 
-  const [activeTab, setActiveTab] = useState('all');
-  const allCount = data?.pagination.total;
-  const activeCount = data?.pagination.totalActive;
-  const inactiveCount = data?.pagination.totalInactive;
-  const [lastFetched, setLastFetched] = useState({
-    pageIndex: -1,
-    pageSize: -1,
-  });
 
-  useEffect(() => {
-    if (
-      pagination.pageIndex === lastFetched.pageIndex &&
-      pagination.pageSize === lastFetched.pageSize &&
-      lastFetched.pageIndex !== -1
-    ) {
-      return;
-    }
-
-    const params: any = {
-      page: pagination.pageIndex + 1,
-      limit: pagination.pageSize,
-    };
-
-    if (activeTab !== 'all') {
-      params.CouponStatus = activeTab == 'active' ? 1 : 0;
-    }
-
-    getCoupon(params);
-    setLastFetched({
-      pageIndex: pagination.pageIndex,
-      pageSize: pagination.pageSize,
-    });
-  }, [pagination.pageIndex, pagination.pageSize, activeTab]);
-  useEffect(() => {
-    let payload: any = {
-      page: 1,
-      limit: 10,
-    };
-    if (activeTab !== 'all') {
-      payload.CouponStatus = activeTab == 'active' ? 1 : 0;
-    }
-    getCoupon(payload);
-  }, [activeTab]);
-
-  console.log('data=========>', activeTab);
 
   return (
     <div className="w-full space-y-4">
@@ -264,8 +368,8 @@ export const CouponList = () => {
           activeTab={activeTab}
           setActiveTab={setActiveTab}
           allCount={allCount}
-          activeCount={activeCount}
-          inactiveCount={inactiveCount}
+          totalScanned={totalScanned}
+          totalAvailable={totalAvailable}
         />{' '}
         {/* <CouponFilters /> */}
         <GlobalPagination
@@ -273,7 +377,7 @@ export const CouponList = () => {
           pagination={pagination}
           setPagination={setPagination}
           onRefresh={() => {
-            getCoupon({
+            getCouponList({
               page: pagination.pageIndex + 1,
               limit: pagination.pageSize,
             });

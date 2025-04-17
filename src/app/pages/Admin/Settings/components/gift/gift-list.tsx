@@ -54,6 +54,8 @@ import clsx from 'clsx';
 import { dateFormate } from 'utils/dateformate';
 import { useAdminSlice } from 'app/pages/Admin/slice';
 import { settingConfig } from 'utils/settingConfig';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectAdminEditGift } from 'app/pages/Admin/slice/selectors';
 
 // Define the data type for our offers
 type Offer = {
@@ -75,12 +77,56 @@ export const GiftList = () => {
   const [dateFilter, setDateFilter] = useState<Date | undefined>(undefined);
 
   const { useGetGiftGalleryLazyQuery, } = useAdminSlice();
+  const dispatch = useDispatch();
   const [getGiftList, { data, isError, isSuccess }] = useGetGiftGalleryLazyQuery();
   // const [updategiftStatus] = ();
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
   });
+  const [activeTab, setActiveTab] = useState('all');
+  const [lastFetched, setLastFetched] = useState({
+    pageIndex: -1,
+    pageSize: -1,
+  });
+
+  useEffect(() => {
+    if (
+      pagination.pageIndex === lastFetched.pageIndex &&
+      pagination.pageSize === lastFetched.pageSize &&
+      lastFetched.pageIndex !== -1
+    ) {
+      return;
+    }
+
+    const params: any = {
+      page: pagination.pageIndex + 1,
+      limit: pagination.pageSize,
+    };
+
+    if (activeTab !== 'all') {
+      params.giftStatus = activeTab == 'active' ? 1 : 0;
+    }
+
+    getGiftList(params);
+    setLastFetched({
+      pageIndex: pagination.pageIndex,
+      pageSize: pagination.pageSize,
+    });
+  }, [pagination.pageIndex, pagination.pageSize, activeTab]);
+  useEffect(() => {
+    let payload: any = {
+      page: 1,
+      limit: 10,
+    };
+    if (activeTab !== 'all') {
+      payload.giftStatus = activeTab == 'active' ? 1 : 0;
+    }
+    getGiftList(payload);
+  }, [activeTab]);
+
+
+  const { actions: addTeamMember } = useAdminSlice();
 
   const columns: ColumnDef<Offer>[] = [
     {
@@ -179,11 +225,11 @@ export const GiftList = () => {
     },
 
     {
-      accessorKey: 'specification',
+      accessorKey: 'specifications',
       header: 'Specification',
       cell: ({ getValue }) => {
-        const specification = getValue() as Array<string>;
-        return <span>{specification}</span>;
+        const specifications = getValue() as string;
+        return <span>{specifications}</span>;
       },
     },
     {
@@ -197,8 +243,7 @@ export const GiftList = () => {
             {/* Edit button */}
             <button
               onClick={() => {
-                // handle edit logic here, e.g., open modal or navigate
-                console.log('Edit gift', giftId);
+                dispatch(addTeamMember.setEditGift({ data: row.original }));
               }}
               className="text-blue-600 hover:text-blue-800 transition-colors"
             >
@@ -234,49 +279,6 @@ export const GiftList = () => {
     },
     onPaginationChange: setPagination,
   });
-
-  const [activeTab, setActiveTab] = useState('all');
-  const [lastFetched, setLastFetched] = useState({
-    pageIndex: -1,
-    pageSize: -1,
-  });
-
-  useEffect(() => {
-    if (
-      pagination.pageIndex === lastFetched.pageIndex &&
-      pagination.pageSize === lastFetched.pageSize &&
-      lastFetched.pageIndex !== -1
-    ) {
-      return;
-    }
-
-    const params: any = {
-      page: pagination.pageIndex + 1,
-      limit: pagination.pageSize,
-    };
-
-    if (activeTab !== 'all') {
-      params.giftStatus = activeTab == 'active' ? 1 : 0;
-    }
-
-    getGiftList(params);
-    setLastFetched({
-      pageIndex: pagination.pageIndex,
-      pageSize: pagination.pageSize,
-    });
-  }, [pagination.pageIndex, pagination.pageSize, activeTab]);
-  useEffect(() => {
-    let payload: any = {
-      page: 1,
-      limit: 10,
-    };
-    if (activeTab !== 'all') {
-      payload.giftStatus = activeTab == 'active' ? 1 : 0;
-    }
-    getGiftList(payload);
-  }, [activeTab]);
-
-  console.log('data=========>', activeTab);
 
   return (
     <div className="w-full space-y-4">

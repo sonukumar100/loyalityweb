@@ -3,91 +3,79 @@ import { createSlice } from 'utils/@reduxjs/toolkit';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 // import { loginSaga } from './saga';
-import { couponState } from './types';
+import { CouponEdit } from './types';
 import { endpoints, formatErrors, baseQuery } from 'utils/api/endpoints';
 import { use } from 'i18next';
 import { get } from 'http';
 import { up } from 'inquirer/lib/utils/readline';
 // import { Login } from 'types/Login';
-export const initialState: couponState = {
-  loading: false,
-  error: null,
-  Coupon: null,
+export const initialState: CouponEdit = {
+  edit: null,
 };
 
-// export const slice = createSlice({
-//   name: 'login',
-//   initialState,
-//   reducers: {
-//     doLogin(state, action: PayloadAction<any>) {
-//       state.loading = true;
-//     },
-//     loginSuccess(state, action: PayloadAction<any>) {
-//       state.loading = false;
-//       state.user = action.payload.user;
-//       state.isLoggedIn = true;
-//     },
-//     loginError(state, action: PayloadAction<any>) {
-//       state.loading = false;
-//       state.error = action.payload.error;
-//     },
-//   },
-// });
-// export const { actions: loginActions } = slice;
+export const slice = createSlice({
+  name: 'couponEdit',
+  initialState,
+  reducers: {
+    setEdit(state, action: PayloadAction<any>) {
+      state.edit = action.payload.data;
+    },
+  },
+});
 
 export const api = createApi({
   reducerPath: 'CouponApi',
   baseQuery,
-  tagTypes: ['AddCoupon', 'UpdateCoupon'],
+  tagTypes: ['GenerateCoupon', 'UpdateCoupon', 'DeleteCoupon', 'UpdateCoupon'],
   endpoints: build => ({
-    addCoupon: build.mutation<any, any>({
+    generateCoupon: build.mutation<any, any>({
       query: (body: FormData) => ({
-        ...endpoints.addCoupon,
+        ...endpoints.generateCoupon,
         body,
       }),
       transformErrorResponse(baseQueryReturnValue, meta, arg) {
         return formatErrors(baseQueryReturnValue.data);
       },
-      invalidatesTags: ['AddCoupon'],
+      invalidatesTags: ['GenerateCoupon'],
     }),
     // lazay
 
-    getCoupon: build.query<any, any>({
+    getCouponList: build.query<any, any>({
       query: params => {
         return {
-          ...endpoints.getCoupon,
+          ...endpoints.getCouponList,
           params,
         };
       },
       transformErrorResponse(baseQueryReturnValue, meta, arg) {
         return formatErrors(baseQueryReturnValue?.data);
       },
-      providesTags: ['AddCoupon', 'UpdateCoupon'],
+      providesTags: ['GenerateCoupon', 'UpdateCoupon', 'DeleteCoupon', 'UpdateCoupon'],
     }),
-
-    getCouponById: build.query<any, any>({
-      query: (body: FormData) => ({
-        ...endpoints.getCouponById,
-        body,
+    deleteCouponById: build.mutation<any, any>({
+      query: id => ({
+        url: `${endpoints.deleteCouponById.url}/${id}`,
+        method: endpoints.deleteCouponById.method,
       }),
       transformErrorResponse(baseQueryReturnValue, meta, arg) {
         return formatErrors(baseQueryReturnValue.data);
       },
-      // invalidatesTags: ['Coupon'],
+      invalidatesTags: ['DeleteCoupon'], // ✅ Add this line
     }),
+    // updateCoupon: build.mutation<any, any>({
+    //   query: (payload) => ({
+    //     url: `${endpoints.updateCoupon.url}/${payload.id}`,
+    //     method: endpoints.updateCoupon.method,
+    //     body: payload,
+    //   }),
+    //   transformErrorResponse(baseQueryReturnValue, meta, arg) {
+    //     return formatErrors(baseQueryReturnValue.data);
+    //   },
+    //   invalidatesTags: ['UpdateCoupon'], // ✅ Add this line
+    // }),
     updateCoupon: build.mutation<any, any>({
-      query: (body: FormData) => ({
+      query: (body) => ({
         ...endpoints.updateCoupon,
-        body,
-      }),
-      transformErrorResponse(baseQueryReturnValue, meta, arg) {
-        return formatErrors(baseQueryReturnValue.data);
-      },
-      // invalidatesTags: ['UpdateCoupon'],
-    }),
-    updateCouponStatus: build.mutation<any, any>({
-      query: body => ({
-        ...endpoints.updateCouponStatus,
         body,
       }),
       transformErrorResponse(baseQueryReturnValue, meta, arg) {
@@ -95,39 +83,30 @@ export const api = createApi({
       },
       invalidatesTags: ['UpdateCoupon'],
     }),
-    deleteCoupon: build.mutation<any, any>({
-      query: (body: FormData) => ({
-        ...endpoints.deleteCoupon,
-        body,
-      }),
-      transformErrorResponse(baseQueryReturnValue, meta, arg) {
-        return formatErrors(baseQueryReturnValue.data);
-      },
-      // invalidatesTags: ['Coupon'],
-    }),
 
-    // addCoupon: build.mutation<any, any>({
-    //   query: body => {
-    //     return {
-    //       ...endpoints.addCoupon,
-    //       body,
-    //     };
-    //   }
-    //   ,
+    // deleteCouponById: build.mutation<any, any>({
+    //   query: (body) => ({
+    //     ...endpoints.deleteCouponById,
+    //     body,
+    //   }),
     //   transformErrorResponse(baseQueryReturnValue, meta, arg) {
     //     return formatErrors(baseQueryReturnValue.data);
     //   },
-    //   // invalidatesTags: ['Coupon'],
+    //   invalidatesTags: ['DeleteCoupon'],
     // }),
   }),
 });
 
 export const useCouponSlice = () => {
   useInjectReducer({ key: api.reducerPath, reducer: api.reducer });
+  useInjectReducer({ key: slice.reducerPath, reducer: slice.reducer });
+
   return {
-    useAddCouponMutation: api.useAddCouponMutation,
-    useLazyGetCouponQuery: api.useLazyGetCouponQuery,
-    useUpdateCouponStatus: api.useUpdateCouponStatusMutation,
+    actions: slice.actions,
+    useGenerateCoupon: api.useGenerateCouponMutation,
+    useLazyGetCouponListQuery: api.useLazyGetCouponListQuery,
+    useDeleteCouponById: api.useDeleteCouponByIdMutation,
+    useUpdateCoupon: api.useUpdateCouponMutation,
   };
   // useInjectSaga({ key: slice.reducerPath, saga: loginSaga });
   // return { actions: slice.actions };

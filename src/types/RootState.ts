@@ -3,6 +3,7 @@ import { GlobalState } from 'app//slice/types';
 import { AddTeamMemberState } from 'app/pages/Admin/slice/types';
 import { Edit } from './edit';
 import { LeadEdit } from 'app/pages/User/AddContacts/slice/types';
+import { CouponEdit } from 'app/pages/Coupon/slice/types';
 // import { State } from 'app/pages\User\AddContact/slice/types';
 // [IMPORT NEW CONTAINERSTATE ABOVE] < Needed for generating containers seamlessly
 
@@ -27,5 +28,7 @@ export interface RootState {
   recruitsEdit: any;
   addNotes: any;
   noteList: any;
+  couponEdit: any;
+
   // [INSERT NEW REDUCER KEY ABOVE] < Needed for generating containers seamlessly
 }

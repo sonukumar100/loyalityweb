@@ -1,4 +1,5 @@
 export interface AddTeamMemberState {
-  edit: any
+  edit: any;
+  editGift: any;
 
 }

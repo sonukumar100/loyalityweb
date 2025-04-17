@@ -155,6 +155,10 @@ export const endpoints = {
     url: `/admins/add-gift-gallery`,
     method: HTTP_METHODS.POST,
   },
+  updateGiftGallery: {
+    url: `/admins/update-gift-gallery`,
+    method: HTTP_METHODS.POST,
+  },
   deleteGiftGallery: {
     url: `/admins/delete-gift-gallery`,
     method: HTTP_METHODS.DELETE,
@@ -162,6 +166,22 @@ export const endpoints = {
   getGiftGallery: {
     url: `/admins/gift-gallery-list`,
     method: HTTP_METHODS.GET,
+  },
+  generateCoupon: {
+    url: `/admins/generate-coupon`,
+    method: HTTP_METHODS.POST,
+  },
+  getCouponList: {
+    url: `/admins/coupon/list`,
+    method: HTTP_METHODS.GET,
+  },
+  deleteCouponById: {
+    url: `/admins/delete-coupon`,
+    method: HTTP_METHODS.DELETE,
+  },
+  updateCoupon: {
+    url: `/admins/update-coupon`,
+    method: HTTP_METHODS.PUT,
   },
 
   addTeamMember: {

@@ -8,6 +8,7 @@ import { endpoints, formatErrors, baseQuery } from 'utils/api/endpoints';
 import { use } from 'i18next';
 export const initialState: AddTeamMemberState = {
   edit: null,
+  editGift: null,
 };
 
 const slice = createSlice({
@@ -16,6 +17,9 @@ const slice = createSlice({
   reducers: {
     setEdit(state, action: PayloadAction<any>) {
       state.edit = action.payload.data;
+    },
+    setEditGift(state, action: PayloadAction<any>) {
+      state.editGift = action.payload.data;
     },
   },
 });
@@ -43,34 +47,32 @@ export const api = createApi({
     'Role',
     'Location',
     'Status',
-    'AddPoints',
+    'AddBrandPoints',
     'AddCatalog',
     'AddGiftGallery',
+    'UpdateGiftGallery'
   ],
-  endpoints: build => ({
+  endpoints: (build) => ({
     addBrandPoints: build.mutation<any, any>({
-      query: body => {
-        return {
-          ...endpoints.addBrandPoints,
-          body,
-        };
-      },
+      query: (body) => ({
+        ...endpoints.addBrandPoints,
+        body,
+      }),
       transformErrorResponse(baseQueryReturnValue, meta, arg) {
         return formatErrors(baseQueryReturnValue?.data);
       },
-      invalidatesTags: ['AddPoints'],
+      invalidatesTags: ['AddBrandPoints'], // This should invalidate cache
     }),
+
     getBrandPoints: build.query<any, any>({
-      query: params => {
-        return {
-          ...endpoints.getBrandPoints,
-          params,
-        };
-      },
+      query: (params) => ({
+        ...endpoints.getBrandPoints,
+        params,
+      }),
       transformErrorResponse(baseQueryReturnValue, meta, arg) {
         return formatErrors(baseQueryReturnValue?.data);
       },
-      providesTags: ['AddPoints'],
+      providesTags: ['AddBrandPoints'], // This marks data as belonging to this tag
     }),
     addDailyLimit: build.mutation<any, any>({
       query: body => {
@@ -173,6 +175,7 @@ export const api = createApi({
       transformErrorResponse(baseQueryReturnValue, meta, arg) {
         return formatErrors(baseQueryReturnValue?.data);
       },
+      providesTags: ['AddGiftGallery', 'UpdateGiftGallery'],
     }),
     deleteGiftGallery: build.mutation<any, any>({
       query: id => ({
@@ -201,6 +204,18 @@ export const api = createApi({
         return formatErrors(baseQueryReturnValue?.data);
       },
       invalidatesTags: ['Admin'],
+    }),
+    updateGiftGallery: build.mutation<any, any>({
+      query: body => {
+        return {
+          ...endpoints.updateGiftGallery,
+          body,
+        };
+      },
+      transformErrorResponse(baseQueryReturnValue, meta, arg) {
+        return formatErrors(baseQueryReturnValue?.data);
+      },
+      invalidatesTags: ['UpdateGiftGallery'],
     }),
     updateTeamMember: build.mutation<any, any>({
       query: body => {
@@ -305,6 +320,7 @@ export const useAdminSlice = () => {
     useAddGiftGalleryMutation: api.useAddGiftGalleryMutation,
     useGetGiftGalleryLazyQuery: api.useLazyGetGiftGalleryQuery,
     useDeleteGiftGalleryMutation: api.useDeleteGiftGalleryMutation,
+    useUpdateGiftGalleryMutation: api.useUpdateGiftGalleryMutation,
   };
   // useInjectSaga({ key: slice.reducerPath, saga: loginSaga });
   // return { actions: slice.actions };

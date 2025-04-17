@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 
 const menuItems = [
   { label: 'Digital Catalog', path: '/admin/settings/digital-catalog' },
-  { label: 'Brand Point Master', path: '/admin/settings/daily-coupon-access' },
+  { label: 'Daily Coupon Access Limit', path: '/admin/settings/daily-coupon-access' },
   { label: 'Videos', path: '/admin/settings/videos' },
   { label: 'Brand Points Product', path: '/admin/settings/product-points' },
   { label: 'gifts', path: '/admin/settings/gifts' },
@@ -35,10 +35,9 @@ const Sidebar = () => {
               key={item.path}
               to={item.path}
               className={`group relative flex items-center px-5 py-3 rounded-xl font-semibold text-md transition-all duration-300 ease-in-out overflow-hidden
-                ${
-                  isActive
-                    ? 'bg-gradient-to-r from-[#0000ff] to-[#4f46e5] text-white shadow-xl'
-                    : 'bg-white text-blue-900 hover:text-white hover:shadow-lg'
+                ${isActive
+                  ? 'bg-gradient-to-r from-[#0000ff] to-[#4f46e5] text-white shadow-xl'
+                  : 'bg-white text-blue-900 hover:text-white hover:shadow-lg'
                 }`}
             >
               {/* Animated background on hover */}
@@ -50,11 +49,10 @@ const Sidebar = () => {
               {/* Left border indicator */}
               <span
                 className={`absolute left-0 h-full w-1 rounded-r bg-[#0000ff] transition-all duration-300 z-10 
-                ${
-                  isActive
+                ${isActive
                     ? 'opacity-100 '
                     : 'opacity-0 group-hover:opacity-60 '
-                }
+                  }
               `}
               ></span>
 
@@ -66,11 +64,10 @@ const Sidebar = () => {
               {/* Arrow */}
               <span
                 className={`ml-2 text-lg relative z-10 transition-transform duration-300
-                ${
-                  isActive
+                ${isActive
                     ? 'translate-x-0 opacity-100'
                     : 'translate-x-2 opacity-0 group-hover:opacity-60'
-                }
+                  }
               `}
               >
                 ➤

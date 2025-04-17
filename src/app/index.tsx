@@ -41,6 +41,7 @@ import DigitalCatalog from './pages/Admin/Settings/components/digitalCatalog/cat
 import { OfferList } from './pages/Offer';
 import { GiftIndex } from './pages/Admin/Settings/components/gift/gift-index';
 import { CouponList } from './pages/Coupon';
+import { Toaster } from './components/ui/toaster';
 // import { useGlobalSlice } from 'app/slice';
 
 export function App() {
@@ -99,6 +100,8 @@ export function App() {
         <Route path="/login" element={<Login />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
+      <Toaster />
+
       {/* <GlobalStyle /> */}
     </BrowserRouter>
   );

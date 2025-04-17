@@ -48,18 +48,17 @@ export default function PointsForm() {
             payload.id = pointsEditData.id;
         }
         addPoint(payload);
-        console.log('Form Data:', data);
     };
     useEffect(() => {
         if (error) {
+            toast({ description: 'Something Went wrong', variant: 'sucsess' });
 
         } else if (isSuccess) {
-            toast({
-                title: 'Brand Point',
-                description: 'Brand Point add successfully',
-                duration: 2000,
-                variant: 'success',
-            });
+            if (pointsEditData) {
+                toast({ description: 'Brand  updated successfully', variant: 'sucsess' });
+            } else {
+                toast({ description: 'Brand Point added successfully', variant: 'sucsess' });
+            }
             dispatch(addTeamMember.setEdit({ data: null }));
             setOpen(false);
 
@@ -69,51 +68,25 @@ export default function PointsForm() {
         if (pointsEditData) {
             reset({ brandName: pointsEditData.productName, karigarPoints: pointsEditData.karigerPoints, dealerPoints: pointsEditData.dealerPoints, id: pointsEditData.id }); // Patches data to the form
             setOpen(true);
-
+        } else {
+            reset({ brandName: '', karigarPoints: '', dealerPoints: '' });
         }
     }, [pointsEditData]);
     const dispatch = useDispatch();
-    const { actions: addTeamMember } = useAdminSlice();
-    console.log('pointsEditData', pointsEditData);
-
-
-
-
+    const { actions: addTeamMember } = useAdminSlice()
     return (
         <Sheet aria-describedby={false} open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
-                <Button
-                    variant="blueBtn"
-                    className="font-poppins font-base font-normal rounded-full text-base py-5 px-8  hover:to-blue-700 absolute -bottom-[0px] right-[30px]"
-                >
-                    Add{' '}
-                    <span className="ml-2">
-                        {' '}
-                        <Plus className="w-7" />
+                <Button onClick={() => dispatch(addTeamMember.setEdit({ data: null }))} className="font-poppins font-base font-normal rounded-full text-base absolute -bottom-0 right-[30px] flex items-center gap-2 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 text-white">
+                    <span className="rounded-full text-white bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 transition-all duration-300 p-[15px_15px]">
+                        <Plus />
                     </span>
                 </Button>
             </SheetTrigger>
 
             <SheetContent
                 className="w-[350px]" onInteractOutside={e => e.preventDefault()}
-            // className={`${editSelector ||
-            //     agentEditSelector ||
-            //     builderEditSelector ||
-            //     recruitEditSelector
-            //     ? 'invisible'
-            //     : 'bg-[#ffffff82]'
-            //     } backdrop-blur-[2.5rem]`}
             >
-                {/* <span
-                    className={
-                        editSelector ||
-                            agentEditSelector ||
-                            builderEditSelector ||
-                            recruitEditSelector
-                            ? 'invisible'
-                            : 'visible'
-                    }
-                > */}
                 <SheetHeader>
                     <SheetTitle>
                         <SheetClose asChild>
@@ -135,7 +108,7 @@ export default function PointsForm() {
                     </SheetTitle>
                 </SheetHeader>
                 <div className=" mx-auto mt-10 p-6 bg-white shadow-2xl rounded-2xl">
-                    <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">Points Entry</h2>
+                    {/* <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">Points Entry</h2> */}
 
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
                         {/* Brand Name */}

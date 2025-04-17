@@ -36,6 +36,7 @@ import { useOfferSlice } from './slice';
 import { useAdminSlice } from '../Admin/slice';
 import { settingConfig } from 'utils/settingConfig';
 import { use } from 'i18next';
+import { Icons } from 'app/components/ui/icons';
 
 type OptionType = {
     value: string;
@@ -430,10 +431,15 @@ export default function OfferForm() {
                         )}
 
                         <Button
+                            variant="destructive"
                             type="submit"
+                            disabled={isLoading}
                             className="w-full text-white py-3 text-lg rounded-xl   text-white bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 transition-all duration-300"
                         >
-                            Submit Offer
+                            {isLoading && (
+                                <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
+                            )}
+                            Save
                         </Button>
                     </form>
                 </div>

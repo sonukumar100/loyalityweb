@@ -164,12 +164,6 @@ export const BrandPoints = memo((props: Props) => {
             enableHiding: false,
         },
     ];
-
-
-
-
-
-
     const [
         deleteBrandById,
         {
@@ -181,12 +175,7 @@ export const BrandPoints = memo((props: Props) => {
     ] = useDeleteBrandMutation();
     React.useEffect(() => {
         if (isDeleteSuccess) {
-            toast({
-                title: 'Brand Point Deleted',
-                description: 'Brand Point deleted successfully',
-                duration: 2000,
-                variant: 'success',
-            });
+            toast({ description: 'Brand Point Deleted successfully', variant: 'sucsess' });
             brandPointsList(payload);
         }
     }, [isDeleteSuccess]);

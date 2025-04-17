@@ -4,17 +4,17 @@ import { Tabs, TabsList, TabsTrigger } from 'app/components/ui/tabs';
 type CouponTabsProps = {
   activeTab: string;
   setActiveTab: (value: string) => void;
-  allCount: number;
-  activeCount: number;
-  inactiveCount: number;
+  allCount: string;
+  totalScanned: string;
+  totalAvailable: string;
 };
 
 export const CouponTabs = ({
   activeTab,
   setActiveTab,
   allCount,
-  activeCount,
-  inactiveCount,
+  totalScanned,
+  totalAvailable,
 }: CouponTabsProps) => (
   <Tabs
     defaultValue="all"
@@ -35,18 +35,18 @@ export const CouponTabs = ({
         value="active"
         className="data-[state=active]:bg-white data-[state=active]:text-black rounded-md px-4 py-2"
       >
-        Active{' '}
+        Scanned by User{' '}
         <Badge variant="outline" className="ml-1">
-          {activeCount}
+          {totalScanned}
         </Badge>
       </TabsTrigger>
       <TabsTrigger
-        value="inactive"
+        value="group"
         className="data-[state=active]:bg-white data-[state=active]:text-black rounded-md px-4 py-2"
       >
-        Deactive{' '}
+        Code Summery{' '}
         <Badge variant="outline" className="ml-1">
-          {inactiveCount}
+          {totalAvailable}
         </Badge>
       </TabsTrigger>
     </TabsList>
