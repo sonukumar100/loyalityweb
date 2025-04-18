@@ -150,7 +150,7 @@ export default function OfferForm() {
                 giftTitle: g.label,
                 id: g.value.toString(),
             })) ?? [];
-        formData.append('gift', JSON.stringify(giftMap));
+        formData.append('gifts', JSON.stringify(giftMap));
 
         const file = data.offerImage?.[0];
         if (file) {

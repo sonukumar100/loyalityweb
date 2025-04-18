@@ -62,6 +62,7 @@ import { Switch } from 'app/components/ui/switch';
 import { Label } from '@radix-ui/react-label';
 import clsx from 'clsx';
 import { dateFormate } from 'utils/dateformate';
+import { toast } from 'app/components/ui/use-toast';
 
 // Define the data type for our offers
 type Offer = {
@@ -84,12 +85,64 @@ export const OfferList = () => {
 
   const { useLazyGetOfferQuery, useUpdateOfferStatus } = useOfferSlice();
   const [getOffer, { data, isError, isSuccess }] = useLazyGetOfferQuery();
-  const [updateOfferStatus] = useUpdateOfferStatus();
+  const [updateOfferStatus, { isSuccess: isOfferSuccess }] = useUpdateOfferStatus();
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
   });
 
+  const [activeTab, setActiveTab] = useState('all');
+  const allCount = data?.pagination.total;
+  const activeCount = data?.pagination.totalActive;
+  const inactiveCount = data?.pagination.totalInactive;
+  const [lastFetched, setLastFetched] = useState({
+    pageIndex: -1,
+    pageSize: -1,
+  });
+
+  useEffect(() => {
+    if (
+      pagination.pageIndex === lastFetched.pageIndex &&
+      pagination.pageSize === lastFetched.pageSize &&
+      lastFetched.pageIndex !== -1
+    ) {
+      return;
+    }
+
+    const params: any = {
+      page: pagination.pageIndex + 1,
+      limit: pagination.pageSize,
+    };
+
+    if (activeTab !== 'all') {
+      params.offerStatus = activeTab == 'active' ? 1 : 0;
+    }
+
+    getOffer(params);
+    setLastFetched({
+      pageIndex: pagination.pageIndex,
+      pageSize: pagination.pageSize,
+    });
+  }, [pagination.pageIndex, pagination.pageSize, activeTab]);
+  useEffect(() => {
+    let payload: any = {
+      page: 1,
+      limit: 10,
+    };
+    if (activeTab !== 'all') {
+      payload.offerStatus = activeTab == 'active' ? 1 : 0;
+    }
+    getOffer(payload);
+  }, [activeTab]);
+  useEffect(() => {
+    if (isOfferSuccess) {
+      toast({
+        title: 'Success',
+        description: 'Offer status updated successfully',
+        variant: 'sucsess',
+      });
+    }
+  }, [isOfferSuccess]);
   const columns: ColumnDef<Offer>[] = [
     {
       accessorKey: 'created_at',
@@ -210,53 +263,6 @@ export const OfferList = () => {
     },
     onPaginationChange: setPagination,
   });
-
-  const [activeTab, setActiveTab] = useState('all');
-  const allCount = data?.pagination.total;
-  const activeCount = data?.pagination.totalActive;
-  const inactiveCount = data?.pagination.totalInactive;
-  const [lastFetched, setLastFetched] = useState({
-    pageIndex: -1,
-    pageSize: -1,
-  });
-
-  useEffect(() => {
-    if (
-      pagination.pageIndex === lastFetched.pageIndex &&
-      pagination.pageSize === lastFetched.pageSize &&
-      lastFetched.pageIndex !== -1
-    ) {
-      return;
-    }
-
-    const params: any = {
-      page: pagination.pageIndex + 1,
-      limit: pagination.pageSize,
-    };
-
-    if (activeTab !== 'all') {
-      params.offerStatus = activeTab == 'active' ? 1 : 0;
-    }
-
-    getOffer(params);
-    setLastFetched({
-      pageIndex: pagination.pageIndex,
-      pageSize: pagination.pageSize,
-    });
-  }, [pagination.pageIndex, pagination.pageSize, activeTab]);
-  useEffect(() => {
-    let payload: any = {
-      page: 1,
-      limit: 10,
-    };
-    if (activeTab !== 'all') {
-      payload.offerStatus = activeTab == 'active' ? 1 : 0;
-    }
-    getOffer(payload);
-  }, [activeTab]);
-
-  console.log('data=========>', activeTab);
-
   return (
     <div className="w-full space-y-4">
       <div className="flex justify-between items-center">

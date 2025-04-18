@@ -56,6 +56,7 @@ import { useAdminSlice } from 'app/pages/Admin/slice';
 import { settingConfig } from 'utils/settingConfig';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAdminEditGift } from 'app/pages/Admin/slice/selectors';
+import { toast } from 'app/components/ui/use-toast';
 
 // Define the data type for our offers
 type Offer = {
@@ -76,9 +77,11 @@ type Offer = {
 export const GiftList = () => {
   const [dateFilter, setDateFilter] = useState<Date | undefined>(undefined);
 
-  const { useGetGiftGalleryLazyQuery, } = useAdminSlice();
+  const { useGetGiftGalleryLazyQuery, useDeleteGiftGalleryMutation } = useAdminSlice();
   const dispatch = useDispatch();
   const [getGiftList, { data, isError, isSuccess }] = useGetGiftGalleryLazyQuery();
+  const [deleteGift, { isError: isDeleteGiftError, isSuccess: isDeleteGiftSuccess }] = useDeleteGiftGalleryMutation();
+
   // const [updategiftStatus] = ();
   const [pagination, setPagination] = useState({
     pageIndex: 0,
@@ -124,6 +127,16 @@ export const GiftList = () => {
     }
     getGiftList(payload);
   }, [activeTab]);
+  useEffect(() => {
+    if (isDeleteGiftSuccess) {
+      toast({
+        title: 'Success',
+        description: 'Gift deleted successfully',
+        variant: 'sucsess',
+      });
+    }
+  }, [isDeleteGiftSuccess]);
+
 
 
   const { actions: addTeamMember } = useAdminSlice();
@@ -176,16 +189,6 @@ export const GiftList = () => {
       },
     },
 
-    // {
-    //   accessorKey: 'giftType',
-    //   header: 'Type',
-    //   cell: ({ row }) => (
-    //     <div
-    //     >
-    //       {settingConfig.getSetting('giftType', row?.original?.giftType) || '_'}
-    //     </div>
-    //   ),
-    // },
     {
       accessorKey: 'giftType',
       header: 'Gift Type',
@@ -253,8 +256,7 @@ export const GiftList = () => {
             {/* Delete button */}
             <button
               onClick={() => {
-                // handle delete logic here
-                console.log('Delete gift', giftId);
+                deleteGift(giftId)
               }}
               className="text-red-600 hover:text-red-800 transition-colors"
             >

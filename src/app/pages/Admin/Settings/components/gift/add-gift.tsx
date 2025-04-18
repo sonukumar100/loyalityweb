@@ -142,7 +142,10 @@ export default function GiftForm() {
           <SheetTitle>
             <SheetClose asChild>
               <div
-                onClick={() => setOpen(false)}
+                onClick={() => {
+                  dispatch(addTeamMember.setEditGift({ data: null }));
+                  setOpen(false);
+                }}
                 className="flex items-center mb-8 mt-4 cursor-pointer"
               >
                 <div>

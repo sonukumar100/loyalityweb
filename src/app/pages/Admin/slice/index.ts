@@ -50,7 +50,8 @@ export const api = createApi({
     'AddBrandPoints',
     'AddCatalog',
     'AddGiftGallery',
-    'UpdateGiftGallery'
+    'UpdateGiftGallery',
+    'DeleteGiftGallery',
   ],
   endpoints: (build) => ({
     addBrandPoints: build.mutation<any, any>({
@@ -175,7 +176,7 @@ export const api = createApi({
       transformErrorResponse(baseQueryReturnValue, meta, arg) {
         return formatErrors(baseQueryReturnValue?.data);
       },
-      providesTags: ['AddGiftGallery', 'UpdateGiftGallery'],
+      providesTags: ['AddGiftGallery', 'UpdateGiftGallery', 'DeleteGiftGallery'],
     }),
     deleteGiftGallery: build.mutation<any, any>({
       query: id => ({
@@ -185,6 +186,7 @@ export const api = createApi({
       transformErrorResponse(baseQueryReturnValue, meta, arg) {
         return formatErrors(baseQueryReturnValue.data);
       },
+      invalidatesTags: ['DeleteGiftGallery'],
     }),
 
     uploadFile: build.mutation<any, any>({
