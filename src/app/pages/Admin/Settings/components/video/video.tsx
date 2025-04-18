@@ -13,11 +13,11 @@ const Video: React.FC = () => {
     console.log("Video Data", data);
     return (
         <>
-            <div className="flex flex-wrap   justify-center">
+            <div className="flex flex-wrap w-[100px]   justify-center">
                 {data?.map((item: any, index: number) => (
                     <div
                         key={index}
-                        className="w-full sm:w-1/4 md:w-1/1 aspect-video"
+                        className="w-full"
                     >
                         <iframe
                             width="100%"

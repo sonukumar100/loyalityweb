@@ -5,7 +5,8 @@
  */
 import { Button } from 'app/components/ui/button';
 import React, { memo, useEffect } from 'react';
-import { ContactNavigationTabs } from '../../components/contact-tabs';
+import { ContactNavigationTabs } from '../../components/contact-tab';
+
 import {
     ColumnDef,
     ColumnFiltersState,
@@ -26,8 +27,6 @@ import { useToast } from 'app/components/ui/use-toast';
 import useDebounce from 'utils/hooks/debounce-hook';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from 'app/slice/selectors';
-import { formatToUSD } from 'utils/formatAmount';
-import { useAgentSlice } from '../../AgentsContact/agentSlice';
 import BrandPointsTable from './brand-points-table';
 import { useAdminSlice } from '../../slice';
 import { Input } from 'app/components/ui/input';

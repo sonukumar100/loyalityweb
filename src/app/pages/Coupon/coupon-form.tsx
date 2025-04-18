@@ -58,8 +58,14 @@ type FormData = {
     product_id: string;
     remark: string;
 };
+type CouponFormProps = {
+    open: boolean;
+    setOpen: (open: boolean) => void;
+};
+export default function CouponForm({ open, setOpen }: CouponFormProps) {
 
-export default function CouponForm() {
+
+    // export default function CouponForm() {
     const {
         register,
         handleSubmit,
@@ -69,7 +75,7 @@ export default function CouponForm() {
         formState: { errors },
     } = useForm<FormData>();
 
-    const [open, setOpen] = React.useState(false);
+    // const [open, setOpen] = React.useState(false);
     const { useGenerateCoupon, useUpdateCoupon } = useCouponSlice();
     const { useGetPointsLazyQuery } = useAdminSlice();
     const editSelector = useSelector(selectCouponEdit);

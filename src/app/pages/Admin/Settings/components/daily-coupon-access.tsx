@@ -2,17 +2,53 @@ import { Button } from "app/components/ui/button";
 import { Icons } from "app/components/ui/icons";
 import { Input } from "app/components/ui/input";
 import { useForm, Controller } from "react-hook-form";
+import { useAdminSlice } from "../../slice";
+import { useEffect } from "react";
+import { toast } from "app/components/ui/use-toast";
 
 export default function AccessLimitForm() {
-    const { control, handleSubmit } = useForm({
+    const { control, handleSubmit, reset, setValue } = useForm({
         defaultValues: {
             accessLimit: ""
         }
     });
+    const { useUpdateDailyLimitMutation, useGetDailyAccessLimitLazyQuery } = useAdminSlice()
+    const [updateDailyLimit, { isLoading }] = useUpdateDailyLimitMutation();
+    const [getDailyAccessLimit, { data, isLoading: isLoadingData }] = useGetDailyAccessLimitLazyQuery();
 
     const onSubmit = (data: any) => {
+        updateDailyLimit(data).unwrap().then((response) => {
+            toast({
+                title: "Success",
+                description: "Access limit updated successfully",
+                variant: "sucsess",
+                duration: 3000,
+            })
+            console.log("Success:", response);
+            // Handle success, e.g., show a success message
+        })
+            .catch((error) => {
+                toast({
+                    title: "Success",
+                    description: "error updating access limit",
+                    variant: "destructive",
+                    duration: 3000,
+                })
+                console.error("Error:", error);
+                // Handle error, e.g., show an error message
+            });
         console.log("Form Data:", data);
     };
+    useEffect(() => {
+        getDailyAccessLimit({}).unwrap().then((response) => {
+            console.log("response", response);
+            reset({ accessLimit: response?.response?.[0]?.accessLimit });
+        })
+            .catch((error) => {
+                console.error("Error fetching daily access limit:", error);
+            });
+    }, [getDailyAccessLimit]);
+
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="w-1/2 float-left mx-auto space-y-4 p-4 ">
@@ -45,7 +81,7 @@ export default function AccessLimitForm() {
                 )}
             />
 
-            {/* <Button
+            <Button
                 variant="destructive"
                 type="submit"
                 disabled={isLoading}
@@ -55,7 +91,7 @@ export default function AccessLimitForm() {
                     <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
                 )}
                 Save
-            </Button> */}
+            </Button>
         </form>
     );
 }

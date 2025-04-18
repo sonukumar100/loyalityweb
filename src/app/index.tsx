@@ -19,20 +19,10 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 import { useGlobalSlice } from './slice';
 import { Settings } from './pages/Admin/Settings/Loadable';
 import { Dasboard } from './pages/User/Dasboard/Loadable';
-import { ContactList } from './pages/User/AddContacts/components/Lead/contact-lead-list';
-import { useIdleTimer } from 'utils/useIdletimer';
 import { useDispatch, useSelector } from 'react-redux';
 import ForgotPassword from './pages/Login/components/forgot-password';
 import ResetPassword from './pages/Login/components/reset-password';
 import ResetPassVerifyOtp from './pages/Login/components/resetpass-verify-otp';
-import { BuildersContact } from './pages/Admin/BuildersContact/Loadable';
-import { RecruitsContact } from './pages/Admin/RecruitsContact/Loadable';
-import { useLeadSlice } from './pages/User/AddContacts/slice';
-import { selectCalling, selectUser } from './slice/selectors';
-import { setTimeout } from 'timers';
-import { LeadAcceptReject } from './components/Shared/lead-aacept-reject';
-import { AgentsContact } from './pages/Admin/AgentsContact/Loadable';
-import { Calls } from './components/Shared/call';
 import Video from './pages/Admin/Settings/components/video/video';
 import DailyCouponAccess from './pages/Admin/Settings/components/daily-coupon-access';
 import { BrandPoints } from './pages/Admin/Settings/components/product-point';
@@ -80,16 +70,8 @@ export function App() {
           <Route path="coupon" element={<CouponList />} />
           {/* <Route path="/admin/settings" element={<Settings />} /> */}
           <Route path="/user/dasboard" element={<Dasboard />} />
-          <Route path="/admin/contacts/leads" element={<ContactList />} />
-          <Route path="/admin/contacts/agents" element={<AgentsContact />} />
-          <Route
-            path="/admin/contacts/builders"
-            element={<BuildersContact />}
-          />
-          <Route
-            path="/admin/contacts/recruits"
-            element={<RecruitsContact />}
-          />
+
+
         </Route>
 
         <Route path="/" element={<Login />} />

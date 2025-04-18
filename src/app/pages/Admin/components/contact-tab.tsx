@@ -1,18 +1,18 @@
 import React, { memo, useState } from 'react';
 import { Button } from 'app/components/ui/button';
 import { useLocation, useNavigate } from 'react-router-dom';
-interface Props {}
+interface Props { }
 
 export const ContactNavigationTabs = memo((props: Props) => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const handleTabChange = link => {
-    navigate('/admin/contacts/' + link);
-  };
+    const navigate = useNavigate();
+    const location = useLocation();
+    const handleTabChange = link => {
+        navigate('/admin/contacts/' + link);
+    };
 
-  return (
-    <React.Fragment>
-      {/* <div className="flex justify-center mt-10">
+    return (
+        <React.Fragment>
+            {/* <div className="flex justify-center mt-10">
         <Button
           onClick={() => handleTabChange('leads')}
           variant={
@@ -138,6 +138,6 @@ export const ContactNavigationTabs = memo((props: Props) => {
           </span>
         </Button>
       </div> */}
-    </React.Fragment>
-  );
+        </React.Fragment>
+    );
 });

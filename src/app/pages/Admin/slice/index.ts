@@ -75,7 +75,7 @@ export const api = createApi({
       },
       providesTags: ['AddBrandPoints'], // This marks data as belonging to this tag
     }),
-    addDailyLimit: build.mutation<any, any>({
+    updateDailyLimit: build.mutation<any, any>({
       query: body => {
         return {
           ...endpoints.dailyAccessLimit,
@@ -85,7 +85,17 @@ export const api = createApi({
       transformErrorResponse(baseQueryReturnValue, meta, arg) {
         return formatErrors(baseQueryReturnValue?.data);
       },
-      invalidatesTags: ['Admin'],
+    }),
+    getDailyAccessLimit: build.query<any, any>({
+      query: params => {
+        return {
+          ...endpoints.getDailyAccessLimit,
+          params,
+        };
+      },
+      transformErrorResponse(baseQueryReturnValue, meta, arg) {
+        return formatErrors(baseQueryReturnValue?.data);
+      },
     }),
     deleteBrand: build.mutation<any, any>({
       query: id => ({
@@ -311,7 +321,8 @@ export const useAdminSlice = () => {
     useLocationsUserListQuery: api.useLazyLocationsQuery,
     useStatusMutation: api.useStatusMutation,
     useAddBrandPointsMutation: api.useAddBrandPointsMutation,
-    useAddDailyLimitMutation: api.useAddDailyLimitMutation,
+    useUpdateDailyLimitMutation: api.useUpdateDailyLimitMutation,
+    useGetDailyAccessLimitLazyQuery: api.useLazyGetDailyAccessLimitQuery,
     useGetPointsLazyQuery: api.useLazyGetBrandPointsQuery,
     useDeleteBrandMutation: api.useDeleteBrandMutation,
     useGetVideoLazyQuery: api.useLazyGetVideoQuery,

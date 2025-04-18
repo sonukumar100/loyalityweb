@@ -11,6 +11,7 @@ import { useToast } from 'app/components/ui/use-toast';
 import { showToast } from './toast';
 import { url } from 'inspector';
 import { add } from 'date-fns';
+import { get } from 'http';
 
 const baseUrl = 'http://localhost:8001/api/v1/';
 console.log('endPoint url ', baseUrl);
@@ -96,8 +97,12 @@ export const endpoints = {
     method: HTTP_METHODS.GET,
   },
   dailyAccessLimit: {
-    url: '',
+    url: 'admins/daily-access-limit',
     method: HTTP_METHODS.POST,
+  },
+  getDailyAccessLimit: {
+    url: 'admins/get-daily-access-limit',
+    method: HTTP_METHODS.GET,
   },
   deleteBrand: {
     url: `/admins/deleteMasterProduct`,

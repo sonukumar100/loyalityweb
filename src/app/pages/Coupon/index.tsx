@@ -12,6 +12,7 @@ import {
   RefreshCw,
   Search,
   Trash2Icon,
+  UploadCloud,
 } from 'lucide-react';
 import { format } from 'date-fns';
 
@@ -360,6 +361,7 @@ export const CouponList = () => {
   });
 
 
+  const [open, setOpen] = useState(false);
 
   return (
     <div className="w-full space-y-4">
@@ -372,6 +374,12 @@ export const CouponList = () => {
           totalAvailable={totalAvailable}
         />{' '}
         {/* <CouponFilters /> */}
+        <Button
+          onClick={() => setOpen(true)}
+          className="mt-6 left-[429px] top-[-7px] relative rounded-[10px] px-6 py-2 text-white bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 transition-all duration-300 p-[11px_15px]"
+        >
+          Generate Coupon
+        </Button>
         <GlobalPagination
           table={table}
           pagination={pagination}
@@ -392,7 +400,7 @@ export const CouponList = () => {
       />{' '}
       {/* floating buttons */}
       <div className="fixed bottom-4 right-4 z-50">
-        <CouponForm />
+        <CouponForm open={open} setOpen={setOpen} />
       </div>
     </div>
   );
