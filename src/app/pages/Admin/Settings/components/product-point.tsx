@@ -5,7 +5,6 @@
  */
 import { Button } from 'app/components/ui/button';
 import React, { memo, useEffect } from 'react';
-import { ContactNavigationTabs } from '../../components/contact-tab';
 
 import {
     ColumnDef,
@@ -223,7 +222,7 @@ export const BrandPoints = memo((props: Props) => {
     return (
         <div className="">
             <div className="container">
-                <ContactNavigationTabs />
+                {/* <ContactNavigationTabs /> */}
                 <BrandPointsTable
                     // search={search}
                     // setSearch={setSearch}
