@@ -7,6 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from 'app/components/ui/table';
+import { useReactTable } from '@tanstack/react-table';
 
 type Coupon = {
   id: number;
@@ -23,14 +24,14 @@ type Coupon = {
 
 type CouponTableProps = {
   table: ReturnType<typeof useReactTable>;
-  columns: ColumnDef<Coupon>[];
+  // columns: ColumnDef<Coupon>[];
   dateFilter: Date | undefined;
   setDateFilter: (val: Date | undefined) => void;
 };
 
 export const CouponTable = ({
   table,
-  columns,
+  // columns,
   ...filters
 }: CouponTableProps) => {
   return (
@@ -65,9 +66,10 @@ export const CouponTable = ({
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={columns.length} className="text-center">
-                No results.
-              </TableCell>
+              <TableCell
+                colSpan={table.getAllColumns().length}
+                className="text-center"
+              ></TableCell>
             </TableRow>
           )}
         </TableBody>

@@ -1,4 +1,4 @@
-import { ColumnDef, flexRender } from '@tanstack/react-table';
+import { ColumnDef, flexRender, useReactTable } from '@tanstack/react-table';
 import {
   Table,
   TableBody,
@@ -7,32 +7,15 @@ import {
   TableHeader,
   TableRow,
 } from 'app/components/ui/table';
+import { Table as TanstackTable } from '@tanstack/react-table';
 
-type Coupon = {
-  id: number;
-  date: Date;
-  createdBy: string;
-  type: string;
-  title: string;
-  CouponCode: string;
-  startDate: Date;
-  endDate: Date;
-  gift: number;
-  status: 'active' | 'inactive';
-};
-
-type RedeemTableProps = {
-  table: ReturnType<typeof useReactTable>;
-  columns: ColumnDef<Coupon>[];
+type RedeemTableProps<T> = {
+  table: TanstackTable<T>;
   dateFilter: Date | undefined;
   setDateFilter: (val: Date | undefined) => void;
 };
 
-export const RedeemTable = ({
-  table,
-  columns,
-  ...filters
-}: RedeemTableProps) => {
+export const RedeemTable = <T,>({ table, ...filters }: RedeemTableProps<T>) => {
   return (
     <div className="rounded-md border">
       <Table>
@@ -65,8 +48,11 @@ export const RedeemTable = ({
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={columns.length} className="text-center">
-                No results.
+              <TableCell
+                colSpan={table.getAllColumns().length}
+                className="text-center"
+              >
+                No data available
               </TableCell>
             </TableRow>
           )}

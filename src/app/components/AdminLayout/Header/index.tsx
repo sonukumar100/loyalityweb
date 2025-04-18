@@ -5,7 +5,7 @@ import { selectNewNotifications, selectUser } from 'app/slice/selectors';
 import { Input } from 'app/components/ui/input';
 import { useGlobalSlice } from 'app/slice';
 import { Toaster } from 'app/components/ui/toaster';
-import { Link, useLocation, } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import NotificationsSocket from 'utils/notificationsSocket';
 
 interface Props {
@@ -13,20 +13,10 @@ interface Props {
 }
 
 export const Header = memo((props: Props) => {
-
   const user = useSelector(selectUser);
   const isNewNotifications = useSelector(selectNewNotifications);
   const userId = user?._id;
   const location = useLocation();
-  const { useGetNotificationsQuery } = useGlobalSlice();
-  const [getNotifications] = useGetNotificationsQuery();
-
-  useEffect(() => {
-    if (userId) {
-      getNotifications(userId);
-    }
-  }, [isNewNotifications?.isNotifications]);
-
   NotificationsSocket(userId);
 
   return (
@@ -71,10 +61,11 @@ export const Header = memo((props: Props) => {
                 <li key={label}>
                   <Link
                     to={path}
-                    className={`px-5 py-2 text-sm font-semibold border rounded-full transition duration-300 ${isActive
-                      ? 'bg-blue-500 text-white border-blue-500 shadow-md'
-                      : 'text-gray-700 border-[#B7C1CF] bg-white/30 backdrop-blur-sm hover:bg-white hover:text-blue-600 hover:shadow'
-                      }`}
+                    className={`px-5 py-2 text-sm font-semibold border rounded-full transition duration-300 ${
+                      isActive
+                        ? 'bg-blue-500 text-white border-blue-500 shadow-md'
+                        : 'text-gray-700 border-[#B7C1CF] bg-white/30 backdrop-blur-sm hover:bg-white hover:text-blue-600 hover:shadow'
+                    }`}
                   >
                     {label}
                   </Link>

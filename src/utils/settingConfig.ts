@@ -837,14 +837,15 @@ export const settingConfig = {
     { key: 1, value: 'Cash' },
     { key: 2, value: 'Gift' },
   ],
-
-
+  redeemReqStatus: [
+    { key: 1, value: 'Pending' },
+    { key: 2, value: 'Approved' },
+    { key: 3, value: 'Rejected' },
+  ],
 
   getSetting(prop, condition) {
-    const object = _.find(this[prop], {
-      key: condition,
-    });
-
+    const key = Number(condition);
+    const object = this[prop]?.find(item => item.key === key);
     return object ? object.value : '';
   },
 };

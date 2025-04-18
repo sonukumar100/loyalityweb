@@ -1,18 +1,5 @@
 import { useEffect, useState } from 'react';
-import {
-  CalendarIcon,
-  PencilIcon,
-  Trash2Icon,
-} from 'lucide-react';
-import { format } from 'date-fns';
 import { Button } from 'app/components/ui/button';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from 'app/components/ui/popover';
-import { Calendar } from 'app/components/ui/calendar';
-
 import {
   type ColumnDef,
   getCoreRowModel,
@@ -24,25 +11,8 @@ import {
 import { RedeemTable } from './redeem-table';
 import { RedeemTabs } from './redeem-tabs';
 import { GlobalPagination } from '../global-pagination';
-import { dateFormate } from 'utils/dateformate';
 import { useRedeemSlice } from './slice';
-
-// Define the data type for our Coupons
-type Coupon = {
-  id: number;
-  date: Date;
-  createdBy: string;
-  type: string;
-  title: string;
-  CouponCode: string;
-  created_at: Date;
-  updatedAt: Date;
-  productName: string;
-  remark: string;
-  user: {
-    email: string;
-  };
-};
+import { getCouponColumns } from './redeem-columns';
 
 // Sample data
 
@@ -50,8 +20,7 @@ export const RedeemList = () => {
   const [dateFilter, setDateFilter] = useState<Date | undefined>(undefined);
 
   const { useLazyRedeemRequestQuery } = useRedeemSlice();
-  const [getRedeemList, { data: RedeemList }] =
-    useLazyRedeemRequestQuery();
+  const [getRedeemList, { data: RedeemList }] = useLazyRedeemRequestQuery();
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
@@ -84,8 +53,8 @@ export const RedeemList = () => {
         activeTab == 'active'
           ? 'scanned'
           : activeTab == 'group'
-            ? 'group'
-            : 'available';
+          ? 'group'
+          : 'available';
     }
 
     getRedeemList(params);
@@ -104,190 +73,19 @@ export const RedeemList = () => {
         activeTab == 'active'
           ? 'scanned'
           : activeTab == 'group'
-            ? 'group'
-            : 'available';
+          ? 'group'
+          : 'available';
     }
     getRedeemList(payload);
   }, [activeTab]);
-  const columns: ColumnDef<Coupon>[] = [
-    {
-      accessorKey: 'created_at',
-      header: () => (
-        <div className="flex flex-col gap-1">
-          <span>Date / Created By</span>
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button
-                variant="outline"
-                className="w-full h-8 text-xs px-2 justify-start"
-              >
-                <CalendarIcon className="mr-1 h-3 w-3" />
-                {dateFilter ? format(dateFilter, 'dd MMM yyyy') : 'Select date'}
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0">
-              <Calendar
-                mode="single"
-                selected={dateFilter}
-                onSelect={setDateFilter}
-                initialFocus
-              />
-            </PopoverContent>
-          </Popover>
-        </div>
-      ),
-      cell: ({ row }) => {
-        const created_at = row.original.created_at;
-        return (
-          <div>
-            <div className="text-xs text-muted-foreground">
-              {dateFormate(created_at)}
-            </div>
-          </div>
-        );
-      },
-    },
-    ...(true
-      ? [
-        {
-          accessorKey: 'couponCode',
-          header: 'Coupon Code',
-          cell: ({ getValue }) => {
-            const couponCode = getValue() as string;
-            return <span>{couponCode}</span>;
-          },
-        },
-      ]
-      : []),
-
-    {
-      accessorKey: 'productName',
-      header: 'Product Name',
-      cell: ({ getValue }) => {
-        const productName = getValue() as string;
-        return <span>{productName}</span>;
-      },
-    },
-    ...(true
-      ? [
-        {
-          accessorKey: 'couponCode',
-          header: 'Coupon Code',
-          cell: ({ getValue }) => {
-            const couponCode = getValue() as string;
-            return <span>{couponCode}</span>;
-          },
-        },
-      ]
-      : []),
-    ...(activeTab === 'active'
-      ? [
-        {
-          accessorKey: 'useDate',
-          header: 'Use Date/Used By',
-          cell: ({ row }) => (
-            <div>
-              {row.original?.updatedAt
-                ? dateFormate(row.original.updatedAt)
-                : 'Not Used'}
-              {row.original?.user?.email
-                ? ` / ${row.original.user.email}`
-                : ''}
-            </div>
-          ),
-        },
-      ]
-      : []),
-    ...(activeTab === 'active'
-      ? [
-        {
-          accessorKey: 'email',
-          header: 'Email',
-          cell: ({ row }) => <div>{row.original?.user?.email}</div>,
-        },
-      ]
-      : []),
-    ...(activeTab === 'active'
-      ? [
-        {
-          accessorKey: 'points',
-          header: 'Points',
-          cell: ({ row }) => <div>{row.original?.karigerPoints}</div>,
-        },
-      ]
-      : []),
-    ...(activeTab === 'active'
-      ? [
-        {
-          accessorKey: 'state',
-          header: 'state',
-          cell: ({ row }) => <div>{row.original?.user?.state}</div>,
-        },
-      ]
-      : []),
-    ...(activeTab === 'active'
-      ? [
-        {
-          accessorKey: 'district',
-          header: 'District',
-          cell: ({ row }) => <div>{row.original?.user?.city}</div>,
-        },
-      ]
-      : []),
-    {
-      accessorKey: 'remark',
-      header: 'Remark',
-      cell: ({ getValue }) => {
-        const remark = getValue() as string;
-        return <span>{remark}</span>;
-      },
-    },
-    ...(activeTab === 'active'
-      ? [
-        {
-          accessorKey: 'viewLocation',
-          header: 'View Location Map',
-          cell: ({ row }) => <div>{row.original?.state}</div>,
-        },
-      ]
-      : []),
-
-    {
-      accessorKey: 'actions',
-      header: 'Actions',
-      cell: ({ row }) => {
-        const id = row.original.id;
-
-        return (
-          <div className="flex items-center space-x-3">
-            {/* Edit button */}
-            <button
-              // onClick={() => { dispatch(couponEdit.setEdit({ data: row?.original })) }}
-              className="text-blue-600 hover:text-blue-800 transition-colors"
-            >
-              <PencilIcon className="w-5 h-5" />
-            </button>
-
-            {/* Delete button */}
-            <button
-              onClick={() => {
-                // handle delete logic here
-                // deleteCouponById(id);
-                console.log('Delete gift', id);
-              }}
-              className="text-red-600 hover:text-red-800 transition-colors"
-            >
-              <Trash2Icon className="w-5 h-5" />
-            </button>
-          </div>
-        );
-      },
-    },
-  ];
 
   const table = useReactTable({
     data: RedeemList?.data ?? [],
-    columns,
+    columns: getCouponColumns({
+      activeTab,
+      dateFilter,
+      setDateFilter,
+    }),
     pageCount: Math.ceil(
       (RedeemList?.pagination?.total ?? 0) / pagination.pageSize,
     ),
@@ -334,7 +132,7 @@ export const RedeemList = () => {
       </div>
       <RedeemTable
         table={table}
-        columns={columns}
+        // columns={columns}
         dateFilter={dateFilter}
         setDateFilter={setDateFilter}
       />{' '}

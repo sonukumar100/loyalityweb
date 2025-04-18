@@ -37,13 +37,13 @@ const reduxifyMessage = (message: Message | ReduxMessage): ReduxMessage => ({
   dateCreated: message.dateCreated,
   aggregatedDeliveryReceipt: message.aggregatedDeliveryReceipt
     ? {
-      total: message.aggregatedDeliveryReceipt.total,
-      sent: message.aggregatedDeliveryReceipt.sent,
-      delivered: message.aggregatedDeliveryReceipt.delivered,
-      read: message.aggregatedDeliveryReceipt.read,
-      undelivered: message.aggregatedDeliveryReceipt.undelivered,
-      failed: message.aggregatedDeliveryReceipt.failed,
-    }
+        total: message.aggregatedDeliveryReceipt.total,
+        sent: message.aggregatedDeliveryReceipt.sent,
+        delivered: message.aggregatedDeliveryReceipt.delivered,
+        read: message.aggregatedDeliveryReceipt.read,
+        undelivered: message.aggregatedDeliveryReceipt.undelivered,
+        failed: message.aggregatedDeliveryReceipt.failed,
+      }
     : null,
   // attachedMedia:
   //   message.attachedMedia?.map((el) => ({
@@ -63,7 +63,7 @@ export const initialState: GlobalState = {
   twilioChat: { token: '', chat: [] },
   newNotifications: {
     isNotifications: false,
-    isNewLead: false
+    isNewLead: false,
   },
   calling: {
     status: 'idle',
@@ -145,76 +145,7 @@ export const api = createApi({
   reducerPath: 'globalApi',
   baseQuery,
   // tagTypes: ['LeadList', 'DeleteLead', 'TwilioVoiceToken'],
-  endpoints: build => ({
-    twilioVoiceToken: build.query<any, any>({
-      query: params => {
-        return {
-          ...endpoints.getTwilioVoiceToken,
-          params,
-        };
-      },
-      transformErrorResponse(baseQueryReturnValue, meta, arg) {
-        return formatErrors(baseQueryReturnValue);
-      },
-      // providesTags: ['TwilioVoiceToken'],
-    }),
-    polling: build.query<any, any>({
-      query: params => {
-        return {
-          ...endpoints.polling,
-          params,
-        };
-      },
-      transformErrorResponse(baseQueryReturnValue, meta, arg) {
-        return formatErrors(baseQueryReturnValue);
-      },
-    }),
-    accepetRejectLead: build.mutation<any, any>({
-      query: body => {
-        return {
-          ...endpoints.accepetRejectLead,
-          body,
-        };
-      },
-      transformErrorResponse(baseQueryReturnValue, meta, arg) {
-        return formatErrors(baseQueryReturnValue.data);
-      },
-    }),
-    getNotifications: build.query<any, any>({
-      query: id => {
-        return {
-          url: `${endpoints.getNotifications.url}/${id}`,
-          method: endpoints.getNotifications.method,
-        };
-      },
-      transformErrorResponse(baseQueryReturnValue, meta, arg) {
-        return formatErrors(baseQueryReturnValue);
-      },
-    }),
-    updateNotification: build.mutation<any, any>({
-      query: body => {
-        return {
-          url: endpoints.patchNotification.url,
-          method: endpoints.patchNotification.method,
-          body,
-        };
-      },
-      transformErrorResponse(baseQueryReturnValue, meta, arg) {
-        return formatErrors(baseQueryReturnValue);
-      },
-    }),
-    chatTwilioToken: build.query<any, any>({
-      query: params => {
-        return {
-          ...endpoints.chatTwilioToken,
-          params,
-        };
-      },
-      transformErrorResponse(baseQueryReturnValue, meta, arg) {
-        return formatErrors(baseQueryReturnValue);
-      },
-    }),
-  }),
+  endpoints: build => ({}),
 });
 
 export const { actions: globalActions } = slice;
@@ -225,8 +156,6 @@ export const useGlobalSlice = () => {
   return {
     actions: slice.actions,
     ...api,
-    useGetNotificationsQuery: api.useLazyGetNotificationsQuery,
-    useUpdateNotificationMutation: api.useUpdateNotificationMutation,
   };
 };
 

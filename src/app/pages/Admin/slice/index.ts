@@ -167,6 +167,16 @@ export const api = createApi({
         'DeleteGiftGallery',
       ],
     }),
+    updateGiftGallery: build.mutation<any, any>({
+      query: body => ({
+        ...endpoints.updateGiftGallery,
+        body,
+      }),
+      transformErrorResponse(baseQueryReturnValue, meta, arg) {
+        return formatErrors(baseQueryReturnValue?.data);
+      },
+      invalidatesTags: ['UpdateGiftGallery'],
+    }),
 
     deleteGiftGallery: build.mutation<any, any>({
       query: id => ({
@@ -200,5 +210,6 @@ export const useAdminSlice = () => {
     useAddGiftGalleryMutation: api.useAddGiftGalleryMutation,
     useGetGiftGalleryLazyQuery: api.useLazyGetGiftGalleryQuery,
     useDeleteGiftGalleryMutation: api.useDeleteGiftGalleryMutation,
+    useUpdateGiftGalleryMutation: api.useUpdateGiftGalleryMutation,
   };
 };

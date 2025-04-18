@@ -67,8 +67,7 @@ import clsx from 'clsx';
 import { dateFormate } from 'utils/dateformate';
 import { useDispatch } from 'react-redux';
 import { selectCouponEdit as couponEdit } from './slice/selectors';
-import { useAgentSlice } from '../Admin/AgentsContact/agentSlice';
-
+import { getCouponColumns } from './coupon-columns';
 
 // Define the data type for our Coupons
 type Coupon = {
@@ -84,8 +83,7 @@ type Coupon = {
   remark: string;
   user: {
     email: string;
-  }
-
+  };
 };
 
 // Sample data
@@ -94,7 +92,8 @@ export const CouponList = () => {
   const [dateFilter, setDateFilter] = useState<Date | undefined>(undefined);
 
   const { useLazyGetCouponListQuery, useDeleteCouponById } = useCouponSlice();
-  const [getCouponList, { data: couponList, isError, isSuccess }] = useLazyGetCouponListQuery();
+  const [getCouponList, { data: couponList, isError, isSuccess }] =
+    useLazyGetCouponListQuery();
   const { actions: couponEdit } = useCouponSlice();
 
   const dispatch = useDispatch();
@@ -127,7 +126,12 @@ export const CouponList = () => {
     };
     console.log('activeTab', activeTab);
     if (activeTab !== 'all') {
-      params.filter = activeTab == 'active' ? 'scanned' : activeTab == 'group' ? 'group' : 'available';
+      params.filter =
+        activeTab == 'active'
+          ? 'scanned'
+          : activeTab == 'group'
+          ? 'group'
+          : 'available';
     }
 
     getCouponList(params);
@@ -142,214 +146,28 @@ export const CouponList = () => {
       limit: 10,
     };
     if (activeTab !== 'all') {
-      payload.filter = activeTab == 'active' ? 'scanned' : activeTab == 'group' ? 'group' : 'available';
+      payload.filter =
+        activeTab == 'active'
+          ? 'scanned'
+          : activeTab == 'group'
+          ? 'group'
+          : 'available';
     }
     getCouponList(payload);
   }, [activeTab]);
-
-  console.log('data=========>', activeTab);
-
-
-
-
-  const columns: ColumnDef<Coupon>[] = [
-    {
-      accessorKey: 'created_at',
-      header: () => (
-        <div className="flex flex-col gap-1">
-          <span>Date / Created By</span>
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button
-                variant="outline"
-                className="w-full h-8 text-xs px-2 justify-start"
-              >
-                <CalendarIcon className="mr-1 h-3 w-3" />
-                {dateFilter ? format(dateFilter, 'dd MMM yyyy') : 'Select date'}
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0">
-              <Calendar
-                mode="single"
-                selected={dateFilter}
-                onSelect={setDateFilter}
-                initialFocus
-              />
-            </PopoverContent>
-          </Popover>
-        </div>
-      ),
-      cell: ({ row }) => {
-        const created_at = row.original.created_at;
-        return (
-          <div>
-            <div className="text-xs text-muted-foreground">
-              {dateFormate(created_at)}
-            </div>
-          </div>
-        );
-      },
-    },
-    ...(true
-      ? [{
-        accessorKey: 'couponCode',
-        header: 'Coupon Code',
-        cell: ({ getValue }) => {
-          const couponCode = getValue() as string;
-          return <span>{couponCode}</span>;
-        },
-      }]
-      : []),
-
-    {
-      accessorKey: 'productName',
-      header: 'Product Name',
-      cell: ({ getValue }) => {
-        const productName = getValue() as string;
-        return <span>{productName}</span>;
-      },
-    },
-    ...(true
-      ?
-      [
-        {
-          accessorKey: 'couponCode',
-          header: 'Coupon Code',
-          cell: ({ getValue }) => {
-            const couponCode = getValue() as string;
-            return <span>{couponCode}</span>;
-          }
-        },
-
-      ] : []),
-    ...(
-      activeTab === 'active'
-        ? [{
-          accessorKey: 'useDate',
-          header: 'Use Date/Used By',
-          cell: ({ row }) => (
-            <div>
-              {row.original?.updatedAt ? dateFormate(row.original.updatedAt) : 'Not Used'}
-              {row.original?.user?.email ? ` / ${row.original.user.email}` : ''}
-            </div>
-          ),
-        }]
-        : []
-    ),
-    ...(
-      activeTab === 'active'
-        ? [{
-          accessorKey: 'email',
-          header: 'Email',
-          cell: ({ row }) => (
-            <div>
-              {row.original?.user?.email}
-            </div>
-          ),
-        }]
-        : []
-    ),
-    ...(
-      activeTab === 'active'
-        ? [{
-          accessorKey: 'points',
-          header: 'Points',
-          cell: ({ row }) => (
-            <div>
-              {row.original?.karigerPoints}
-            </div>
-          ),
-        }]
-        : []
-    ),
-    ...(
-      activeTab === 'active'
-        ? [{
-          accessorKey: 'state',
-          header: 'state',
-          cell: ({ row }) => (
-            <div>
-              {row.original?.user?.state}
-            </div>
-          ),
-        }]
-        : []
-    ),
-    ...(
-      activeTab === 'active'
-        ? [{
-          accessorKey: 'district',
-          header: 'District',
-          cell: ({ row }) => (
-            <div>
-              {row.original?.user?.city}
-            </div>
-          ),
-        }]
-        : []
-    ),
-    {
-      accessorKey: 'remark',
-      header: 'Remark',
-      cell: ({ getValue }) => {
-        const remark = getValue() as string;
-        return <span>{remark}</span>;
-      },
-    },
-    ...(
-      activeTab === 'active'
-        ? [{
-          accessorKey: 'viewLocation',
-          header: 'View Location Map',
-          cell: ({ row }) => (
-            <div>
-              {row.original?.state}
-            </div>
-          ),
-        }]
-        : []
-    ),
-
-
-
-
-    {
-      accessorKey: 'actions',
-      header: 'Actions',
-      cell: ({ row }) => {
-        const id = row.original.id;
-
-        return (
-          <div className="flex items-center space-x-3">
-            {/* Edit button */}
-            <button
-              onClick={() => { dispatch(couponEdit.setEdit({ data: row?.original })) }}
-              className="text-blue-600 hover:text-blue-800 transition-colors"
-            >
-              <PencilIcon className="w-5 h-5" />
-            </button>
-
-            {/* Delete button */}
-            <button
-              onClick={() => {
-                // handle delete logic here
-                deleteCouponById(id);
-                console.log('Delete gift', id);
-              }}
-              className="text-red-600 hover:text-red-800 transition-colors"
-            >
-              <Trash2Icon className="w-5 h-5" />
-            </button>
-          </div >
-        );
-      },
-    }
-  ];
-
   const table = useReactTable({
     data: couponList?.data ?? [],
-    columns,
-    pageCount: Math.ceil((couponList?.pagination?.total ?? 0) / pagination.pageSize),
+    columns: getCouponColumns({
+      dateFilter,
+      setDateFilter,
+      activeTab,
+      deleteCouponById,
+      dispatch,
+      couponEdit,
+    }),
+    pageCount: Math.ceil(
+      (couponList?.pagination?.total ?? 0) / pagination.pageSize,
+    ),
     manualPagination: true, // <-- important
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
@@ -359,7 +177,6 @@ export const CouponList = () => {
     },
     onPaginationChange: setPagination,
   });
-
 
   const [open, setOpen] = useState(false);
 
@@ -394,7 +211,7 @@ export const CouponList = () => {
       </div>
       <CouponTable
         table={table}
-        columns={columns}
+        // columns={columns}
         dateFilter={dateFilter}
         setDateFilter={setDateFilter}
       />{' '}
