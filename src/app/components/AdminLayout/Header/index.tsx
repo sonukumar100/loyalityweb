@@ -1,10 +1,3 @@
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from 'app/components/ui/dropdown-menu';
 import React, { useState, useRef, memo, useEffect } from 'react';
 import { MainNav } from './main-nav';
 import { LogOut, Search } from 'lucide-react';
@@ -19,19 +12,8 @@ import { useDispatch } from 'react-redux';
 import { imageUrl } from 'utils/settingConfig';
 import { Toaster } from 'app/components/ui/toaster';
 import { useToast } from 'app/components/ui/use-toast';
-import { Searchheader } from './search';
-import { Timer } from './Timer';
-import {
-  Link,
-  useLocation,
-  useNavigate,
-} from 'react-router-dom';
-import { Logout } from './Logout';
-import { AddContacts } from 'app/pages/User/AddContacts';
-import { ActiveSvgImg } from './activeSvg';
-import { formatPhoneNumber } from 'utils/formatePhoneNumber';
-import Notifications from '../Notifications/notifications';
-import { ScrollArea } from 'app/components/ui/scroll-area';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+
 import NotificationsSocket from 'utils/notificationsSocket';
 
 interface Props {
@@ -63,7 +45,8 @@ export const Header = memo((props: Props) => {
     }
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
     const mediaRecorder = new MediaRecorder(stream);
-    mediaRecorder.ondataavailable = (event) => audioChunksRef.current.push(event.data);
+    mediaRecorder.ondataavailable = event =>
+      audioChunksRef.current.push(event.data);
     mediaRecorder.onstop = () => {
       const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/mp3' });
       setAudioUrl(URL.createObjectURL(audioBlob));
@@ -80,8 +63,12 @@ export const Header = memo((props: Props) => {
   };
 
   const { useUploadFileMutation, useUpdateProfileMutation } = useAdminSlice();
-  const [fileUpload, { isLoading: isfileUpload, isSuccess: isfileUploadSuccess, data: fileData }] = useUploadFileMutation();
-  const [updateProfile, { isSuccess: isUpdateProfileDate, data }] = useUpdateProfileMutation();
+  const [
+    fileUpload,
+    { isLoading: isfileUpload, isSuccess: isfileUploadSuccess, data: fileData },
+  ] = useUploadFileMutation();
+  const [updateProfile, { isSuccess: isUpdateProfileDate, data }] =
+    useUpdateProfileMutation();
 
   const voiceSend = () => {
     if (audioChunksRef.current.length === 0) return;
@@ -128,7 +115,8 @@ export const Header = memo((props: Props) => {
   const settingsPart = location.pathname.split('/').pop();
 
   const { useGetNotificationsQuery } = useGlobalSlice();
-  const [getNotifications, { data: notificationsData }] = useGetNotificationsQuery();
+  const [getNotifications, { data: notificationsData }] =
+    useGetNotificationsQuery();
 
   useEffect(() => {
     if (userId) {
@@ -142,9 +130,18 @@ export const Header = memo((props: Props) => {
     <header className="container animate-fade-in-down">
       <Toaster />
       <nav className="mt-10">
-        <div className="flex justify-between items-center rounded-full px-8 py-4 shadow-xl backdrop-blur-md border border-white/30 transition-all duration-700 ease-in-out hover:scale-[1.02]" style={{ background: 'linear-gradient(90deg, rgba(255,255,255,0.25) 0%, rgba(220, 230, 245, 0.3) 100%)' }}>
+        <div
+          className="flex justify-between items-center rounded-full px-8 py-4 shadow-xl backdrop-blur-md border border-white/30 transition-all duration-700 ease-in-out hover:scale-[1.02]"
+          style={{
+            background:
+              'linear-gradient(90deg, rgba(255,255,255,0.25) 0%, rgba(220, 230, 245, 0.3) 100%)',
+          }}
+        >
           <div className="flex items-center space-x-6">
-            <Link to="#" className="text-black font-extrabold text-2xl rounded-lg bg-transparent">
+            <Link
+              to="#"
+              className="text-black font-extrabold text-2xl rounded-lg bg-transparent"
+            >
               Loyalty
             </Link>
             <div className="relative hidden md:block">
@@ -162,8 +159,8 @@ export const Header = memo((props: Props) => {
               { label: 'Dashboard', path: '/user/dasboard' },
               { label: 'Contacts', path: '#' },
               { label: 'Offer', path: '/offer' },
+              { label: 'Redeem Request', path: '/redeem-request' },
               { label: 'Coupon', path: '/coupon' },
-              { label: 'Loan Center', path: '#' },
               { label: 'Payroll', path: '#' },
               { label: 'Master', path: '/admin/settings/digital-catalog' },
             ].map(({ label, path }) => {
@@ -172,10 +169,11 @@ export const Header = memo((props: Props) => {
                 <li key={label}>
                   <Link
                     to={path}
-                    className={`px-5 py-2 text-sm font-semibold border rounded-full transition duration-300 ${isActive
-                      ? 'bg-blue-500 text-white border-blue-500 shadow-md'
-                      : 'text-gray-700 border-[#B7C1CF] bg-white/30 backdrop-blur-sm hover:bg-white hover:text-blue-600 hover:shadow'
-                      }`}
+                    className={`px-5 py-2 text-sm font-semibold border rounded-full transition duration-300 ${
+                      isActive
+                        ? 'bg-blue-500 text-white border-blue-500 shadow-md'
+                        : 'text-gray-700 border-[#B7C1CF] bg-white/30 backdrop-blur-sm hover:bg-white hover:text-blue-600 hover:shadow'
+                    }`}
                   >
                     {label}
                   </Link>

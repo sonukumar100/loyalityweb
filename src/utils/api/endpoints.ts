@@ -188,6 +188,10 @@ export const endpoints = {
     url: `/admins/update-coupon`,
     method: HTTP_METHODS.PUT,
   },
+  redeemRequest: {
+    url: `/admins/redeem-request-list`,
+    method: HTTP_METHODS.GET,
+  },
 
   addTeamMember: {
     url: `/api/admin/team-member/add`,
