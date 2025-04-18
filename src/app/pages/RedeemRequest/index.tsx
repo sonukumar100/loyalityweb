@@ -1,69 +1,30 @@
 import { useEffect, useState } from 'react';
-
 import {
   CalendarIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  ChevronsLeftIcon,
-  ChevronsRightIcon,
-  Download,
   PencilIcon,
-  Plus,
-  RefreshCw,
-  Search,
   Trash2Icon,
-  UploadCloud,
 } from 'lucide-react';
 import { format } from 'date-fns';
-
 import { Button } from 'app/components/ui/button';
-import { Input } from 'app/components/ui/input';
-import { Tabs, TabsList, TabsTrigger } from 'app/components/ui/tabs';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from 'app/components/ui/select';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from 'app/components/ui/popover';
 import { Calendar } from 'app/components/ui/calendar';
-import { Badge } from 'app/components/ui/badge';
-// import { cn } from "@/lib/utils"
 
 import {
   type ColumnDef,
-  type ColumnFiltersState,
-  type SortingState,
-  type VisibilityState,
-  flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
-  getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
 
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from 'app/components/ui/table';
 import { RedeemTable } from './redeem-table';
 import { RedeemTabs } from './redeem-tabs';
 import { GlobalPagination } from '../global-pagination';
-import { Switch } from 'app/components/ui/switch';
-import { Label } from '@radix-ui/react-label';
-import clsx from 'clsx';
 import { dateFormate } from 'utils/dateformate';
-import { useDispatch } from 'react-redux';
 import { useRedeemSlice } from './slice';
 
 // Define the data type for our Coupons
@@ -89,11 +50,8 @@ export const RedeemList = () => {
   const [dateFilter, setDateFilter] = useState<Date | undefined>(undefined);
 
   const { useLazyRedeemRequestQuery } = useRedeemSlice();
-  const [getRedeemList, { data: RedeemList, isError, isSuccess }] =
+  const [getRedeemList, { data: RedeemList }] =
     useLazyRedeemRequestQuery();
-  // const { actions: couponEdit } = useCouponSlice();
-
-  const dispatch = useDispatch();
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
@@ -126,8 +84,8 @@ export const RedeemList = () => {
         activeTab == 'active'
           ? 'scanned'
           : activeTab == 'group'
-          ? 'group'
-          : 'available';
+            ? 'group'
+            : 'available';
     }
 
     getRedeemList(params);
@@ -146,8 +104,8 @@ export const RedeemList = () => {
         activeTab == 'active'
           ? 'scanned'
           : activeTab == 'group'
-          ? 'group'
-          : 'available';
+            ? 'group'
+            : 'available';
     }
     getRedeemList(payload);
   }, [activeTab]);
@@ -191,15 +149,15 @@ export const RedeemList = () => {
     },
     ...(true
       ? [
-          {
-            accessorKey: 'couponCode',
-            header: 'Coupon Code',
-            cell: ({ getValue }) => {
-              const couponCode = getValue() as string;
-              return <span>{couponCode}</span>;
-            },
+        {
+          accessorKey: 'couponCode',
+          header: 'Coupon Code',
+          cell: ({ getValue }) => {
+            const couponCode = getValue() as string;
+            return <span>{couponCode}</span>;
           },
-        ]
+        },
+      ]
       : []),
 
     {
@@ -212,69 +170,69 @@ export const RedeemList = () => {
     },
     ...(true
       ? [
-          {
-            accessorKey: 'couponCode',
-            header: 'Coupon Code',
-            cell: ({ getValue }) => {
-              const couponCode = getValue() as string;
-              return <span>{couponCode}</span>;
-            },
+        {
+          accessorKey: 'couponCode',
+          header: 'Coupon Code',
+          cell: ({ getValue }) => {
+            const couponCode = getValue() as string;
+            return <span>{couponCode}</span>;
           },
-        ]
+        },
+      ]
       : []),
     ...(activeTab === 'active'
       ? [
-          {
-            accessorKey: 'useDate',
-            header: 'Use Date/Used By',
-            cell: ({ row }) => (
-              <div>
-                {row.original?.updatedAt
-                  ? dateFormate(row.original.updatedAt)
-                  : 'Not Used'}
-                {row.original?.user?.email
-                  ? ` / ${row.original.user.email}`
-                  : ''}
-              </div>
-            ),
-          },
-        ]
+        {
+          accessorKey: 'useDate',
+          header: 'Use Date/Used By',
+          cell: ({ row }) => (
+            <div>
+              {row.original?.updatedAt
+                ? dateFormate(row.original.updatedAt)
+                : 'Not Used'}
+              {row.original?.user?.email
+                ? ` / ${row.original.user.email}`
+                : ''}
+            </div>
+          ),
+        },
+      ]
       : []),
     ...(activeTab === 'active'
       ? [
-          {
-            accessorKey: 'email',
-            header: 'Email',
-            cell: ({ row }) => <div>{row.original?.user?.email}</div>,
-          },
-        ]
+        {
+          accessorKey: 'email',
+          header: 'Email',
+          cell: ({ row }) => <div>{row.original?.user?.email}</div>,
+        },
+      ]
       : []),
     ...(activeTab === 'active'
       ? [
-          {
-            accessorKey: 'points',
-            header: 'Points',
-            cell: ({ row }) => <div>{row.original?.karigerPoints}</div>,
-          },
-        ]
+        {
+          accessorKey: 'points',
+          header: 'Points',
+          cell: ({ row }) => <div>{row.original?.karigerPoints}</div>,
+        },
+      ]
       : []),
     ...(activeTab === 'active'
       ? [
-          {
-            accessorKey: 'state',
-            header: 'state',
-            cell: ({ row }) => <div>{row.original?.user?.state}</div>,
-          },
-        ]
+        {
+          accessorKey: 'state',
+          header: 'state',
+          cell: ({ row }) => <div>{row.original?.user?.state}</div>,
+        },
+      ]
       : []),
     ...(activeTab === 'active'
       ? [
-          {
-            accessorKey: 'district',
-            header: 'District',
-            cell: ({ row }) => <div>{row.original?.user?.city}</div>,
-          },
-        ]
+        {
+          accessorKey: 'district',
+          header: 'District',
+          cell: ({ row }) => <div>{row.original?.user?.city}</div>,
+        },
+      ]
       : []),
     {
       accessorKey: 'remark',
@@ -286,12 +244,12 @@ export const RedeemList = () => {
     },
     ...(activeTab === 'active'
       ? [
-          {
-            accessorKey: 'viewLocation',
-            header: 'View Location Map',
-            cell: ({ row }) => <div>{row.original?.state}</div>,
-          },
-        ]
+        {
+          accessorKey: 'viewLocation',
+          header: 'View Location Map',
+          cell: ({ row }) => <div>{row.original?.state}</div>,
+        },
+      ]
       : []),
 
     {

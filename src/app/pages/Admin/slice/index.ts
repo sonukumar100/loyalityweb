@@ -1,11 +1,10 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from 'utils/@reduxjs/toolkit';
-import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
-import { Saga } from './saga';
+import { useInjectReducer } from 'utils/redux-injectors';
 import { AddTeamMemberState } from './types';
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
 import { endpoints, formatErrors, baseQuery } from 'utils/api/endpoints';
-import { use } from 'i18next';
+
 export const initialState: AddTeamMemberState = {
   edit: null,
   editGift: null,
@@ -24,21 +23,6 @@ const slice = createSlice({
   },
 });
 
-// export const initialState: AddTeamMemberState = {
-//   loading: false,
-//   error: null,
-//   teamRes: null,
-//   // isLoggedIn: false,
-// };
-
-// export const { actions: Actions } = slice;
-
-// export const useSlice = () => {
-//   useInjectReducer({ key: slice.name, reducer: slice.reducer });
-//   useInjectSaga({ key: slice.name, saga: Saga });
-//   return { actions: slice.actions };
-// };
-
 export const api = createApi({
   reducerPath: 'addTeamMemberApi',
   baseQuery,
@@ -53,50 +37,49 @@ export const api = createApi({
     'UpdateGiftGallery',
     'DeleteGiftGallery',
   ],
-  endpoints: (build) => ({
+  endpoints: build => ({
     addBrandPoints: build.mutation<any, any>({
-      query: (body) => ({
+      query: body => ({
         ...endpoints.addBrandPoints,
         body,
       }),
       transformErrorResponse(baseQueryReturnValue, meta, arg) {
         return formatErrors(baseQueryReturnValue?.data);
       },
-      invalidatesTags: ['AddBrandPoints'], // This should invalidate cache
+      invalidatesTags: ['AddBrandPoints'],
     }),
 
     getBrandPoints: build.query<any, any>({
-      query: (params) => ({
+      query: params => ({
         ...endpoints.getBrandPoints,
         params,
       }),
       transformErrorResponse(baseQueryReturnValue, meta, arg) {
         return formatErrors(baseQueryReturnValue?.data);
       },
-      providesTags: ['AddBrandPoints'], // This marks data as belonging to this tag
+      providesTags: ['AddBrandPoints'],
     }),
+
     updateDailyLimit: build.mutation<any, any>({
-      query: body => {
-        return {
-          ...endpoints.dailyAccessLimit,
-          body,
-        };
-      },
+      query: body => ({
+        ...endpoints.dailyAccessLimit,
+        body,
+      }),
       transformErrorResponse(baseQueryReturnValue, meta, arg) {
         return formatErrors(baseQueryReturnValue?.data);
       },
     }),
+
     getDailyAccessLimit: build.query<any, any>({
-      query: params => {
-        return {
-          ...endpoints.getDailyAccessLimit,
-          params,
-        };
-      },
+      query: params => ({
+        ...endpoints.getDailyAccessLimit,
+        params,
+      }),
       transformErrorResponse(baseQueryReturnValue, meta, arg) {
         return formatErrors(baseQueryReturnValue?.data);
       },
     }),
+
     deleteBrand: build.mutation<any, any>({
       query: id => ({
         url: `${endpoints.deleteBrand.url}/${id}`,
@@ -106,88 +89,85 @@ export const api = createApi({
         return formatErrors(baseQueryReturnValue.data);
       },
     }),
+
     addVideo: build.mutation<any, any>({
-      query: body => {
-        return {
-          ...endpoints.addVideo,
-          body,
-        };
-      },
+      query: body => ({
+        ...endpoints.addVideo,
+        body,
+      }),
       transformErrorResponse(baseQueryReturnValue, meta, arg) {
         return formatErrors(baseQueryReturnValue?.data);
       },
     }),
+
     getVideo: build.query<any, any>({
-      query: params => {
-        return {
-          ...endpoints.getVideo,
-          params,
-        };
-      },
+      query: params => ({
+        ...endpoints.getVideo,
+        params,
+      }),
       transformErrorResponse(baseQueryReturnValue, meta, arg) {
         return formatErrors(baseQueryReturnValue?.data);
       },
     }),
 
     addCataLog: build.mutation<any, any>({
-      query: body => {
-        return {
-          ...endpoints.addDigitalCatalog,
-          body,
-        };
-      },
+      query: body => ({
+        ...endpoints.addDigitalCatalog,
+        body,
+      }),
       transformErrorResponse(baseQueryReturnValue, meta, arg) {
         return formatErrors(baseQueryReturnValue?.data);
       },
       invalidatesTags: ['AddCatalog'],
     }),
+
     getCatalog: build.query<any, any>({
-      query: params => {
-        return {
-          ...endpoints.getDigitalCatalog,
-          params,
-        };
-      },
+      query: params => ({
+        ...endpoints.getDigitalCatalog,
+        params,
+      }),
       transformErrorResponse(baseQueryReturnValue, meta, arg) {
         return formatErrors(baseQueryReturnValue?.data);
       },
       providesTags: ['AddCatalog'],
     }),
+
     offerList: build.query<any, any>({
-      query: params => {
-        return {
-          ...endpoints.offerList,
-          params,
-        };
-      },
+      query: params => ({
+        ...endpoints.offerList,
+        params,
+      }),
       transformErrorResponse(baseQueryReturnValue, meta, arg) {
         return formatErrors(baseQueryReturnValue?.data);
       },
     }),
+
     addGiftGallery: build.mutation<any, any>({
-      query: body => {
-        return {
-          ...endpoints.addGiftGallery,
-          body,
-        };
-      },
+      query: body => ({
+        ...endpoints.addGiftGallery,
+        body,
+      }),
       transformErrorResponse(baseQueryReturnValue, meta, arg) {
         return formatErrors(baseQueryReturnValue?.data);
       },
       invalidatesTags: ['AddGiftGallery'],
     }),
+
     getGiftGallery: build.query<any, any>({
-      query: params => {
-        return {
-          ...endpoints.getGiftGallery,
-          params,
-        };
-      },
+      query: params => ({
+        ...endpoints.getGiftGallery,
+        params,
+      }),
       transformErrorResponse(baseQueryReturnValue, meta, arg) {
         return formatErrors(baseQueryReturnValue?.data);
       },
-      providesTags: ['AddGiftGallery', 'UpdateGiftGallery', 'DeleteGiftGallery'],
+      providesTags: [
+        'AddGiftGallery',
+        'UpdateGiftGallery',
+        'DeleteGiftGallery',
+      ],
     }),
+
     deleteGiftGallery: build.mutation<any, any>({
       query: id => ({
         url: `${endpoints.deleteGiftGallery.url}/${id}`,
@@ -198,128 +178,15 @@ export const api = createApi({
       },
       invalidatesTags: ['DeleteGiftGallery'],
     }),
-
-    uploadFile: build.mutation<any, any>({
-      query: (body: FormData) => ({
-        ...endpoints.uploadFile,
-        body,
-      }),
-    }),
-    addTeamMember: build.mutation<any, any>({
-      query: body => {
-        return {
-          ...endpoints.addTeamMember,
-          body,
-        };
-      },
-      transformErrorResponse(baseQueryReturnValue, meta, arg) {
-        return formatErrors(baseQueryReturnValue?.data);
-      },
-      invalidatesTags: ['Admin'],
-    }),
-    updateGiftGallery: build.mutation<any, any>({
-      query: body => {
-        return {
-          ...endpoints.updateGiftGallery,
-          body,
-        };
-      },
-      transformErrorResponse(baseQueryReturnValue, meta, arg) {
-        return formatErrors(baseQueryReturnValue?.data);
-      },
-      invalidatesTags: ['UpdateGiftGallery'],
-    }),
-    updateTeamMember: build.mutation<any, any>({
-      query: body => {
-        return {
-          ...endpoints.updateTeamMember,
-          body,
-        };
-      },
-      transformErrorResponse(baseQueryReturnValue, meta, arg) {
-        return formatErrors(baseQueryReturnValue?.data);
-      },
-      invalidatesTags: ['Admin'],
-    }),
-    updateProfile: build.mutation<any, any>({
-      query: body => {
-        return {
-          ...endpoints.updateProfile,
-          body,
-        };
-      },
-      transformErrorResponse(baseQueryReturnValue, meta, arg) {
-        return formatErrors(baseQueryReturnValue);
-      },
-    }),
-    admin: build.query<any, any>({
-      query: params => {
-        return {
-          ...endpoints.adminUserList,
-          params,
-        };
-      },
-      transformErrorResponse(baseQueryReturnValue, meta, arg) {
-        return formatErrors(baseQueryReturnValue);
-      },
-      // providesTags: (result, error, admin) => [{ type: 'Admin', admin }],
-      // providesTags: (result) => {
-      //   console.log('Query result:', result);
-
-      //   const tags = result ? result?.data?.documents?.map(({ search }) => ({ type: 'Posts', search })) : [];
-      //   console.log('Provided tags:', tags);
-      //   return tags;
-      // },
-      providesTags: ['Admin'],
-    }),
-    status: build.mutation<any, any>({
-      query: body => {
-        return {
-          ...endpoints.status,
-          body,
-        };
-      },
-      transformErrorResponse(baseQueryReturnValue, meta, arg) {
-        return formatErrors(baseQueryReturnValue);
-      },
-      invalidatesTags: ['Admin'],
-    }),
-    role: build.query<any, any>({
-      query: params => {
-        return {
-          ...endpoints.role,
-        };
-      },
-      transformErrorResponse(baseQueryReturnValue, meta, arg) {
-        return formatErrors(baseQueryReturnValue?.data);
-      },
-    }),
-    locations: build.query<any, any>({
-      query: params => {
-        return {
-          ...endpoints.locations,
-        };
-      },
-      transformErrorResponse(baseQueryReturnValue, meta, arg) {
-        return formatErrors(baseQueryReturnValue?.data);
-      },
-    }),
   }),
 });
 
 export const useAdminSlice = () => {
   useInjectReducer({ key: api.reducerPath, reducer: api.reducer });
   useInjectReducer({ key: slice.reducerPath, reducer: slice.reducer });
+
   return {
     actions: slice.actions,
-    useUploadFileMutation: api.useUploadFileMutation,
-    useAddTeamMemberMutation: api.useAddTeamMemberMutation,
-    useUpdateTeamMemberMutation: api.useUpdateTeamMemberMutation,
-    useUpdateProfileMutation: api.useUpdateProfileMutation,
-    useAdminUserListQuery: api.useLazyAdminQuery,
-    useRoleUserListQuery: api.useLazyRoleQuery,
-    useLocationsUserListQuery: api.useLazyLocationsQuery,
-    useStatusMutation: api.useStatusMutation,
     useAddBrandPointsMutation: api.useAddBrandPointsMutation,
     useUpdateDailyLimitMutation: api.useUpdateDailyLimitMutation,
     useGetDailyAccessLimitLazyQuery: api.useLazyGetDailyAccessLimitQuery,
@@ -333,20 +200,5 @@ export const useAdminSlice = () => {
     useAddGiftGalleryMutation: api.useAddGiftGalleryMutation,
     useGetGiftGalleryLazyQuery: api.useLazyGetGiftGalleryQuery,
     useDeleteGiftGalleryMutation: api.useDeleteGiftGalleryMutation,
-    useUpdateGiftGalleryMutation: api.useUpdateGiftGalleryMutation,
   };
-  // useInjectSaga({ key: slice.reducerPath, saga: loginSaga });
-  // return { actions: slice.actions };
 };
-
-/**
- * Example Usage:
- *
- * export function MyComponentNeedingThisSlice() {
- *  const { actions } = useSlice();
- *
- *  const onButtonClick = (evt) => {
- *    dispatch(actions.someAction());
- *   };
- * }
- */

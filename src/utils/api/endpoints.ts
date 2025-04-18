@@ -5,13 +5,8 @@ import {
   fetchBaseQuery,
 } from '@reduxjs/toolkit/query/react';
 import { RootState } from 'types';
-import { Toaster } from 'app/components/ui/toaster';
 
-import { useToast } from 'app/components/ui/use-toast';
-import { showToast } from './toast';
-import { url } from 'inspector';
-import { add } from 'date-fns';
-import { get } from 'http';
+
 
 const baseUrl = 'http://localhost:8001/api/v1/';
 console.log('endPoint url ', baseUrl);
@@ -193,35 +188,7 @@ export const endpoints = {
     method: HTTP_METHODS.GET,
   },
 
-  addTeamMember: {
-    url: `/api/admin/team-member/add`,
-    method: HTTP_METHODS.POST,
-  },
-  adminUserList: {
-    url: `/api/admin/team-member/list`,
-    method: HTTP_METHODS.GET,
-  },
-  role: {
-    url: `/api/list/roles`,
-    method: HTTP_METHODS.GET,
-  },
-  locations: {
-    url: `/api/list/locations`,
-    method: HTTP_METHODS.GET,
-  },
-  uploadFile: {
-    url: `/api/upload/files`,
-    method: HTTP_METHODS.POST,
-  },
-  updateProfile: {
-    url: `/api/admin/update-profile`,
-    method: HTTP_METHODS.PUT,
-  },
 
-  updateTeamMember: {
-    url: `/api/admin/team-member/update`,
-    method: HTTP_METHODS.PUT,
-  },
   status: {
     url: `/api/admin/update/status`,
     method: HTTP_METHODS.PUT,
@@ -239,144 +206,6 @@ export const endpoints = {
     method: HTTP_METHODS.POST,
   },
 
-  ///// lead api ///
-  addLead: {
-    url: `/api/lead/add`,
-    method: HTTP_METHODS.POST,
-  },
-  updateLead: {
-    url: `/api/lead/update`,
-    method: HTTP_METHODS.PUT,
-  },
-  leadList: {
-    url: `/api/leads/list`,
-    method: HTTP_METHODS.GET,
-  },
-  deleteLead: {
-    url: `/api/lead/delete`,
-    method: HTTP_METHODS.DELETE,
-  },
-  campaiganList: {
-    url: '/api/campaign/list',
-    method: HTTP_METHODS.GET,
-  },
-  /// add loan ///
-  addLoan: {
-    url: '/api/loan/add',
-    method: HTTP_METHODS.POST,
-  },
-  updateLoan: {
-    url: '/api/loan/update',
-    method: HTTP_METHODS.PUT,
-  },
-  loanList: {
-    url: '/api/loans/list',
-    method: HTTP_METHODS.GET,
-  },
-  addNotes: {
-    url: '/api/note/add',
-    method: HTTP_METHODS.POST,
-  },
-  noteList: {
-    url: '/api/notes/list',
-    method: HTTP_METHODS.GET,
-  },
 
-  //// get voice  twilio Token /////
-  getTwilioVoiceToken: {
-    url: '/api/twilio/token',
-    method: HTTP_METHODS.GET,
-  },
-  polling: {
-    url: '/api/new-lead',
-    method: HTTP_METHODS.GET,
-  },
-  accepetRejectLead: {
-    url: 'api/lead/accept-reject',
-    method: HTTP_METHODS.POST,
-  },
-  addAgent: {
-    url: '/api/create-agents',
-    method: HTTP_METHODS.POST,
-  },
-  updateAgent: {
-    url: '/api/create-agents',
-    method: HTTP_METHODS.POST,
-  },
-  agentList: {
-    url: '/api/agents-list',
-    method: HTTP_METHODS.GET,
-  },
-  deleteAgent: {
-    url: '/api/delete-agents',
-    method: HTTP_METHODS.DELETE,
-  },
-  addBuilder: {
-    url: '/api/create-builder',
-    method: HTTP_METHODS.POST,
-  },
-  updateBuilder: {
-    url: '/api/create-builder',
-    method: HTTP_METHODS.POST,
-  },
-  builderList: {
-    url: '/api/builder-list',
-    method: HTTP_METHODS.GET,
-  },
-  deleteBuilder: {
-    url: '/api/delete-builder',
-    method: HTTP_METHODS.DELETE,
-  },
-  addRecruit: {
-    url: '/api/create-recruits',
-    method: HTTP_METHODS.POST,
-  },
-  recruitsList: {
-    url: '/api/recruits-list',
-    method: HTTP_METHODS.GET,
-  },
-  updateRecruit: {
-    url: '/api/create-recruits',
-    method: HTTP_METHODS.POST,
-  },
-  deleteRecruit: {
-    url: '/api/delete-recruits',
-    method: HTTP_METHODS.DELETE,
-  },
-  newAddNotes: {
-    url: '/api/notes/create-update',
-    method: HTTP_METHODS.POST,
-  },
-  newNoteList: {
-    url: '/api/note/list',
-    method: HTTP_METHODS.GET,
-  },
-  addTask: {
-    url: '/api/task/add',
-    method: HTTP_METHODS.POST,
-  },
-  tasksList: {
-    url: '/api/tasks/list',
-    method: HTTP_METHODS.GET,
-  },
-  deleteTask: {
-    url: '/api/task/delete',
-    method: HTTP_METHODS.DELETE,
-  },
-  getNotifications: {
-    url: '/api/notification/lists',
-    method: HTTP_METHODS.GET,
-  },
-  patchNotification: {
-    url: '/api/notification/update',
-    method: HTTP_METHODS.PATCH,
-  },
-  getAllStates: {
-    url: '/api/state',
-    method: HTTP_METHODS.GET,
-  },
-  chatTwilioToken: {
-    url: '/api/twilio/sms-token',
-    method: HTTP_METHODS.GET,
-  },
+
 };

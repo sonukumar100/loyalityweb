@@ -1,11 +1,9 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from 'utils/@reduxjs/toolkit';
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
-// import { loginSaga } from './saga';
+import { createApi } from '@reduxjs/toolkit/query/react';
+import { useInjectReducer } from 'utils/redux-injectors';
 import { RedeemEdit } from './types';
 import { endpoints, formatErrors, baseQuery } from 'utils/api/endpoints';
-// import { Login } from 'types/Login';
 export const initialState: RedeemEdit = {
   edit: null,
 };

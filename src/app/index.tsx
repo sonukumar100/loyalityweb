@@ -19,13 +19,12 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 import { useGlobalSlice } from './slice';
 import { Settings } from './pages/Admin/Settings/Loadable';
 import { Dasboard } from './pages/User/Dasboard/Loadable';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import ForgotPassword from './pages/Login/components/forgot-password';
 import ResetPassword from './pages/Login/components/reset-password';
 import ResetPassVerifyOtp from './pages/Login/components/resetpass-verify-otp';
 import Video from './pages/Admin/Settings/components/video/video';
 import DailyCouponAccess from './pages/Admin/Settings/components/daily-coupon-access';
-import { BrandPoints } from './pages/Admin/Settings/components/product-point';
 import ProductPoints from './pages/Admin/Settings/components/brand-points';
 import DigitalCatalog from './pages/Admin/Settings/components/digitalCatalog/catalog';
 import { OfferList } from './pages/Offer';
@@ -38,7 +37,7 @@ import { RedeemList } from './pages/RedeemRequest';
 export function App() {
   const { i18n } = useTranslation();
   const dispatch = useDispatch();
-  const { actions: globalActions, useLazyPollingQuery } = useGlobalSlice();
+  const { actions: globalActions } = useGlobalSlice();
   const handleLogout = () => {
     // alert('You have been logged out due to inactivity.');
     dispatch(globalActions.clearUser());

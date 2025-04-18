@@ -1,19 +1,11 @@
-import React, { useState, useRef, memo, useEffect } from 'react';
-import { MainNav } from './main-nav';
-import { LogOut, Search } from 'lucide-react';
-import { Button } from 'app/components/ui/button';
-import { useAdminSlice } from 'app/pages/Admin/slice';
+import React, { memo, useEffect } from 'react';
+
 import { useSelector } from 'react-redux';
 import { selectNewNotifications, selectUser } from 'app/slice/selectors';
-import PasswordForm from './password';
 import { Input } from 'app/components/ui/input';
 import { useGlobalSlice } from 'app/slice';
-import { useDispatch } from 'react-redux';
-import { imageUrl } from 'utils/settingConfig';
 import { Toaster } from 'app/components/ui/toaster';
-import { useToast } from 'app/components/ui/use-toast';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-
+import { Link, useLocation, } from 'react-router-dom';
 import NotificationsSocket from 'utils/notificationsSocket';
 
 interface Props {
@@ -21,102 +13,13 @@ interface Props {
 }
 
 export const Header = memo((props: Props) => {
-  const { toast } = useToast();
-  const dispatch = useDispatch();
+
   const user = useSelector(selectUser);
   const isNewNotifications = useSelector(selectNewNotifications);
   const userId = user?._id;
-
-  const [open, setOpen] = useState(false);
-  const [showNotifications, setShowNotifications] = useState(false);
-  const [isRecording, setIsRecording] = useState(false);
-  const [audioUrl, setAudioUrl] = useState<string | null>(null);
-  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
-  const audioChunksRef = useRef<Blob[]>([]);
-  const [image, uploadImage] = useState(false);
-  const [isMediaFileUpload, setMediaFileUpload] = useState(false);
-  const [fileSize, setFileSize] = useState<number | undefined>(undefined);
-  const [isEditProfile, setIsEditProfile] = useState(false);
-
-  const handleStartRecording = async () => {
-    if (!navigator.mediaDevices?.getUserMedia) {
-      alert('Your browser does not support audio recording.');
-      return;
-    }
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    const mediaRecorder = new MediaRecorder(stream);
-    mediaRecorder.ondataavailable = event =>
-      audioChunksRef.current.push(event.data);
-    mediaRecorder.onstop = () => {
-      const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/mp3' });
-      setAudioUrl(URL.createObjectURL(audioBlob));
-      setFileSize(audioBlob.size);
-    };
-    mediaRecorder.start();
-    mediaRecorderRef.current = mediaRecorder;
-    setIsRecording(true);
-  };
-
-  const handleStopRecording = () => {
-    mediaRecorderRef.current?.stop();
-    setIsRecording(false);
-  };
-
-  const { useUploadFileMutation, useUpdateProfileMutation } = useAdminSlice();
-  const [
-    fileUpload,
-    { isLoading: isfileUpload, isSuccess: isfileUploadSuccess, data: fileData },
-  ] = useUploadFileMutation();
-  const [updateProfile, { isSuccess: isUpdateProfileDate, data }] =
-    useUpdateProfileMutation();
-
-  const voiceSend = () => {
-    if (audioChunksRef.current.length === 0) return;
-    const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/mp3' });
-    const formData = new FormData();
-    formData.append('voicemail', audioBlob, 'voicemail.mp3');
-    fileUpload(formData);
-  };
-
-  useEffect(() => {
-    if (fileSize) {
-      voiceSend();
-      setMediaFileUpload(true);
-    }
-  }, [fileSize]);
-
-  useEffect(() => {
-    if (fileData) {
-      setAudioUrl(imageUrl + fileData?.data?.voicemail?.[0]);
-    }
-  }, [fileData]);
-
-  useEffect(() => {
-    if (isfileUploadSuccess && image && fileData?.data) {
-      updateProfile({ avatar: fileData?.data?.image?.[0] });
-    } else if (isfileUploadSuccess && !image && fileData?.data) {
-      updateProfile({ voiceMail: fileData?.data?.voicemail?.[0] });
-    }
-  }, [isfileUploadSuccess]);
-
-  const { actions: globalActions } = useGlobalSlice();
-
-  useEffect(() => {
-    if (isUpdateProfileDate) {
-      uploadImage(false);
-      dispatch(globalActions.setUser(data?.data));
-      toast({ description: 'Profile updated successfully' });
-      setOpen(true);
-      setMediaFileUpload(false);
-    }
-  }, [isUpdateProfileDate]);
-
   const location = useLocation();
-  const settingsPart = location.pathname.split('/').pop();
-
   const { useGetNotificationsQuery } = useGlobalSlice();
-  const [getNotifications, { data: notificationsData }] =
-    useGetNotificationsQuery();
+  const [getNotifications] = useGetNotificationsQuery();
 
   useEffect(() => {
     if (userId) {
@@ -150,7 +53,6 @@ export const Header = memo((props: Props) => {
                 type="text"
                 className="w-14 md:w-56 lg:w-72 h-12 rounded-full bg-white/60 border border-[#C0C9D6] placeholder:text-gray-600 pl-12 pr-4 transition-all duration-500 focus:w-80 focus:pl-12 focus:bg-white"
               />
-              <Search className="absolute top-3 left-4 text-gray-500 w-5 h-5" />
             </div>
           </div>
 
@@ -169,11 +71,10 @@ export const Header = memo((props: Props) => {
                 <li key={label}>
                   <Link
                     to={path}
-                    className={`px-5 py-2 text-sm font-semibold border rounded-full transition duration-300 ${
-                      isActive
-                        ? 'bg-blue-500 text-white border-blue-500 shadow-md'
-                        : 'text-gray-700 border-[#B7C1CF] bg-white/30 backdrop-blur-sm hover:bg-white hover:text-blue-600 hover:shadow'
-                    }`}
+                    className={`px-5 py-2 text-sm font-semibold border rounded-full transition duration-300 ${isActive
+                      ? 'bg-blue-500 text-white border-blue-500 shadow-md'
+                      : 'text-gray-700 border-[#B7C1CF] bg-white/30 backdrop-blur-sm hover:bg-white hover:text-blue-600 hover:shadow'
+                      }`}
                   >
                     {label}
                   </Link>
