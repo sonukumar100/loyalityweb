@@ -13,6 +13,7 @@ import { RedeemTabs } from './redeem-tabs';
 import { GlobalPagination } from '../global-pagination';
 import { useRedeemSlice } from './slice';
 import { getCouponColumns } from './redeem-columns';
+import StatusUpdateModal from './redeem-status-modal'; // Import the modal component
 
 // Sample data
 
@@ -27,8 +28,9 @@ export const RedeemList = () => {
   });
   const [activeTab, setActiveTab] = useState('all');
   const allCount = RedeemList?.pagination?.total;
-  const totalScanned = RedeemList?.pagination?.totalScanned;
-  const totalAvailable = RedeemList?.pagination?.totalAvailable;
+  const Pending = RedeemList?.pagination?.pending;
+  const Reject = RedeemList?.pagination?.rejected;
+  const Approved = RedeemList?.pagination?.approved;
   const [lastFetched, setLastFetched] = useState({
     pageIndex: -1,
     pageSize: -1,
@@ -49,12 +51,8 @@ export const RedeemList = () => {
     };
     console.log('activeTab', activeTab);
     if (activeTab !== 'all') {
-      params.filter =
-        activeTab == 'active'
-          ? 'scanned'
-          : activeTab == 'group'
-          ? 'group'
-          : 'available';
+      params.status =
+        activeTab == 'pending' ? '0' : activeTab == 'approved' ? '1' : '2';
     }
 
     getRedeemList(params);
@@ -69,22 +67,29 @@ export const RedeemList = () => {
       limit: 10,
     };
     if (activeTab !== 'all') {
-      payload.filter =
-        activeTab == 'active'
-          ? 'scanned'
-          : activeTab == 'group'
-          ? 'group'
-          : 'available';
+      payload.status =
+        activeTab == 'pending' ? '0' : activeTab == 'approved' ? '1' : '2';
     }
     getRedeemList(payload);
   }, [activeTab]);
+  const [open, setOpen] = useState(false);
+  const [redeemData, setRedeemData] = useState<Coupon>();
+  const [modalOpen, setModalOpen] = useState(false); // State to control modal visibility
 
+  const openModal = (coupon: Coupon) => {
+    console.log('coupon=================', coupon);
+    // setModalOpen(false); // Open the modal
+    setRedeemData(coupon); // Set the coupon data
+    console.log('call modal');
+  };
   const table = useReactTable({
     data: RedeemList?.data ?? [],
     columns: getCouponColumns({
       activeTab,
       dateFilter,
       setDateFilter,
+      openModal,
+      setModalOpen,
     }),
     pageCount: Math.ceil(
       (RedeemList?.pagination?.total ?? 0) / pagination.pageSize,
@@ -99,7 +104,7 @@ export const RedeemList = () => {
     onPaginationChange: setPagination,
   });
 
-  const [open, setOpen] = useState(false);
+  // Connect to the server (use your backend URL if not running locally)
 
   return (
     <div className="w-full space-y-4">
@@ -108,16 +113,11 @@ export const RedeemList = () => {
           activeTab={activeTab}
           setActiveTab={setActiveTab}
           allCount={allCount}
-          totalScanned={totalScanned}
-          totalAvailable={totalAvailable}
+          Pending={Pending}
+          Reject={Reject}
+          Approved={Approved}
         />{' '}
         {/* <CouponFilters /> */}
-        <Button
-          onClick={() => setOpen(true)}
-          className="mt-6 left-[429px] top-[-7px] relative rounded-[10px] px-6 py-2 text-white bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 transition-all duration-300 p-[11px_15px]"
-        >
-          Generate Coupon
-        </Button>
         <GlobalPagination
           table={table}
           pagination={pagination}
@@ -136,6 +136,14 @@ export const RedeemList = () => {
         dateFilter={dateFilter}
         setDateFilter={setDateFilter}
       />{' '}
+      {/* {modalOpen && ( */}
+      <StatusUpdateModal
+        coupon={redeemData}
+        open={modalOpen}
+        setModalOpen={setModalOpen} // Function to close the modal
+        openModal={openModal} // Function to close the modal
+      />
+      {/* )} */}
       {/* floating buttons */}
       <div className="fixed bottom-4 right-4 z-50">
         {/* <CouponForm open={open} setOpen={setOpen} /> */}

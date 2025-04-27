@@ -21,6 +21,7 @@ export const slice = createSlice({
 export const api = createApi({
   reducerPath: 'RedeemApi',
   baseQuery,
+  tagTypes: ['UpdateRedeem'],
   endpoints: build => ({
     redeemRequest: build.query<any, any>({
       query: params => {
@@ -32,6 +33,28 @@ export const api = createApi({
       transformErrorResponse(baseQueryReturnValue, meta, arg) {
         return formatErrors(baseQueryReturnValue?.data);
       },
+      providesTags: ['UpdateRedeem'],
+    }),
+    getRedeemAllCount: build.query<any, any>({
+      query: params => {
+        return {
+          ...endpoints.getCountAllRedeemRequest,
+          params,
+        };
+      },
+      transformErrorResponse(baseQueryReturnValue, meta, arg) {
+        return formatErrors(baseQueryReturnValue?.data);
+      },
+    }),
+    updateRedeemRequest: build.mutation<any, any>({
+      query: (body: FormData) => ({
+        ...endpoints.updateRedeemRequest,
+        body,
+      }),
+      transformErrorResponse(baseQueryReturnValue, meta, arg) {
+        return formatErrors(baseQueryReturnValue.data);
+      },
+      invalidatesTags: ['UpdateRedeem'],
     }),
   }),
 });
@@ -43,6 +66,8 @@ export const useRedeemSlice = () => {
   return {
     actions: slice.actions,
     useLazyRedeemRequestQuery: api.useLazyRedeemRequestQuery,
+    useLazyGetRedeemAllCountQuery: api.useLazyGetRedeemAllCountQuery,
+    useUpdateRedeemRequestMutation: api.useUpdateRedeemRequestMutation,
   };
   // useInjectSaga({ key: slice.reducerPath, saga: loginSaga });
   // return { actions: slice.actions };

@@ -92,6 +92,7 @@ export default function OfferForm() {
     })) ?? [];
   const giftOptions =
     giftData?.data?.map(gift => ({
+      ...gift,
       label: gift.giftTitle,
       value: gift.id.toString(),
     })) ?? [];
@@ -268,9 +269,8 @@ export default function OfferForm() {
                       <PopoverTrigger asChild>
                         <Button
                           type="button"
-                          className={`w-full h-[50px] px-4 py-3 flex items-center justify-between border rounded-xl shadow-sm bg-white hover:bg-blue-50 transition-all ${
-                            !field.value ? 'text-gray-400' : 'text-gray-900'
-                          }`}
+                          className={`w-full h-[50px] px-4 py-3 flex items-center justify-between border rounded-xl shadow-sm bg-white hover:bg-blue-50 transition-all ${!field.value ? 'text-gray-400' : 'text-gray-900'
+                            }`}
                         >
                           {field.value
                             ? format(field.value, 'PPP')
@@ -308,9 +308,8 @@ export default function OfferForm() {
                       <PopoverTrigger asChild>
                         <Button
                           type="button"
-                          className={`w-full h-[50px] px-4 py-3 flex items-center justify-between border rounded-xl shadow-sm bg-white hover:bg-blue-50 transition-all ${
-                            !field.value ? 'text-gray-400' : 'text-gray-900'
-                          }`}
+                          className={`w-full h-[50px] px-4 py-3 flex items-center justify-between border rounded-xl shadow-sm bg-white hover:bg-blue-50 transition-all ${!field.value ? 'text-gray-400' : 'text-gray-900'
+                            }`}
                         >
                           {field.value
                             ? format(field.value, 'PPP')

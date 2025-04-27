@@ -6,11 +6,9 @@ import {
 } from '@reduxjs/toolkit/query/react';
 import { RootState } from 'types';
 
-
-
 const baseUrl = 'http://localhost:8001/api/v1/';
 console.log('endPoint url ', baseUrl);
-
+// https://api.futuremortgage.com/
 // const defaultHeaders = {
 //   'Content-Type': 'application/json',
 // };
@@ -188,7 +186,6 @@ export const endpoints = {
     method: HTTP_METHODS.GET,
   },
 
-
   status: {
     url: `/api/admin/update/status`,
     method: HTTP_METHODS.PUT,
@@ -205,7 +202,12 @@ export const endpoints = {
     url: '/auth/reset-password/otp-call',
     method: HTTP_METHODS.POST,
   },
-
-
-
+  getCountAllRedeemRequest: {
+    url: `/admins/get-all-redeem-req-count`,
+    method: HTTP_METHODS.GET,
+  },
+  updateRedeemRequest: {
+    url: `/admins/update-redeem-status`,
+    method: HTTP_METHODS.POST,
+  },
 };

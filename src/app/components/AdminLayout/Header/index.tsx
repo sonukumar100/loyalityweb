@@ -1,5 +1,4 @@
-import React, { memo, useEffect } from 'react';
-
+import React, { memo, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectNewNotifications, selectUser } from 'app/slice/selectors';
 import { Input } from 'app/components/ui/input';
@@ -7,6 +6,9 @@ import { useGlobalSlice } from 'app/slice';
 import { Toaster } from 'app/components/ui/toaster';
 import { Link, useLocation } from 'react-router-dom';
 import NotificationsSocket from 'utils/notificationsSocket';
+import { io } from 'socket.io-client';
+import { useRedeemSlice } from 'app/pages/RedeemRequest/slice';
+import { toast } from 'app/components/ui/use-toast';
 
 interface Props {
   className?: string;
@@ -14,10 +16,43 @@ interface Props {
 
 export const Header = memo((props: Props) => {
   const user = useSelector(selectUser);
-  const isNewNotifications = useSelector(selectNewNotifications);
+  // const isNewNotifications = useSelector(selectNewNotifications);
+  // const [notificationCount, setNotificationCount] = useState(0); // State for unread notifications
   const userId = user?._id;
   const location = useLocation();
-  NotificationsSocket(userId);
+  const { useLazyGetRedeemAllCountQuery } = useRedeemSlice();
+  const [getAllRedeemCount, { data: allCount }] =
+    useLazyGetRedeemAllCountQuery();
+  useEffect(() => {
+    const fetchAllCount = async () => {
+      getAllRedeemCount({});
+    };
+    fetchAllCount();
+  }, []);
+  console.log('allCount', allCount);
+
+  // Call socket to listen for new notifications
+  const socket = io('https://a1b9-103-248-173-225.ngrok-free.app'); // replace with your server's URL
+
+  useEffect(() => {
+    // Listen for 'redeemStatusUpdated' event
+    socket.on('redeemStatusUpdated', data => {
+      console.log('Redeem status updated:', data);
+      getAllRedeemCount({});
+      toast({
+        title: 'Redeem Request',
+        description: `New Redeem Request ${data.requestId} has been ${data.user?.full_name} against that gift ${data?.gift?.giftTitle} ${data?.gift?.points}`,
+        variant: 'sucsess',
+      });
+
+      // You can perform further actions like updating state/UI based on this data
+    });
+
+    // Clean up when the component is unmounted
+    return () => {
+      socket.off('redeemStatusUpdated');
+    };
+  }, []);
 
   return (
     <header className="container animate-fade-in-down">
@@ -58,16 +93,21 @@ export const Header = memo((props: Props) => {
             ].map(({ label, path }) => {
               const isActive = location.pathname === path;
               return (
-                <li key={label}>
+                <li key={label} className="relative">
                   <Link
                     to={path}
-                    className={`px-5 py-2 text-sm font-semibold border rounded-full transition duration-300 ${
-                      isActive
+                    className={`px-5 py-2 text-sm font-semibold border rounded-full transition duration-300 ${isActive
                         ? 'bg-blue-500 text-white border-blue-500 shadow-md'
                         : 'text-gray-700 border-[#B7C1CF] bg-white/30 backdrop-blur-sm hover:bg-white hover:text-blue-600 hover:shadow'
-                    }`}
+                      }`}
                   >
                     {label}
+                    {/* Show notification count on 'Redeem Request' */}
+                    {label === 'Redeem Request' && allCount?.unread > 0 && (
+                      <span className="absolute p-[14px] top-[-25px] right-0 w-4 h-4 text-xs text-white bg-black rounded-full flex items-center justify-center">
+                        {allCount?.unread}
+                      </span>
+                    )}
                   </Link>
                 </li>
               );

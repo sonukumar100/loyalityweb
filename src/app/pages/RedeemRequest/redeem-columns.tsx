@@ -3,6 +3,8 @@ import { format } from 'date-fns';
 import { CalendarIcon, PencilIcon, Trash2Icon } from 'lucide-react';
 import { Button } from 'app/components/ui/button';
 import { Calendar } from 'app/components/ui/calendar';
+import { getStatusColor, getStatusTextColor } from 'utils/statusColor';
+// import { getStatusTextColor } from 'utils/getStatusTextColor';
 import {
   Popover,
   PopoverContent,
@@ -11,16 +13,22 @@ import {
 import { dateFormate } from 'utils/dateformate';
 import { Coupon } from './types/coupon-types';
 import { settingConfig } from 'utils/settingConfig';
+import StatusUpdateModal from './redeem-status-modal';
+import { useState } from 'react';
 interface GetColumnsParams {
   activeTab: string;
   dateFilter: Date | undefined;
   setDateFilter: (date: Date | undefined) => void;
+  openModal: (coupon: Coupon) => void; // Pass the function to handle opening modal
+  setModalOpen: (open: boolean) => void; // Pass the function to handle closing modal
 }
 
 export const getCouponColumns = ({
   activeTab,
   dateFilter,
   setDateFilter,
+  openModal,
+  setModalOpen,
 }: GetColumnsParams): ColumnDef<Coupon>[] => {
   return [
     {
@@ -157,14 +165,20 @@ export const getCouponColumns = ({
         const value = getValue(); // ensures number
 
         return (
-          <span>
+          <span
+            className="px-2 py-1 rounded-lg "
+            style={{
+              backgroundColor: getStatusColor(value),
+              color: getStatusTextColor(value),
+            }}
+          >
             {value === '0'
-              ? 'Pening'
+              ? 'Pending'
               : value === '1'
-              ? 'Approved'
-              : value === '2'
-              ? 'Rejected'
-              : '_'}
+                ? 'Approved'
+                : value === '2'
+                  ? 'Rejected'
+                  : '_'}
           </span>
         );
       },
@@ -184,14 +198,14 @@ export const getCouponColumns = ({
         const id = row.original.id;
         return (
           <div className="flex items-center space-x-3">
-            <button className="text-blue-600 hover:text-blue-800 transition-colors">
-              <PencilIcon className="w-5 h-5" />
-            </button>
             <button
-              onClick={() => console.log('Delete gift', id)}
-              className="text-red-600 hover:text-red-800 transition-colors"
+              className="text-blue-600 hover:text-blue-800 transition-colors"
+              onClick={() => {
+                openModal(row.original);
+                setModalOpen(true);
+              }} // Open modal with the selected coupon
             >
-              <Trash2Icon className="w-5 h-5" />
+              Status
             </button>
           </div>
         );
