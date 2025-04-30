@@ -32,7 +32,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from 'app/components/ui/sheet';
-import { useOfferSlice } from './slice';
+import { useUserSlice } from './slice';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // important for styling
 import { useAdminSlice } from '../Admin/slice';
@@ -76,7 +76,7 @@ export default function OfferForm() {
   } = useForm<FormData>();
 
   const [open, setOpen] = React.useState(false);
-  const { useAddOfferMutation } = useOfferSlice();
+  // const { useAddOfferMutation } = useUserSlice();
   const [state, setSelectedState] = React.useState<OptionType[]>([]);
   const [district, setSelectedDistrict] = React.useState<OptionType[]>([]);
   const [gift, setSelectedGift] = React.useState<OptionType[]>([]);
@@ -130,7 +130,7 @@ export default function OfferForm() {
     label: district.label,
     value: district.id.toString(),
   }));
-  const [addOffer, { isError, isLoading }] = useAddOfferMutation();
+  // const [addOffer, { isError, isLoading }] = useAddOfferMutation();
   const [content, setContent] = useState('test');
 
   const onSubmit = async (data: FormData) => {
@@ -164,15 +164,15 @@ export default function OfferForm() {
       formData.append('offerImage', file);
     }
 
-    addOffer(formData)
-      .unwrap()
-      .then(res => {
-        console.log('Success:', res);
-        setOpen(false);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+    // addOffer(formData)
+    //   .unwrap()
+    //   .then(res => {
+    //     console.log('Success:', res);
+    //     setOpen(false);
+    //   })
+    //   .catch(error => {
+    //     console.error('Error:', error);
+    //   });
   };
 
   return (
@@ -464,7 +464,7 @@ export default function OfferForm() {
               </div>
             )}
 
-            <Button
+            {/* <Button
               variant="destructive"
               type="submit"
               disabled={isLoading}
@@ -474,7 +474,7 @@ export default function OfferForm() {
                 <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
               )}
               Save
-            </Button>
+            </Button> */}
           </form>
         </div>
       </SheetContent>

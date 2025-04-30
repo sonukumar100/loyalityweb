@@ -26,6 +26,7 @@ export interface RootState {
   couponEdit: any;
   redeemEdit: any;
   RedeemApi?: any;
+  userAPi: any;
 
   // [INSERT NEW REDUCER KEY ABOVE] < Needed for generating containers seamlessly
 }

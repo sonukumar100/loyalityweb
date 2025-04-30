@@ -2,7 +2,6 @@ import React, { memo, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectNewNotifications, selectUser } from 'app/slice/selectors';
 import { Input } from 'app/components/ui/input';
-import { useGlobalSlice } from 'app/slice';
 import { Toaster } from 'app/components/ui/toaster';
 import { Link, useLocation } from 'react-router-dom';
 import NotificationsSocket from 'utils/notificationsSocket';
@@ -32,26 +31,24 @@ export const Header = memo((props: Props) => {
   console.log('allCount', allCount);
 
   // Call socket to listen for new notifications
-  const socket = io('https://a1b9-103-248-173-225.ngrok-free.app'); // replace with your server's URL
+  // const socket = io('https://a1b9-103-248-173-225.ngrok-free.app'); // replace with your server's URL
 
   useEffect(() => {
     // Listen for 'redeemStatusUpdated' event
-    socket.on('redeemStatusUpdated', data => {
-      console.log('Redeem status updated:', data);
-      getAllRedeemCount({});
-      toast({
-        title: 'Redeem Request',
-        description: `New Redeem Request ${data.requestId} has been ${data.user?.full_name} against that gift ${data?.gift?.giftTitle} ${data?.gift?.points}`,
-        variant: 'sucsess',
-      });
-
-      // You can perform further actions like updating state/UI based on this data
-    });
-
+    // socket.on('redeemStatusUpdated', data => {
+    //   console.log('Redeem status updated:', data);
+    //   getAllRedeemCount({});
+    //   toast({
+    //     title: 'Redeem Request',
+    //     description: `New Redeem Request ${data.requestId} has been ${data.user?.full_name} against that gift ${data?.gift?.giftTitle} ${data?.gift?.points}`,
+    //     variant: 'sucsess',
+    //   });
+    //   // You can perform further actions like updating state/UI based on this data
+    // });
     // Clean up when the component is unmounted
-    return () => {
-      socket.off('redeemStatusUpdated');
-    };
+    // return () => {
+    //   socket.off('redeemStatusUpdated');
+    // };
   }, []);
 
   return (
@@ -84,7 +81,8 @@ export const Header = memo((props: Props) => {
           <ul className="hidden lg:flex space-x-3">
             {[
               { label: 'Dashboard', path: '/user/dasboard' },
-              { label: 'Contacts', path: '#' },
+              { label: 'Gift Gallery', path: '/gift/gallery/list' },
+              { label: 'Karigar', path: '/user' },
               { label: 'Offer', path: '/offer' },
               { label: 'Redeem Request', path: '/redeem-request' },
               { label: 'Coupon', path: '/coupon' },

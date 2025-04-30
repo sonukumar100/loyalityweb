@@ -80,6 +80,10 @@ export const endpoints = {
     url: `/auth/reset-password/send-otp`,
     method: HTTP_METHODS.POST,
   },
+  getUserList: {
+    url: `admins/get-all-users`,
+    method: HTTP_METHODS.GET,
+  },
 
   addBrandPoints: {
     url: `admins/addMasterProduct`,
@@ -208,6 +212,10 @@ export const endpoints = {
   },
   updateRedeemRequest: {
     url: `/admins/update-redeem-status`,
+    method: HTTP_METHODS.POST,
+  },
+  updateRedeemStatusRequest: {
+    url: `/admins/shipped/status`,
     method: HTTP_METHODS.POST,
   },
 };

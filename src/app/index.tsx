@@ -32,6 +32,8 @@ import { GiftIndex } from './pages/Admin/Settings/components/gift/gift-index';
 import { CouponList } from './pages/Coupon';
 import { Toaster } from './components/ui/toaster';
 import { RedeemList } from './pages/RedeemRequest';
+import { UserList } from './pages/kariger';
+import { GiftGalleryList } from './pages/GiftGalery';
 // import { useGlobalSlice } from 'app/slice';
 
 export function App() {
@@ -69,6 +71,8 @@ export function App() {
           <Route path="offer" element={<OfferList />} />
           <Route path="coupon" element={<CouponList />} />
           <Route path="redeem-request" element={<RedeemList />} />
+          <Route path="user" element={<UserList />} />
+          <Route path="gift/gallery/list" element={<GiftGalleryList />} />
 
           {/* <Route path="/admCouponApiin/settings" element={<Settings />} /> */}
           <Route path="/user/dasboard" element={<Dasboard />} />

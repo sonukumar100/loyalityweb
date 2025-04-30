@@ -6,7 +6,6 @@ import { api as loginApi } from 'app/pages/Login/slice';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { endpoints, formatErrors, baseQuery } from 'utils/api/endpoints';
 import { DeliveryAmount, JSONValue, Message } from '@twilio/conversations';
-import { messagesMap, mediaMap } from 'utils/conversations-objects';
 
 export type ReduxMessage = {
   sid: string;
@@ -37,13 +36,13 @@ const reduxifyMessage = (message: Message | ReduxMessage): ReduxMessage => ({
   dateCreated: message.dateCreated,
   aggregatedDeliveryReceipt: message.aggregatedDeliveryReceipt
     ? {
-        total: message.aggregatedDeliveryReceipt.total,
-        sent: message.aggregatedDeliveryReceipt.sent,
-        delivered: message.aggregatedDeliveryReceipt.delivered,
-        read: message.aggregatedDeliveryReceipt.read,
-        undelivered: message.aggregatedDeliveryReceipt.undelivered,
-        failed: message.aggregatedDeliveryReceipt.failed,
-      }
+      total: message.aggregatedDeliveryReceipt.total,
+      sent: message.aggregatedDeliveryReceipt.sent,
+      delivered: message.aggregatedDeliveryReceipt.delivered,
+      read: message.aggregatedDeliveryReceipt.read,
+      undelivered: message.aggregatedDeliveryReceipt.undelivered,
+      failed: message.aggregatedDeliveryReceipt.failed,
+    }
     : null,
   // attachedMedia:
   //   message.attachedMedia?.map((el) => ({

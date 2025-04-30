@@ -15,6 +15,16 @@ import { Coupon } from './types/coupon-types';
 import { settingConfig } from 'utils/settingConfig';
 import StatusUpdateModal from './redeem-status-modal';
 import { useState } from 'react';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from 'app/components/ui/select';
+import { ShippedConfirmDialog } from './shipped-dialog';
+import { StatusSelect } from './open-status-modal';
+
 interface GetColumnsParams {
   activeTab: string;
   dateFilter: Date | undefined;
@@ -150,11 +160,34 @@ export const getCouponColumns = ({
       },
     },
     {
-      accessorKey: 'points_transfer',
+      accessorKey: 'shipped_status',
       header: 'Points Transfer Mobile No.',
-      cell: ({ getValue }) => {
-        const value = getValue() as string | undefined;
-        return <span>{value || '_'}</span>;
+      cell: ({ row }) => {
+        const id = row.original.id; // Get the row id
+        const shippedStatus = row.original.shipped_status as string; // Current shipped status
+
+        if (shippedStatus === 'underProcess') {
+          return (
+            <StatusSelect
+              value="1" // underProcess maps to value 1
+              id={id}
+            />
+          );
+        } else if (shippedStatus === 'shipped') {
+          return (
+            <span className="px-2 py-1 rounded-lg   text-xs  bg-blue-100 text-blue-800">
+              Shipped
+            </span>
+          );
+        } else if (shippedStatus === 'received') {
+          return (
+            <span className="px-2 py-1 rounded-lg   text-xs  bg-green-100 text-green-800">
+              Received
+            </span>
+          );
+        } else {
+          return <span>-</span>;
+        }
       },
     },
 
