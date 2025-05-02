@@ -1,4 +1,4 @@
-import { ColumnDef, flexRender, useReactTable } from '@tanstack/react-table';
+import { flexRender } from '@tanstack/react-table';
 import {
   Table,
   TableBody,
@@ -27,9 +27,9 @@ export const RedeemTable = <T,>({ table, ...filters }: RedeemTableProps<T>) => {
                   {header.isPlaceholder
                     ? null
                     : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext(),
-                      )}
+                      header.column.columnDef.header,
+                      header.getContext(),
+                    )}
                 </TableHead>
               ))}
             </TableRow>

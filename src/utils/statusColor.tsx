@@ -35,3 +35,28 @@ export const getStatusTextColor = (status: string) => {
       return '#555';
   }
 };
+
+export const getStatusColorName = (status: string) => {
+  switch (status?.toLowerCase()) {
+    case 'verified':
+      return '#C8E6C9'; // Approved
+    case 'pending':
+      return '#FFF3E0'; // Pending
+    case 'rejected':
+      return '#FFCDD2'; // Rejected
+    default:
+      return '#E0E0E0'; // Unknown
+  }
+};
+export const getStatusTextColorName = (status: string) => {
+  switch (status?.toLowerCase()) {
+    case 'verified':
+      return '#388E3C';
+    case 'pending':
+      return '#F57C00';
+    case 'rejected':
+      return '#D32F2F';
+    default:
+      return '#555';
+  }
+};

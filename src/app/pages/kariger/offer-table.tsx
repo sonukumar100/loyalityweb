@@ -1,4 +1,4 @@
-import { ColumnDef, flexRender } from '@tanstack/react-table';
+import { flexRender } from '@tanstack/react-table';
 import {
   Table,
   TableBody,
@@ -7,28 +7,15 @@ import {
   TableHeader,
   TableRow,
 } from 'app/components/ui/table';
+import { Table as TanstackTable } from '@tanstack/react-table';
 
-type Offer = {
-  id: number;
-  date: Date;
-  createdBy: string;
-  type: string;
-  title: string;
-  offerCode: string;
-  startDate: Date;
-  endDate: Date;
-  gift: number;
-  status: 'active' | 'inactive';
-};
-
-type OfferTableProps = {
-  table: ReturnType<typeof useReactTable>;
-  columns: ColumnDef<Offer>[];
+type OfferTableProps<T> = {
+  table: TanstackTable<T>;
   dateFilter: Date | undefined;
   setDateFilter: (val: Date | undefined) => void;
 };
 
-export const OfferTable = ({ table, columns, ...filters }: OfferTableProps) => {
+export const OfferTable = <T,>({ table }: OfferTableProps<T>) => {
   return (
     <div className="rounded-md border">
       <Table>
@@ -40,9 +27,9 @@ export const OfferTable = ({ table, columns, ...filters }: OfferTableProps) => {
                   {header.isPlaceholder
                     ? null
                     : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext(),
-                      )}
+                      header.column.columnDef.header,
+                      header.getContext(),
+                    )}
                 </TableHead>
               ))}
             </TableRow>
@@ -61,8 +48,11 @@ export const OfferTable = ({ table, columns, ...filters }: OfferTableProps) => {
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={columns.length} className="text-center">
-                No results.
+              <TableCell
+                colSpan={table.getAllColumns().length}
+                className="text-center"
+              >
+                No data available
               </TableCell>
             </TableRow>
           )}

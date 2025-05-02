@@ -1,10 +1,9 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { format } from 'date-fns';
-import { CalendarIcon, PencilIcon, Trash2Icon } from 'lucide-react';
+import { CalendarIcon } from 'lucide-react';
 import { Button } from 'app/components/ui/button';
 import { Calendar } from 'app/components/ui/calendar';
 import { getStatusColor, getStatusTextColor } from 'utils/statusColor';
-// import { getStatusTextColor } from 'utils/getStatusTextColor';
 import {
   Popover,
   PopoverContent,
@@ -12,17 +11,6 @@ import {
 } from 'app/components/ui/popover';
 import { dateFormate } from 'utils/dateformate';
 import { Coupon } from './types/coupon-types';
-import { settingConfig } from 'utils/settingConfig';
-import StatusUpdateModal from './redeem-status-modal';
-import { useState } from 'react';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from 'app/components/ui/select';
-import { ShippedConfirmDialog } from './shipped-dialog';
 import { StatusSelect } from './open-status-modal';
 
 interface GetColumnsParams {
@@ -34,7 +22,6 @@ interface GetColumnsParams {
 }
 
 export const getCouponColumns = ({
-  activeTab,
   dateFilter,
   setDateFilter,
   openModal,
@@ -195,7 +182,7 @@ export const getCouponColumns = ({
       accessorKey: 'redeem_req_status',
       header: 'Redeem Status',
       cell: ({ getValue }) => {
-        const value = getValue(); // ensures number
+        const value = getValue() as string; // ensures number
 
         return (
           <span

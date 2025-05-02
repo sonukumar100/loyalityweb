@@ -14,4 +14,5 @@ export type Coupon = {
   user: {
     email: string;
   };
+  shipped_status: string;
 };

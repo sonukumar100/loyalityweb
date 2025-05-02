@@ -87,7 +87,7 @@ export default function OfferForm() {
   const [getGiftGallery, { data: giftData }] = useGetGiftGalleryLazyQuery();
 
   React.useEffect(() => {
-    getGiftGallery({});
+    // getGiftGallery({});
   }, [getGiftGallery]);
   const options =
     settingConfig?.stateList.map((state: any) => ({

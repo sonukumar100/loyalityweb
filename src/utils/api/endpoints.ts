@@ -7,6 +7,8 @@ import {
 import { RootState } from 'types';
 
 const baseUrl = 'http://localhost:8001/api/v1/';
+// const baseUrl = 'https://api.futuremortgage.com/';
+
 console.log('endPoint url ', baseUrl);
 // https://api.futuremortgage.com/
 // const defaultHeaders = {
@@ -79,6 +81,10 @@ export const endpoints = {
   resetPassword: {
     url: `/auth/reset-password/send-otp`,
     method: HTTP_METHODS.POST,
+  },
+  verifyUser: {
+    url: `users/verify-user/`,
+    method: HTTP_METHODS.PUT,
   },
   getUserList: {
     url: `admins/get-all-users`,

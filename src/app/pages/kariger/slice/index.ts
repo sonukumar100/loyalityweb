@@ -34,12 +34,32 @@ export const initialState: userState = {
 export const api = createApi({
   reducerPath: 'userApi',
   baseQuery,
+  tagTypes: ['User'],
   endpoints: build => ({
-    getUserList: build.query({
-      query: () => endpoints.getUserList,
+    getUserList: build.query<any, any>({
+      query: params => {
+        return {
+          ...endpoints.getUserList,
+          params,
+        };
+      },
+      transformErrorResponse(baseQueryReturnValue, meta, arg) {
+        return formatErrors(baseQueryReturnValue?.data);
+      },
+      providesTags: ['User'],
+    }),
+
+    // put methods
+    verifyUser: build.mutation({
+      query: (body: any) => ({
+        url: `${endpoints.verifyUser.url}${body.id}`,
+        method: endpoints.verifyUser.method,
+        body,
+      }),
       transformErrorResponse: (baseQueryReturnValue, meta, arg) => {
         return formatErrors(baseQueryReturnValue.data);
       },
+      invalidatesTags: ['User'],
     }),
   }),
 });
@@ -48,6 +68,7 @@ export const useUserSlice = () => {
   useInjectReducer({ key: api.reducerPath, reducer: api.reducer });
   return {
     useLazyGetUserListQuery: api.useLazyGetUserListQuery,
+    useVerifyUserMutation: api.useVerifyUserMutation,
   };
   // useInjectSaga({ key: slice.reducerPath, saga: loginSaga });
   // return { actions: slice.actions };

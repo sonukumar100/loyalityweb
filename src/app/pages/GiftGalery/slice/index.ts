@@ -32,7 +32,7 @@ export const initialState: userState = {
 // export const { actions: loginActions } = slice;
 
 export const api = createApi({
-  reducerPath: 'userAPi',
+  reducerPath: 'userAPiss',
   baseQuery,
   endpoints: build => ({}),
 });
