@@ -63,6 +63,8 @@ import { Label } from '@radix-ui/react-label';
 import clsx from 'clsx';
 import { dateFormate } from 'utils/dateformate';
 import { toast } from 'app/components/ui/use-toast';
+import { socket } from 'utils/notificationsSocket';
+import { io } from 'socket.io-client';
 
 // Define the data type for our offers
 type Offer = {
@@ -85,7 +87,8 @@ export const OfferList = () => {
 
   const { useLazyGetOfferQuery, useUpdateOfferStatus } = useOfferSlice();
   const [getOffer, { data, isError, isSuccess }] = useLazyGetOfferQuery();
-  const [updateOfferStatus, { isSuccess: isOfferSuccess }] = useUpdateOfferStatus();
+  const [updateOfferStatus, { isSuccess: isOfferSuccess }] =
+    useUpdateOfferStatus();
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
@@ -124,6 +127,7 @@ export const OfferList = () => {
       pageSize: pagination.pageSize,
     });
   }, [pagination.pageIndex, pagination.pageSize, activeTab]);
+
   useEffect(() => {
     let payload: any = {
       page: 1,
@@ -279,7 +283,10 @@ export const OfferList = () => {
           pagination={pagination}
           setPagination={setPagination}
           onRefresh={() => {
-            getOffer({ page: pagination.pageIndex + 1, limit: pagination.pageSize });
+            getOffer({
+              page: pagination.pageIndex + 1,
+              limit: pagination.pageSize,
+            });
           }}
         />
       </div>

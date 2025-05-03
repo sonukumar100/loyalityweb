@@ -31,9 +31,13 @@ export const Header = memo((props: Props) => {
   console.log('allCount', allCount);
 
   // Call socket to listen for new notifications
-  // const socket = io('https://a1b9-103-248-173-225.ngrok-free.app'); // replace with your server's URL
+  // const socket = io('http://localhost:8001'); // replace with your server's URL
 
   useEffect(() => {
+    // socket.on('receiveMessage', data => {
+    //   console.log('New message:', data);
+    // });
+    // console.log('==========================================');
     // Listen for 'redeemStatusUpdated' event
     // socket.on('redeemStatusUpdated', data => {
     //   console.log('Redeem status updated:', data);
@@ -86,6 +90,7 @@ export const Header = memo((props: Props) => {
               { label: 'Offer', path: '/offer' },
               { label: 'Redeem Request', path: '/redeem-request' },
               { label: 'Coupon', path: '/coupon' },
+              { label: 'Chat', path: '/chat' },
               { label: 'Payroll', path: '#' },
               { label: 'Master', path: '/admin/settings/digital-catalog' },
             ].map(({ label, path }) => {
@@ -94,10 +99,11 @@ export const Header = memo((props: Props) => {
                 <li key={label} className="relative">
                   <Link
                     to={path}
-                    className={`px-5 py-2 text-sm font-semibold border rounded-full transition duration-300 ${isActive
+                    className={`px-5 py-2 text-sm font-semibold border rounded-full transition duration-300 ${
+                      isActive
                         ? 'bg-blue-500 text-white border-blue-500 shadow-md'
                         : 'text-gray-700 border-[#B7C1CF] bg-white/30 backdrop-blur-sm hover:bg-white hover:text-blue-600 hover:shadow'
-                      }`}
+                    }`}
                   >
                     {label}
                     {/* Show notification count on 'Redeem Request' */}

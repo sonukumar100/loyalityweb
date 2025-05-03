@@ -16,7 +16,7 @@ import { UserVerifyModal } from './user-verify-modal';
 import io from 'socket.io-client';
 import { Button } from 'app/components/ui/button';
 // import { socket } from 'utils/notificationsSocket';
-export const UserList = () => {
+export const ChatList = () => {
   const [dateFilter, setDateFilter] = useState<Date | undefined>(undefined);
 
   const { useLazyGetUserListQuery } = useUserSlice();
