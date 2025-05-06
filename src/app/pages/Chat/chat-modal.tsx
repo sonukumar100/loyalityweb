@@ -92,21 +92,23 @@ export const ChatModal: React.FC<ChatModalProps> = ({
               const isAdmin = msg.send_by === 2;
               const time = msg.created_at
                 ? new Date(msg.created_at).toLocaleTimeString([], {
-                  hour: '2-digit',
-                  minute: '2-digit',
-                })
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  })
                 : '';
               return (
                 <div
                   key={idx}
-                  className={`mb-2 flex ${isAdmin ? 'justify-end' : 'justify-start'
-                    }`}
+                  className={`mb-2 flex ${
+                    isAdmin ? 'justify-end' : 'justify-start'
+                  }`}
                 >
                   <div
-                    className={`max-w-[70%] px-3 py-2 rounded-lg  relative ${isAdmin
+                    className={`max-w-[70%] px-3 py-2 rounded-lg  relative ${
+                      isAdmin
                         ? 'bg-blue-200 text-right'
                         : 'bg-gray-300 text-left'
-                      }`}
+                    }`}
                   >
                     <div>{msg.message}</div>
                     <div className="text-[10px] text-gray-500 mt-1">{time}</div>

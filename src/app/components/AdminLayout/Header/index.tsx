@@ -99,10 +99,11 @@ export const Header = memo((props: Props) => {
                 <li key={label} className="relative">
                   <Link
                     to={path}
-                    className={`px-5 py-2 text-sm font-semibold border rounded-full transition duration-300 ${isActive
+                    className={`px-5 py-2 text-sm font-semibold border rounded-full transition duration-300 ${
+                      isActive
                         ? 'bg-blue-500 text-white border-blue-500 shadow-md'
                         : 'text-gray-700 border-[#B7C1CF] bg-white/30 backdrop-blur-sm hover:bg-white hover:text-blue-600 hover:shadow'
-                      }`}
+                    }`}
                   >
                     {label}
                     {/* Show notification count on 'Redeem Request' */}

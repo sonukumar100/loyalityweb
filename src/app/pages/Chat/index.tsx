@@ -48,10 +48,10 @@ export const ChatList = () => {
         activeTab == '1'
           ? 'pending'
           : activeTab === '2'
-            ? 'verified'
-            : activeTab === '3'
-              ? 'rejected'
-              : 'suspect';
+          ? 'verified'
+          : activeTab === '3'
+          ? 'rejected'
+          : 'suspect';
     }
 
     getfeedList(params);
@@ -71,10 +71,10 @@ export const ChatList = () => {
         activeTab == '1'
           ? 'pending'
           : activeTab === '2'
-            ? 'verified'
-            : activeTab === '3'
-              ? 'rejected'
-              : 'suspect';
+          ? 'verified'
+          : activeTab === '3'
+          ? 'rejected'
+          : 'suspect';
     }
     getfeedList(payload);
   }, [activeTab]);

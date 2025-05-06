@@ -135,8 +135,8 @@ export const CouponList = () => {
         activeTab == 'active'
           ? 'scanned'
           : activeTab == 'group'
-            ? 'group'
-            : 'available';
+          ? 'group'
+          : 'available';
     }
 
     getCouponList(params);
@@ -155,8 +155,8 @@ export const CouponList = () => {
         activeTab == 'active'
           ? 'scanned'
           : activeTab == 'group'
-            ? 'group'
-            : 'available';
+          ? 'group'
+          : 'available';
     }
     getCouponList(payload);
   }, [activeTab]);
