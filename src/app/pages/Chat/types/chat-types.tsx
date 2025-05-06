@@ -1,6 +1,10 @@
-export type User = {
+export type Chat = {
   id: number;
-  createdAt: Date;
+  created_at: Date;
+  send_by: string;
+  message: string;
+  sender_id: number;
+  receiver_id: number;
   full_name: string;
   mobile_number: string;
   state: number;

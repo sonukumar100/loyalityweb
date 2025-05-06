@@ -1,4 +1,4 @@
-// src/app/components/ui/UserVerifyModal.tsx
+// src/app/components/ui/ChatModal.tsx
 import { useEffect, useRef, useState } from 'react';
 import {
   Sheet,
@@ -6,58 +6,40 @@ import {
   SheetHeader,
   SheetTitle,
 } from 'app/components/ui/sheet';
-import { useForm } from 'react-hook-form';
-import { useUserSlice } from './slice';
 import { Button } from 'app/components/ui/button';
-import { toast } from 'app/components/ui/use-toast';
 import { io, Socket } from 'socket.io-client';
 
-interface UserVerifyModalProps {
+interface ChatModalProps {
   setModalOpen: (open: boolean) => void;
   isOpen: boolean;
   userId: number | null;
-  is_verified: string | undefined;
+  userName: string;
 }
 
 interface Message {
   message: string;
-  sendBy: number;
+  send_by: number;
   created_at?: string;
 }
 
-export const UserVerifyModal: React.FC<UserVerifyModalProps> = ({
+export const ChatModal: React.FC<ChatModalProps> = ({
   setModalOpen,
   isOpen,
   userId,
-  is_verified,
+  userName,
 }) => {
   const [socket, setSocket] = useState<Socket | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
-
-  const { register, handleSubmit } = useForm();
-  const statusValue =
-    is_verified === 'verified'
-      ? '2'
-      : is_verified === 'rejected'
-      ? '3'
-      : is_verified === 'suspect'
-      ? '4'
-      : '1';
-  const [status, setStatus] = useState(statusValue);
-  const { useVerifyUserMutation } = useUserSlice();
-  const [verifyUser, { data }] = useVerifyUserMutation();
-
   useEffect(() => {
-    const receiverId = 42;
     const newSocket = io('http://localhost:8001', {
       transports: ['websocket'],
     });
 
     newSocket.on('connect', () => {
       console.log('Connected to socket:', newSocket.id);
-      newSocket.emit('joinRoom', { userId: receiverId });
+      newSocket.emit('joinRoom', { userId: userId });
     });
 
     newSocket.on('previousMessages', (msgs: Message[]) => {
@@ -69,7 +51,11 @@ export const UserVerifyModal: React.FC<UserVerifyModalProps> = ({
     });
 
     setSocket(newSocket);
-    return () => newSocket.disconnect();
+
+    // Fix: explicitly return void
+    return () => {
+      newSocket.disconnect();
+    };
   }, [userId]);
 
   useEffect(() => {
@@ -80,11 +66,10 @@ export const UserVerifyModal: React.FC<UserVerifyModalProps> = ({
 
   const handleSendMessage = () => {
     const adminId = 1;
-    const receiverId = 42;
     if (socket && newMessage.trim() !== '') {
       socket.emit('sendMessage', {
         senderId: adminId,
-        receiverId,
+        receiverId: userId,
         message: newMessage,
         sendBy: 2,
         created_at: new Date().toISOString(),
@@ -92,62 +77,39 @@ export const UserVerifyModal: React.FC<UserVerifyModalProps> = ({
       setNewMessage('');
     }
   };
-
-  const onFormSubmit = () => {
-    const userId = 42;
-    const payload = {
-      is_verified: status,
-      id: userId,
-    };
-    verifyUser(payload);
-  };
-
-  useEffect(() => {
-    if (data) {
-      setModalOpen(false);
-      toast({
-        title: 'Success',
-        description: 'Status updated successfully.',
-        variant: 'success',
-      });
-    }
-  }, [data]);
-
   return (
     <Sheet open={isOpen} onOpenChange={setModalOpen}>
-      <SheetContent className="w-full max-w-2xl p-6">
+      <SheetContent className="w-[450px] p-6">
         <SheetHeader>
-          <SheetTitle>Update User Status</SheetTitle>
+          <SheetTitle>{userName}</SheetTitle>
         </SheetHeader>
 
         {/* Chat Section */}
-        <div className="relative border rounded bg-gray-50 overflow-hidden mb-6 h-[600px]">
+        <div className="relative border border-gray-400 rounded-2xl bg-gray-50 mt-6 overflow-hidden mb-6 h-[600px]">
           {/* Message List */}
-          <div className="p-9 pr-4 overflow-y-auto h-full pb-16">
+          <div className="p-16 pr-4 overflow-y-auto h-full pb-16">
             {messages.map((msg, idx) => {
               const isAdmin = msg.send_by === 2;
               const time = msg.created_at
                 ? new Date(msg.created_at).toLocaleTimeString([], {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                  })
+                  hour: '2-digit',
+                  minute: '2-digit',
+                })
                 : '';
               return (
                 <div
                   key={idx}
-                  className={`mb-2 flex ${
-                    isAdmin ? 'justify-end' : 'justify-start'
-                  }`}
+                  className={`mb-2 flex ${isAdmin ? 'justify-end' : 'justify-start'
+                    }`}
                 >
                   <div
-                    className={`max-w-[70%] px-3 py-2 rounded-lg  relative ${
-                      isAdmin
+                    className={`max-w-[70%] px-3 py-2 rounded-lg  relative ${isAdmin
                         ? 'bg-blue-200 text-right'
                         : 'bg-gray-300 text-left'
-                    }`}
+                      }`}
                   >
                     <div>{msg.message}</div>
-                    <div className="text-xs text-gray-500 mt-1">{time}</div>
+                    <div className="text-[10px] text-gray-500 mt-1">{time}</div>
                   </div>
                 </div>
               );
@@ -165,12 +127,8 @@ export const UserVerifyModal: React.FC<UserVerifyModalProps> = ({
               onChange={e => setNewMessage(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && handleSendMessage()}
             />
-            <Button
-              type="button"
-              onClick={handleSendMessage}
-              className="shrink-0"
-            >
-              Send
+            <Button className="bg-transparent" onClick={handleSendMessage}>
+              <img src="/images/send-message.svg" alt="send-message" />
             </Button>
           </div>
         </div>
@@ -184,7 +142,6 @@ export const UserVerifyModal: React.FC<UserVerifyModalProps> = ({
           >
             Cancel
           </Button>
-          <Button onClick={handleSubmit(onFormSubmit)}>Update Status</Button>
         </div>
       </SheetContent>
     </Sheet>

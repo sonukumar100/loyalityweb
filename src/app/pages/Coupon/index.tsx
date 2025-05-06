@@ -91,9 +91,14 @@ type Coupon = {
 export const CouponList = () => {
   const [dateFilter, setDateFilter] = useState<Date | undefined>(undefined);
 
-  const { useLazyGetCouponListQuery, useDeleteCouponById } = useCouponSlice();
+  const {
+    useLazyGetCouponListQuery,
+    useDeleteCouponById,
+    useLazyDownloadExcelQuery,
+  } = useCouponSlice();
   const [getCouponList, { data: couponList, isError, isSuccess }] =
     useLazyGetCouponListQuery();
+  const [downloadExcel] = useLazyDownloadExcelQuery();
   const { actions: couponEdit } = useCouponSlice();
 
   const dispatch = useDispatch();
@@ -130,8 +135,8 @@ export const CouponList = () => {
         activeTab == 'active'
           ? 'scanned'
           : activeTab == 'group'
-          ? 'group'
-          : 'available';
+            ? 'group'
+            : 'available';
     }
 
     getCouponList(params);
@@ -150,8 +155,8 @@ export const CouponList = () => {
         activeTab == 'active'
           ? 'scanned'
           : activeTab == 'group'
-          ? 'group'
-          : 'available';
+            ? 'group'
+            : 'available';
     }
     getCouponList(payload);
   }, [activeTab]);
@@ -179,7 +184,10 @@ export const CouponList = () => {
   });
 
   const [open, setOpen] = useState(false);
-
+  const downloadCsv = () => {
+    let payload: any = {};
+    downloadExcel(payload);
+  };
   return (
     <div className="w-full space-y-4">
       <div className="flex justify-between items-center">
@@ -197,6 +205,7 @@ export const CouponList = () => {
         >
           Generate Coupon
         </Button>
+        <Button onClick={() => downloadCsv()}>DownLoad Coupon</Button>
         <GlobalPagination
           table={table}
           pagination={pagination}

@@ -31,28 +31,28 @@ export const Header = memo((props: Props) => {
   console.log('allCount', allCount);
 
   // Call socket to listen for new notifications
-  // const socket = io('http://localhost:8001'); // replace with your server's URL
+  const socket = io('http://localhost:8001'); // replace with your server's URL
 
   useEffect(() => {
-    // socket.on('receiveMessage', data => {
-    //   console.log('New message:', data);
-    // });
-    // console.log('==========================================');
+    socket.on('receiveMessage', data => {
+      console.log('New message:', data);
+    });
+    console.log('==========================================');
     // Listen for 'redeemStatusUpdated' event
-    // socket.on('redeemStatusUpdated', data => {
-    //   console.log('Redeem status updated:', data);
-    //   getAllRedeemCount({});
-    //   toast({
-    //     title: 'Redeem Request',
-    //     description: `New Redeem Request ${data.requestId} has been ${data.user?.full_name} against that gift ${data?.gift?.giftTitle} ${data?.gift?.points}`,
-    //     variant: 'sucsess',
-    //   });
-    //   // You can perform further actions like updating state/UI based on this data
-    // });
+    socket.on('redeemStatusUpdated', data => {
+      console.log('Redeem status updated:', data);
+      getAllRedeemCount({});
+      toast({
+        title: 'Redeem Request',
+        description: `New Redeem Request ${data.requestId} has been ${data.user?.full_name} against that gift ${data?.gift?.giftTitle} ${data?.gift?.points}`,
+        variant: 'sucsess',
+      });
+      // You can perform further actions like updating state/UI based on this data
+    });
     // Clean up when the component is unmounted
-    // return () => {
-    //   socket.off('redeemStatusUpdated');
-    // };
+    return () => {
+      socket.off('redeemStatusUpdated');
+    };
   }, []);
 
   return (
@@ -99,11 +99,10 @@ export const Header = memo((props: Props) => {
                 <li key={label} className="relative">
                   <Link
                     to={path}
-                    className={`px-5 py-2 text-sm font-semibold border rounded-full transition duration-300 ${
-                      isActive
+                    className={`px-5 py-2 text-sm font-semibold border rounded-full transition duration-300 ${isActive
                         ? 'bg-blue-500 text-white border-blue-500 shadow-md'
                         : 'text-gray-700 border-[#B7C1CF] bg-white/30 backdrop-blur-sm hover:bg-white hover:text-blue-600 hover:shadow'
-                    }`}
+                      }`}
                   >
                     {label}
                     {/* Show notification count on 'Redeem Request' */}

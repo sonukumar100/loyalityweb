@@ -1,6 +1,6 @@
 /* --- STATE --- */
-export interface userState {
+export interface chatState {
   loading: boolean;
   error: null | string;
-  offer: null | any;
+  chat: null | any;
 }

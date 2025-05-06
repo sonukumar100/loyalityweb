@@ -9,13 +9,13 @@ import {
 } from 'app/components/ui/table';
 import { Table as TanstackTable } from '@tanstack/react-table';
 
-type OfferTableProps<T> = {
+type ChatTableProps<T> = {
   table: TanstackTable<T>;
   dateFilter: Date | undefined;
   setDateFilter: (val: Date | undefined) => void;
 };
 
-export const OfferTable = <T,>({ table }: OfferTableProps<T>) => {
+export const ChatTable = <T,>({ table }: ChatTableProps<T>) => {
   return (
     <div className="rounded-md border">
       <Table>
@@ -27,9 +27,9 @@ export const OfferTable = <T,>({ table }: OfferTableProps<T>) => {
                   {header.isPlaceholder
                     ? null
                     : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext(),
-                      )}
+                      header.column.columnDef.header,
+                      header.getContext(),
+                    )}
                 </TableHead>
               ))}
             </TableRow>

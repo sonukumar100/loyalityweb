@@ -27,6 +27,7 @@ export interface RootState {
   redeemEdit: any;
   RedeemApi?: any;
   userApi: any;
+  chatApi: any;
 
   // [INSERT NEW REDUCER KEY ABOVE] < Needed for generating containers seamlessly
 }

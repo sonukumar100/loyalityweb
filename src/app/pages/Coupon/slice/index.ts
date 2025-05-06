@@ -50,7 +50,12 @@ export const api = createApi({
       transformErrorResponse(baseQueryReturnValue, meta, arg) {
         return formatErrors(baseQueryReturnValue?.data);
       },
-      providesTags: ['GenerateCoupon', 'UpdateCoupon', 'DeleteCoupon', 'UpdateCoupon'],
+      providesTags: [
+        'GenerateCoupon',
+        'UpdateCoupon',
+        'DeleteCoupon',
+        'UpdateCoupon',
+      ],
     }),
     deleteCouponById: build.mutation<any, any>({
       query: id => ({
@@ -62,19 +67,9 @@ export const api = createApi({
       },
       invalidatesTags: ['DeleteCoupon'], // ✅ Add this line
     }),
-    // updateCoupon: build.mutation<any, any>({
-    //   query: (payload) => ({
-    //     url: `${endpoints.updateCoupon.url}/${payload.id}`,
-    //     method: endpoints.updateCoupon.method,
-    //     body: payload,
-    //   }),
-    //   transformErrorResponse(baseQueryReturnValue, meta, arg) {
-    //     return formatErrors(baseQueryReturnValue.data);
-    //   },
-    //   invalidatesTags: ['UpdateCoupon'], // ✅ Add this line
-    // }),
+
     updateCoupon: build.mutation<any, any>({
-      query: (body) => ({
+      query: body => ({
         ...endpoints.updateCoupon,
         body,
       }),
@@ -94,6 +89,17 @@ export const api = createApi({
     //   },
     //   invalidatesTags: ['DeleteCoupon'],
     // }),
+    downloadExcel: build.query<any, any>({
+      query: params => {
+        return {
+          ...endpoints.downloadExcel,
+          params,
+        };
+      },
+      transformErrorResponse(baseQueryReturnValue, meta, arg) {
+        return formatErrors(baseQueryReturnValue?.data);
+      },
+    }),
   }),
 });
 
@@ -107,6 +113,7 @@ export const useCouponSlice = () => {
     useLazyGetCouponListQuery: api.useLazyGetCouponListQuery,
     useDeleteCouponById: api.useDeleteCouponByIdMutation,
     useUpdateCoupon: api.useUpdateCouponMutation,
+    useLazyDownloadExcelQuery: api.useLazyDownloadExcelQuery,
   };
   // useInjectSaga({ key: slice.reducerPath, saga: loginSaga });
   // return { actions: slice.actions };

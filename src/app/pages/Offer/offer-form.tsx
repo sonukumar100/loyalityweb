@@ -256,7 +256,7 @@ export default function OfferForm() {
                   render={({ field: { onChange, value } }) => (
                     <div>
                       <Label className="mb-1">Description</Label>
-                      <CKEditor
+                      {/* <CKEditor
                         editor={ClassicEditor}
                         data={value}
                         onChange={(event, editor) => {
@@ -266,7 +266,7 @@ export default function OfferForm() {
                         config={{
                           placeholder: 'Write description here...',
                         }}
-                      />
+                      /> */}
                     </div>
                   )}
                 />
@@ -395,7 +395,7 @@ export default function OfferForm() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <ReactQuill theme="snow" value={value} onChange={setValue} />;
+                {/* <ReactQuill theme="snow" value={value} onChange={setValue} />; */}
                 <Textarea
                   {...register('description', {
                     required: 'Description is required',

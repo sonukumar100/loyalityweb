@@ -52,11 +52,11 @@ export function App() {
   return (
     <BrowserRouter>
       <Helmet
-        titleTemplate="%s - Future Mortgage"
-        defaultTitle="Future Mortgage"
+        titleTemplate="%s - loyalty"
+        defaultTitle="Loyalty"
         htmlAttributes={{ lang: i18n.language }}
       >
-        <meta name="description" content="Future Mortgage" />
+        <meta name="description" content="Loyalty" />
       </Helmet>
       <Routes>
         <Route element={<ProtectedRoute />}>

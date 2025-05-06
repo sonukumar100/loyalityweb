@@ -5,6 +5,7 @@ import { api as CouponApi } from 'app/pages/Coupon/slice';
 import { api as globalApi } from 'app/slice/index';
 import { api as RedeemApi } from 'app/pages/RedeemRequest/slice';
 import { api as UserApi } from 'app/pages/kariger/slice';
+import { api as ChatApi } from 'app/pages/Chat/slice';
 import { User } from 'lucide-react';
 export const rtkQueryMiddleware = [
   LoginApi.middleware,
@@ -14,4 +15,5 @@ export const rtkQueryMiddleware = [
   globalApi.middleware,
   RedeemApi.middleware,
   UserApi.middleware,
+  ChatApi.middleware,
 ];

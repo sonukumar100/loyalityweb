@@ -224,4 +224,12 @@ export const endpoints = {
     url: `/admins/shipped/status`,
     method: HTTP_METHODS.POST,
   },
+  getMsgUniqueData: {
+    url: `/admins/get-msg-unique-data`,
+    method: HTTP_METHODS.GET,
+  },
+  downloadExcel: {
+    url: `/admins/download-csv`,
+    method: HTTP_METHODS.GET,
+  },
 };
